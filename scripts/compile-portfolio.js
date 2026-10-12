@@ -187,3 +187,27 @@ renderArchive();
 `;
 fs.writeFileSync(path.join(publicDir, 'index.html'), htmlContent);
 console.log('[Factory] Dashboard surface compiled successfully.');
+
+// Ensure this update is integrated inside your scripts/compile-portfolio.js HTML string generation block:
+const sectionHtmlPatch = `
+<!-- SECTION 2 & 3 Side-by-Side Presentation Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="bg-slate-900/40 p-5 rounded-xl border border-rose-950/40 space-y-2">
+        <span class="text-[10px] font-mono text-rose-400 uppercase tracking-wider font-bold flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> SECTION 2: Legacy Workflow Baseline (Before)
+        </span>
+        <p class="text-[11px] text-slate-400 leading-relaxed font-sans">
+            Unmitigated multi-tenant data drift across un-isolated databases. Manual spreadsheet reconciliation loops create compounding operational processing latency, causing stock tracking defects and severe transactional transaction lag.
+        </p>
+    </div>
+    
+    <div class="bg-slate-900/40 p-5 rounded-xl border border-cyan-950/40 space-y-2">
+        <span class="text-[10px] font-mono text-cyan-400 uppercase tracking-wider font-bold flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span> SECTION 3: SupplyAgent Sovereign Workflow (After)
+        </span>
+        <p class="text-[11px] text-slate-400 leading-relaxed font-sans">
+            Strict middleware layer enforcement automatically maps an explicit query context table lock via <code class="text-cyan-400 font-mono">tenant_id</code> scoping constraints. Core inventory stockout triggers dispatch automatedTerm negotiation routines immediately.
+        </p>
+    </div>
+</div>`;
+
