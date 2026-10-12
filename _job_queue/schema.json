@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org",
+  "title": "EnterpriseCaseStudy",
+  "type": "object",
+  "properties": {
+    "reqId": { "type": "string" },
+    "companyName": { "type": "string" },
+    "jobTitle": { "type": "string" },
+    "sector": { "type": "string" },
+    "painPoint": { "type": "string" },
+    "solution": { "type": "string" },
+    "beforeProfits": { "type": "integer", "minimum": 0 },
+    "afterProfits": { "type": "integer", "minimum": 0 },
+    "investmentCost": { "type": "integer", "minimum": 0 },
+    "cpi": { "type": "number", "minimum": 0, "maximum": 2 },
+    "spi": { "type": "number", "minimum": 0, "maximum": 2 },
+    "piPredictability": { "type": "number", "minimum": 0, "maximum": 100 },
+    "implementationSchedule": { "type": "string" }
+  },
+  "required": ["reqId", "companyName", "jobTitle", "sector", "painPoint", "solution", "beforeProfits", "afterProfits", "investmentCost", "cpi", "spi", "piPredictability", "implementationSchedule"]
+}
