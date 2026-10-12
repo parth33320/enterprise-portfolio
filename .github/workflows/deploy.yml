@@ -1,13 +1,12 @@
-name: Deploy Portfolio to GitHub Pages
+name: Deploy Sales Engineering Factory Pipeline
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -16,33 +15,54 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  compile-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository Assets
+        uses: actions/checkout@v4
+
+      - name: Initialize Runtime Node Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Process Queue and Compile Codebase
+        run: node scripts/compile-portfolio.js
+
+      - name: Commit Updated Master Ledger to Branch
+        run: |
+          git config --global user.name "Autonomous Factory Bot"
+          git config --global user.email "bot@orchestrator.internal"
+          git add _job_queue/history_registry.json || true
+          # Persist the master json registry file back into your repository safely
+          git diff-index --quiet HEAD || git commit -m "chore: persist updated project tracking registry [skip ci]"
+          git push || true
+
+      - name: Stage Production Delivery Bundle
+        run: |
+          mkdir -p build-dist
+          cp -r public/* build-dist/
+          mkdir -p build-dist/docs/assets || true
+          cp docs/assets/final_app_demo.gif build-dist/docs/assets/ || true
+
+      - name: Upload Static Pages Package Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './build-dist'
+
+      - name: Export Tailored Resumes Package Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Tailored-Resumes-Package
+          path: './dist_resumes/'
+
+  deploy-to-production-surface:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    needs: compile-and-build
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Generate synthetic data & Compile portfolio
-        run: |
-          node scripts/generate-synthetic-data.js --count 100
-          node scripts/compile-portfolio.js
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'public'
-
-      - name: Deploy to GitHub Pages
+      - name: Execute GitHub Pages Deployment Handshake
         id: deployment
         uses: actions/deploy-pages@v4

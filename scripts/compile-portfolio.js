@@ -1,168 +1,189 @@
-#!/usr/bin/env node
-
-/**
- * compile-portfolio.js
- * Core Dashboard Compiler & Resume Generation Engine
- * Processes json jobs in _job_queue, interpolates resume_template.md, and outputs to public/
- */
-
 const fs = require('fs');
 const path = require('path');
+const { generateDomainData } = require('./generate-synthetic-data');
 
-const JOB_QUEUE_DIR = path.join(__dirname, '..', '_job_queue');
-const PUBLIC_DIR = path.join(__dirname, '..', 'public');
-const RESUME_TEMPLATE_PATH = path.join(__dirname, '..', 'resume_template.md');
-const RESUME_OUTPUT_DIR = path.join(PUBLIC_DIR, 'resumes');
+const queueDir = path.join(__dirname, '../_job_queue');
+const publicDir = path.join(__dirname, '../public');
+const historyFilePath = path.join(__dirname, '../_job_queue/history_registry.json');
+const templatePath = path.join(__dirname, '../resume_template.md');
+const resumeOutputDir = path.join(__dirname, '../dist_resumes');
 
-function loadTemplate(templatePath) {
-  if (!fs.existsSync(templatePath)) {
-    throw new Error(`Template file not found at ${templatePath}`);
-  }
-  return fs.readFileSync(templatePath, 'utf8');
+if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir);
+if (!fs.existsSync(queueDir)) fs.mkdirSync(queueDir);
+if (!fs.existsSync(resumeOutputDir)) fs.mkdirSync(resumeOutputDir);
+
+// 1. Initialize master history directory ledger
+let historicalCases = [];
+if (fs.existsSync(historyFilePath)) {
+  historicalCases = JSON.parse(fs.readFileSync(historyFilePath, 'utf8'));
 }
 
-function interpolateTemplate(template, data) {
-  let result = template;
-  const mappings = {
-    '{{CANDIDATE_NAME}}': data.candidate_name || 'Candidate',
-    '{{JOB_TITLE}}': data.job_title || 'Automation Specialist',
-    '{{COMPANY_NAME}}': data.company_name || 'Target Company',
-    '{{TARGET_METRICS}}': data.target_metrics || 'N/A',
-    '{{DEEP_LINK_URL}}': data.deep_link_url || '#',
-    '{{SUMMARY}}': data.summary || 'Professional Summary Placeholder',
-    '{{KEY_SKILLS}}': data.key_skills || 'Automation, Node.js, CI/CD',
-    '{{GENERATED_DATE}}': new Date().toISOString().split('T')[0]
-  };
+// 2. Switftly process newly dropped job configuration models
+const jobFiles = fs.readdirSync(queueDir).filter(f => f.endsWith('.json') && f !== 'history_registry.json');
 
-  for (const [key, val] of Object.entries(mappings)) {
-    result = result.split(key).join(val);
+jobFiles.forEach(file => {
+  const filePath = path.join(queueDir, file);
+  const fileData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  
+  // Deduplicate by explicit Requisition ID to prevent dirty overwrites
+  if (!historicalCases.some(item => item.reqId === fileData.reqId)) {
+    historicalCases.unshift(fileData); // Insert newest at the absolute front
   }
+  fs.unlinkSync(filePath); // Clean the staging queue file instantly
+});
 
-  return result;
+fs.writeFileSync(historyFilePath, JSON.stringify(historicalCases, null, 2));
+
+// 3. Trigger 100k Big Data Simulation loops on the active target context
+if (historicalCases.length > 0) {
+  generateDomainData(historicalCases[0].sector, 100000);
 }
 
-function generateDashboardHtml(jobs) {
-  const jobRows = jobs.map(job => `
-    <tr>
-      <td><code>${job.job_id}</code></td>
-      <td>${job.company_name}</td>
-      <td>${job.job_title}</td>
-      <td>${job.target_metrics}</td>
-      <td><a href="resumes/${job.job_id}.md" target="_blank">View MD Resume</a></td>
-      <td><a href="${job.deep_link_url}" target="_blank">Demo Asset</a></td>
-    </tr>
-  `).join('');
+// 4. Dynamic Resume Interpolation Engine: Compiles custom CV files automatically
+if (fs.existsSync(templatePath)) {
+  const templateContent = fs.readFileSync(templatePath, 'utf8');
+  historicalCases.forEach(job => {
+    const safeCompName = job.companyName.replace(/[^a-zA-Z0-9]/g, '_');
+    const resumeFileName = `Resume_${safeCompName}_${job.reqId}.md`;
+    
+    // Inject the specific requisition parameters into the hyper-targeted link macro
+    const tailoredResume = templateContent.replace(/{{JOB_REQ_ID}}/g, job.reqId);
+    fs.writeFileSync(path.join(resumeOutputDir, resumeFileName), tailoredResume);
+  });
+  console.log(`[Resume Factory] Generated ${historicalCases.length} customized resume targets.`);
+}
 
-  return `<!DOCTYPE html>
+// 5. Compile the Interactive Dashboard Frontend Architecture
+const htmlContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enterprise Automation Portfolio Engine</title>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 2rem; background: #f4f6f8; color: #1e293b; }
-    header { background: #0f172a; color: #fff; padding: 1.5rem 2rem; border-radius: 8px; margin-bottom: 2rem; }
-    h1 { margin: 0 0 0.5rem 0; font-size: 1.8rem; }
-    p { margin: 0; color: #94a3b8; }
-    .stats { display: flex; gap: 1rem; margin-bottom: 2rem; }
-    .card { background: #fff; padding: 1.2rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); flex: 1; }
-    .card h3 { margin: 0 0 0.5rem 0; font-size: 0.9rem; color: #64748b; text-transform: uppercase; }
-    .card .val { font-size: 1.8rem; font-weight: bold; color: #0f172a; }
-    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-    th, td { padding: 0.85rem 1rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
-    th { background: #f8fafc; font-weight: 600; color: #475569; }
-    tr:hover { background: #f1f5f9; }
-    a { color: #2563eb; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Automation Audit Hub</title>
+    <script src="https://tailwindcss.com"></script>
 </head>
-<body>
-  <header>
-    <h1>Enterprise Automation Portfolio Engine</h1>
-    <p>Automated static compiler & resume generation pipeline</p>
-  </header>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-4 md:p-12 antialiased font-sans">
+    <main class="max-w-5xl mx-auto space-y-12">
+        
+        <!-- Deep-Linked Active Showcase Target Zone -->
+        <div id="active-showcase-zone" class="hidden"></div>
 
-  <div class="stats">
-    <div class="card">
-      <h3>Total Ingested Jobs</h3>
-      <div class="val">${jobs.length}</div>
-    </div>
-    <div class="card">
-      <h3>Pipeline Status</h3>
-      <div class="val" style="color: #16a34a;">ACTIVE</div>
-    </div>
-    <div class="card">
-      <h3>Last Compiled</h3>
-      <div class="val" style="font-size: 1rem; margin-top: 0.5rem;">${new Date().toUTCString()}</div>
-    </div>
-  </div>
+        <!-- Master Portfolio Archive Index -->
+        <div class="space-y-6">
+            <div class="border-b border-slate-800 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-white tracking-tight">Enterprise Orchestration Portfolio Index</h2>
+                    <p class="text-xs text-slate-400">Autonomous systems built to eliminate Lean Six Sigma operational wastes across multi-tenant contexts.</p>
+                </div>
+                <input type="text" id="archive-search" oninput="executeFilter()" placeholder="Search Requisition, Sector, Company..." class="bg-slate-900 border border-slate-800 text-xs px-4 py-2 rounded-xl focus:outline-none focus:border-cyan-500 w-full sm:w-64">
+            </div>
+            <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        </div>
+    </main>
 
-  <h2>Processed Target Job Queue</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Job ID</th>
-        <th>Target Company</th>
-        <th>Role Title</th>
-        <th>Target Metrics</th>
-        <th>Compiled Resume</th>
-        <th>Deep Link</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${jobRows || '<tr><td colspan="6">No jobs found in queue.</td></tr>'}
-    </tbody>
-  </table>
-</body>
-</html>`;
+    <script>
+        const registry = ${JSON.stringify(historicalCases)};
+
+        function getActiveProject() {
+            const params = new URLSearchParams(window.location.search);
+            const reqTarget = params.get('req');
+            if (!reqTarget && registry.length > 0) return registry[0]; // Fallback to newest case study
+            return registry.find(item => item.reqId.toLowerCase() === reqTarget.toLowerCase()) || registry[0];
+        }
+
+        function renderActiveShowcase() {
+            const project = getActiveProject();
+            const zone = document.getElementById('active-showcase-zone');
+            if (!project) return;
+            
+            zone.classList.remove('hidden');
+            const roi = (((project.afterProfits - project.beforeProfits) / project.investmentCost) * 100).toFixed(2);
+
+            zone.innerHTML = \`
+                <div class="bg-slate-950 border border-cyan-500/20 p-6 rounded-2xl space-y-6 shadow-2xl relative">
+                    <div class="absolute -top-3 left-6 bg-cyan-600 text-slate-950 font-mono text-[10px] font-bold px-3 py-0.5 rounded-full uppercase tracking-wider shadow-md">
+                        Tailored Target Optimization Case Study
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800/80 pb-4 gap-2 pt-2">
+                        <div>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800">ID: \${project.reqId}</span>
+                            <h1 class="text-2xl font-bold mt-1 text-white">Blueprint for \${project.companyName}</h1>
+                            <p class="text-xs text-slate-400 mt-0.5">Sector Boundary: \${project.sector}</p>
+                        </div>
+                        <div class="text-xs bg-slate-900 border border-slate-800 px-3 py-2 rounded-xl text-cyan-400 font-mono">
+                            PI Predictability: \${project.piPredictability}%
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="md:col-span-2 bg-slate-900/50 p-5 rounded-xl border border-slate-800 space-y-2 text-xs">
+                            <h4 class="font-bold text-white uppercase tracking-wider flex items-center gap-1.5 text-rose-400">
+                                <span class="w-2 h-2 rounded-full bg-rose-500"></span> Lean Six Sigma Waste Analysis (Muda)
+                            </h4>
+                            <p class="text-slate-300 leading-relaxed font-sans text-[11px]">\${project.painPoint}</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-800 space-y-1 text-xs">
+                            <h4 class="font-bold text-cyan-400 uppercase tracking-wider">Bleeding Edge Countermeasure</h4>
+                            <p class="text-slate-400 leading-relaxed text-[11px]">\${project.solution}</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono">
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800"><div class="text-slate-500">Before Profits</div><div class="text-lg font-bold text-rose-400 mt-0.5">$\${project.beforeProfits.toLocaleString()}</div></div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800"><div class="text-slate-500">After Profits</div><div class="text-lg font-bold text-emerald-400 mt-0.5">$\${project.afterProfits.toLocaleString()}</div></div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800"><div class="text-slate-500">Investment Cost</div><div class="text-lg font-bold text-white mt-0.5">$\${project.investmentCost.toLocaleString()}</div></div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-cyan-800 bg-gradient-to-br from-slate-900 to-cyan-950/30"><div class="text-cyan-500">Projected ROI</div><div class="text-lg font-bold text-cyan-300 mt-0.5">\${roi}%</div></div>
+                    </div>
+
+                    <div class="bg-slate-900/40 border border-slate-800/80 p-4 rounded-xl space-y-4">
+                        <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Functional Verification System Demo</h4>
+                        <div class="bg-slate-950 border border-slate-800 rounded-lg overflow-hidden aspect-video max-w-2xl mx-auto">
+                            <img src="\${project.gifAsset}" class="w-full h-full object-cover" alt="System Verification Trace">
+                        </div>
+                    </div>
+                </div>
+            \`;
+        }
+
+        function renderArchive() {
+            const grid = document.getElementById('portfolio-grid');
+            if(registry.length === 0) {
+               grid.innerHTML = '<p class="text-xs text-slate-500">No historic case runs recorded yet.</p>';
+               return;
+            }
+            grid.innerHTML = registry.map(item => {
+                const itemRoi = (((item.afterProfits - item.beforeProfits) / item.investmentCost) * 100).toFixed(2);
+                return \`
+                    <div class="case-card bg-slate-900 p-5 rounded-xl border border-slate-800 hover:border-slate-700 transition-colors text-xs flex flex-col justify-between gap-4" data-search="\${item.companyName} \${item.sector} \${item.reqId}">
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center font-mono text-[10px]">
+                                <span class="text-cyan-400 font-bold">\${item.companyName}</span>
+                                <span class="text-slate-500">\${item.reqId}</span>
+                            </div>
+${item.sector} Systems Sync
+${item.painPoint}
+
+
+ROI: ${itemRoi}%
+View Deep Trace →
+
+
+`;
+}).join('');
 }
-
-function main() {
-  console.log('[Compiler Engine] Initializing portfolio compilation...');
-
-  if (!fs.existsSync(PUBLIC_DIR)) {
-    fs.mkdirSync(PUBLIC_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(RESUME_OUTPUT_DIR)) {
-    fs.mkdirSync(RESUME_OUTPUT_DIR, { recursive: true });
-  }
-
-  const template = loadTemplate(RESUME_TEMPLATE_PATH);
-
-  let jobFiles = [];
-  if (fs.existsSync(JOB_QUEUE_DIR)) {
-    jobFiles = fs.readdirSync(JOB_QUEUE_DIR).filter(file => file.endsWith('.json'));
-  }
-
-  console.log(`[Compiler Engine] Processing ${jobFiles.length} jobs from ${JOB_QUEUE_DIR}...`);
-
-  const processedJobs = [];
-
-  for (const file of jobFiles) {
-    try {
-      const filePath = path.join(JOB_QUEUE_DIR, file);
-      const rawData = fs.readFileSync(filePath, 'utf8');
-      const job = JSON.parse(rawData);
-
-      const compiledMarkdown = interpolateTemplate(template, job);
-      const outputResumePath = path.join(RESUME_OUTPUT_DIR, `${job.job_id}.md`);
-
-      fs.writeFileSync(outputResumePath, compiledMarkdown, 'utf8');
-      processedJobs.push(job);
-    } catch (err) {
-      console.error(`[Compiler Engine] Error processing ${file}:`, err.message);
-    }
-  }
-
-  // Compile Dashboard HTML
-  const dashboardHtml = generateDashboardHtml(processedJobs);
-  fs.writeFileSync(path.join(PUBLIC_DIR, 'index.html'), dashboardHtml, 'utf8');
-
-  console.log(`[Compiler Engine] Compilation complete! Dashboard output to ${path.join(PUBLIC_DIR, 'index.html')}`);
+function executeFilter() {
+const term = document.getElementById('archive-search').value.toLowerCase();
+const cards = document.querySelectorAll('.case-card');
+cards.forEach(card => {
+const haystack = card.getAttribute('data-search').toLowerCase();
+card.style.display = haystack.includes(term) ? 'flex' : 'none';
+});
 }
+renderActiveShowcase();
+renderArchive();
 
-if (require.main === module) {
-  main();
-}
 
-module.exports = { interpolateTemplate, generateDashboardHtml };
+`;
+fs.writeFileSync(path.join(publicDir, 'index.html'), htmlContent);
+console.log('[Factory] Dashboard surface compiled successfully.');

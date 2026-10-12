@@ -43,3 +43,4 @@ parth33320@gmail.com | 267-416-5903 | [U.S. & Canadian Dual Citizen]
 ## Live Verification & Portfolio Links
 - **Interactive App Demo:** [SupplyAgent Demo Asset]({{DEEP_LINK_URL}})
 - **Repository Automation Hub:** [GitHub Workspace]({{DEEP_LINK_URL}})
+
