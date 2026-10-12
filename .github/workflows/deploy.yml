@@ -1,4 +1,4 @@
-name: Deploy Autonomous Media & Portfolio Pipeline
+name: Deploy Sales Engineering Factory Pipeline
 
 on:
   push:
@@ -15,71 +15,45 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  compile-and-record:
+  compile-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Source Assets
+      - name: Checkout Merged PR Assets
         uses: actions/checkout@v4
 
-      - name: Initialize Node.js Environment
+      - name: Initialize Runtime Node Environment
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Install System Recording Utilities
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg
-
-      - name: Install Project & Workspace Dependencies
-        run: |
-          npm install
-          if [ -d "client" ]; then cd client && npm install && cd ..; fi
-          npx playwright install --with-deps chromium
-
-      - name: Boot App Infrastructure Servers in Background
-        run: |
-          npm start &
-          sleep 5 # Wait for backend server initialization
-
-      - name: Trigger Headless Playwright Recording Loop
-        run: node scripts/generate-walkthrough-gif.js
-
-      - name: Execute Master Assembly & Portfolio Compilation
+      - name: Execute Static Index Assembly Compiler
         run: node scripts/compile-portfolio.js
-
-      - name: Commit Dynamic Master Registry to Branch
-        run: |
-          git config --global user.name "Autonomous Factory Bot"
-          git config --global user.email "bot@orchestrator.internal"
-          git add _job_queue/history_registry.json || true
-          git diff-index --quiet HEAD || git commit -m "chore: persist updated project tracking registry [skip ci]"
-          git push || true
 
       - name: Stage Production Static Bundle
         run: |
           mkdir -p build-dist
           cp -r public/* build-dist/
           mkdir -p build-dist/docs/assets || true
-          cp -r public/docs/assets/* build-dist/docs/assets/ || true
+          # Safely deliver the pre-baked GIF that Jules generated in the PR branch
+          cp docs/assets/* build-dist/docs/assets/ || true
 
       - name: Upload Static Pages Package Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './build-dist'
 
-      - name: Export Tailored Resumes Package Artifact
+      - name: Export Downloadable Tailored Resumes Package
         uses: actions/upload-artifact@v4
         with:
           name: Tailored-Resumes-Package
           path: './dist_resumes/'
 
-  deploy-to-production-surface:
+  deploy-to-github-pages-surface:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: compile-and-record
+    needs: compile-and-publish
     steps:
       - name: Execute GitHub Pages Deployment Handshake
         id: deployment
