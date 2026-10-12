@@ -1,0 +1,6 @@
+node_modules
+node_modules/
+/node_modules
+serve.log
+_video_staging/
+dist_resumes/

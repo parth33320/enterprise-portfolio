@@ -1,0 +1,2102 @@
+[
+  {
+    "transactionId": "TX-1000000",
+    "timestamp": "2026-10-12T04:50:55.248Z",
+    "operationalCost": 4883.06,
+    "processingTimeSeconds": 566.78,
+    "anomalyStatus": "CONCURRENCY_LOCK_FAIL"
+  },
+  {
+    "transactionId": "TX-1000001",
+    "timestamp": "2026-10-12T04:49:55.248Z",
+    "operationalCost": 710.05,
+    "processingTimeSeconds": 53.25,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000002",
+    "timestamp": "2026-10-12T04:48:55.248Z",
+    "operationalCost": 794.19,
+    "processingTimeSeconds": 59.56,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000003",
+    "timestamp": "2026-10-12T04:47:55.248Z",
+    "operationalCost": 989.13,
+    "processingTimeSeconds": 74.18,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000004",
+    "timestamp": "2026-10-12T04:46:55.248Z",
+    "operationalCost": 957.84,
+    "processingTimeSeconds": 71.84,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000005",
+    "timestamp": "2026-10-12T04:45:55.248Z",
+    "operationalCost": 318.83,
+    "processingTimeSeconds": 23.91,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000006",
+    "timestamp": "2026-10-12T04:44:55.248Z",
+    "operationalCost": 512.85,
+    "processingTimeSeconds": 38.46,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000007",
+    "timestamp": "2026-10-12T04:43:55.248Z",
+    "operationalCost": 269.52,
+    "processingTimeSeconds": 20.21,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000008",
+    "timestamp": "2026-10-12T04:42:55.248Z",
+    "operationalCost": 274.03,
+    "processingTimeSeconds": 20.55,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000009",
+    "timestamp": "2026-10-12T04:41:55.248Z",
+    "operationalCost": 233.79,
+    "processingTimeSeconds": 17.53,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000010",
+    "timestamp": "2026-10-12T04:40:55.248Z",
+    "operationalCost": 345.09,
+    "processingTimeSeconds": 25.88,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000011",
+    "timestamp": "2026-10-12T04:39:55.248Z",
+    "operationalCost": 1159.79,
+    "processingTimeSeconds": 86.98,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000012",
+    "timestamp": "2026-10-12T04:38:55.248Z",
+    "operationalCost": 651.95,
+    "processingTimeSeconds": 48.9,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000013",
+    "timestamp": "2026-10-12T04:37:55.248Z",
+    "operationalCost": 484.55,
+    "processingTimeSeconds": 36.34,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000014",
+    "timestamp": "2026-10-12T04:36:55.249Z",
+    "operationalCost": 1076.1,
+    "processingTimeSeconds": 80.71,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000015",
+    "timestamp": "2026-10-12T04:35:55.249Z",
+    "operationalCost": 1067.34,
+    "processingTimeSeconds": 80.05,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000016",
+    "timestamp": "2026-10-12T04:34:55.249Z",
+    "operationalCost": 1187.9,
+    "processingTimeSeconds": 89.09,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000017",
+    "timestamp": "2026-10-12T04:33:55.249Z",
+    "operationalCost": 522.97,
+    "processingTimeSeconds": 39.22,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000018",
+    "timestamp": "2026-10-12T04:32:55.249Z",
+    "operationalCost": 779.95,
+    "processingTimeSeconds": 58.5,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000019",
+    "timestamp": "2026-10-12T04:31:55.249Z",
+    "operationalCost": 555.14,
+    "processingTimeSeconds": 41.64,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000020",
+    "timestamp": "2026-10-12T04:30:55.249Z",
+    "operationalCost": 0.39,
+    "processingTimeSeconds": 0.03,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000021",
+    "timestamp": "2026-10-12T04:29:55.249Z",
+    "operationalCost": 289.78,
+    "processingTimeSeconds": 21.73,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000022",
+    "timestamp": "2026-10-12T04:28:55.249Z",
+    "operationalCost": 286.27,
+    "processingTimeSeconds": 21.47,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000023",
+    "timestamp": "2026-10-12T04:27:55.249Z",
+    "operationalCost": 8.37,
+    "processingTimeSeconds": 0.63,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000024",
+    "timestamp": "2026-10-12T04:26:55.249Z",
+    "operationalCost": 96.83,
+    "processingTimeSeconds": 7.26,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000025",
+    "timestamp": "2026-10-12T04:25:55.249Z",
+    "operationalCost": 881.28,
+    "processingTimeSeconds": 66.1,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000026",
+    "timestamp": "2026-10-12T04:24:55.249Z",
+    "operationalCost": 1046.9,
+    "processingTimeSeconds": 78.52,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000027",
+    "timestamp": "2026-10-12T04:23:55.249Z",
+    "operationalCost": 701.11,
+    "processingTimeSeconds": 52.58,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000028",
+    "timestamp": "2026-10-12T04:22:55.249Z",
+    "operationalCost": 440.19,
+    "processingTimeSeconds": 33.01,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000029",
+    "timestamp": "2026-10-12T04:21:55.249Z",
+    "operationalCost": 15.99,
+    "processingTimeSeconds": 1.2,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000030",
+    "timestamp": "2026-10-12T04:20:55.249Z",
+    "operationalCost": 202.6,
+    "processingTimeSeconds": 15.2,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000031",
+    "timestamp": "2026-10-12T04:19:55.249Z",
+    "operationalCost": 662.98,
+    "processingTimeSeconds": 49.72,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000032",
+    "timestamp": "2026-10-12T04:18:55.249Z",
+    "operationalCost": 1015.64,
+    "processingTimeSeconds": 76.17,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000033",
+    "timestamp": "2026-10-12T04:17:55.249Z",
+    "operationalCost": 301.32,
+    "processingTimeSeconds": 22.6,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000034",
+    "timestamp": "2026-10-12T04:16:55.249Z",
+    "operationalCost": 849.66,
+    "processingTimeSeconds": 63.72,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000035",
+    "timestamp": "2026-10-12T04:15:55.249Z",
+    "operationalCost": 945.84,
+    "processingTimeSeconds": 70.94,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000036",
+    "timestamp": "2026-10-12T04:14:55.249Z",
+    "operationalCost": 297.26,
+    "processingTimeSeconds": 22.29,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000037",
+    "timestamp": "2026-10-12T04:13:55.249Z",
+    "operationalCost": 300.23,
+    "processingTimeSeconds": 22.52,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000038",
+    "timestamp": "2026-10-12T04:12:55.249Z",
+    "operationalCost": 306.59,
+    "processingTimeSeconds": 22.99,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000039",
+    "timestamp": "2026-10-12T04:11:55.249Z",
+    "operationalCost": 690.43,
+    "processingTimeSeconds": 51.78,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000040",
+    "timestamp": "2026-10-12T04:10:55.249Z",
+    "operationalCost": 714.69,
+    "processingTimeSeconds": 53.6,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000041",
+    "timestamp": "2026-10-12T04:09:55.249Z",
+    "operationalCost": 797.91,
+    "processingTimeSeconds": 59.84,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000042",
+    "timestamp": "2026-10-12T04:08:55.249Z",
+    "operationalCost": 780.81,
+    "processingTimeSeconds": 58.56,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000043",
+    "timestamp": "2026-10-12T04:07:55.249Z",
+    "operationalCost": 193.04,
+    "processingTimeSeconds": 14.48,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000044",
+    "timestamp": "2026-10-12T04:06:55.249Z",
+    "operationalCost": 519.77,
+    "processingTimeSeconds": 38.98,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000045",
+    "timestamp": "2026-10-12T04:05:55.249Z",
+    "operationalCost": 1068.42,
+    "processingTimeSeconds": 80.13,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000046",
+    "timestamp": "2026-10-12T04:04:55.249Z",
+    "operationalCost": 435.28,
+    "processingTimeSeconds": 32.65,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000047",
+    "timestamp": "2026-10-12T04:03:55.249Z",
+    "operationalCost": 1172.2,
+    "processingTimeSeconds": 87.91,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000048",
+    "timestamp": "2026-10-12T04:02:55.249Z",
+    "operationalCost": 853.25,
+    "processingTimeSeconds": 63.99,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000049",
+    "timestamp": "2026-10-12T04:01:55.249Z",
+    "operationalCost": 741.4,
+    "processingTimeSeconds": 55.61,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000050",
+    "timestamp": "2026-10-12T04:00:55.249Z",
+    "operationalCost": 855.17,
+    "processingTimeSeconds": 64.14,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000051",
+    "timestamp": "2026-10-12T03:59:55.249Z",
+    "operationalCost": 635.3,
+    "processingTimeSeconds": 47.65,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000052",
+    "timestamp": "2026-10-12T03:58:55.249Z",
+    "operationalCost": 411.42,
+    "processingTimeSeconds": 30.86,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000053",
+    "timestamp": "2026-10-12T03:57:55.249Z",
+    "operationalCost": 68.71,
+    "processingTimeSeconds": 5.15,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000054",
+    "timestamp": "2026-10-12T03:56:55.249Z",
+    "operationalCost": 914.58,
+    "processingTimeSeconds": 68.59,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000055",
+    "timestamp": "2026-10-12T03:55:55.249Z",
+    "operationalCost": 1145.32,
+    "processingTimeSeconds": 85.9,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000056",
+    "timestamp": "2026-10-12T03:54:55.249Z",
+    "operationalCost": 512.8,
+    "processingTimeSeconds": 38.46,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000057",
+    "timestamp": "2026-10-12T03:53:55.249Z",
+    "operationalCost": 991.08,
+    "processingTimeSeconds": 74.33,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000058",
+    "timestamp": "2026-10-12T03:52:55.249Z",
+    "operationalCost": 1043.12,
+    "processingTimeSeconds": 78.23,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000059",
+    "timestamp": "2026-10-12T03:51:55.249Z",
+    "operationalCost": 287.44,
+    "processingTimeSeconds": 21.56,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000060",
+    "timestamp": "2026-10-12T03:50:55.249Z",
+    "operationalCost": 164.79,
+    "processingTimeSeconds": 12.36,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000061",
+    "timestamp": "2026-10-12T03:49:55.249Z",
+    "operationalCost": 604.8,
+    "processingTimeSeconds": 45.36,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000062",
+    "timestamp": "2026-10-12T03:48:55.249Z",
+    "operationalCost": 1092.64,
+    "processingTimeSeconds": 81.95,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000063",
+    "timestamp": "2026-10-12T03:47:55.249Z",
+    "operationalCost": 135.74,
+    "processingTimeSeconds": 10.18,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000064",
+    "timestamp": "2026-10-12T03:46:55.249Z",
+    "operationalCost": 330.37,
+    "processingTimeSeconds": 24.78,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000065",
+    "timestamp": "2026-10-12T03:45:55.249Z",
+    "operationalCost": 1028.4,
+    "processingTimeSeconds": 77.13,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000066",
+    "timestamp": "2026-10-12T03:44:55.249Z",
+    "operationalCost": 203.9,
+    "processingTimeSeconds": 15.29,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000067",
+    "timestamp": "2026-10-12T03:43:55.249Z",
+    "operationalCost": 719.83,
+    "processingTimeSeconds": 53.99,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000068",
+    "timestamp": "2026-10-12T03:42:55.249Z",
+    "operationalCost": 594.71,
+    "processingTimeSeconds": 44.6,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000069",
+    "timestamp": "2026-10-12T03:41:55.249Z",
+    "operationalCost": 869.28,
+    "processingTimeSeconds": 65.2,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000070",
+    "timestamp": "2026-10-12T03:40:55.249Z",
+    "operationalCost": 1073.18,
+    "processingTimeSeconds": 80.49,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000071",
+    "timestamp": "2026-10-12T03:39:55.249Z",
+    "operationalCost": 291.58,
+    "processingTimeSeconds": 21.87,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000072",
+    "timestamp": "2026-10-12T03:38:55.249Z",
+    "operationalCost": 231.89,
+    "processingTimeSeconds": 17.39,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000073",
+    "timestamp": "2026-10-12T03:37:55.249Z",
+    "operationalCost": 690.42,
+    "processingTimeSeconds": 51.78,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000074",
+    "timestamp": "2026-10-12T03:36:55.249Z",
+    "operationalCost": 619,
+    "processingTimeSeconds": 46.43,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000075",
+    "timestamp": "2026-10-12T03:35:55.249Z",
+    "operationalCost": 1191.72,
+    "processingTimeSeconds": 89.38,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000076",
+    "timestamp": "2026-10-12T03:34:55.249Z",
+    "operationalCost": 71.54,
+    "processingTimeSeconds": 5.37,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000077",
+    "timestamp": "2026-10-12T03:33:55.249Z",
+    "operationalCost": 876.98,
+    "processingTimeSeconds": 65.77,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000078",
+    "timestamp": "2026-10-12T03:32:55.249Z",
+    "operationalCost": 648.78,
+    "processingTimeSeconds": 48.66,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000079",
+    "timestamp": "2026-10-12T03:31:55.249Z",
+    "operationalCost": 916.56,
+    "processingTimeSeconds": 68.74,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000080",
+    "timestamp": "2026-10-12T03:30:55.249Z",
+    "operationalCost": 365.51,
+    "processingTimeSeconds": 27.41,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000081",
+    "timestamp": "2026-10-12T03:29:55.249Z",
+    "operationalCost": 303.05,
+    "processingTimeSeconds": 22.73,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000082",
+    "timestamp": "2026-10-12T03:28:55.249Z",
+    "operationalCost": 125.46,
+    "processingTimeSeconds": 9.41,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000083",
+    "timestamp": "2026-10-12T03:27:55.249Z",
+    "operationalCost": 784.6,
+    "processingTimeSeconds": 58.85,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000084",
+    "timestamp": "2026-10-12T03:26:55.249Z",
+    "operationalCost": 654.55,
+    "processingTimeSeconds": 49.09,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000085",
+    "timestamp": "2026-10-12T03:25:55.249Z",
+    "operationalCost": 598.26,
+    "processingTimeSeconds": 44.87,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000086",
+    "timestamp": "2026-10-12T03:24:55.249Z",
+    "operationalCost": 234.25,
+    "processingTimeSeconds": 17.57,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000087",
+    "timestamp": "2026-10-12T03:23:55.249Z",
+    "operationalCost": 1003.27,
+    "processingTimeSeconds": 75.24,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000088",
+    "timestamp": "2026-10-12T03:22:55.249Z",
+    "operationalCost": 434.94,
+    "processingTimeSeconds": 32.62,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000089",
+    "timestamp": "2026-10-12T03:21:55.249Z",
+    "operationalCost": 414.45,
+    "processingTimeSeconds": 31.08,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000090",
+    "timestamp": "2026-10-12T03:20:55.249Z",
+    "operationalCost": 649.21,
+    "processingTimeSeconds": 48.69,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000091",
+    "timestamp": "2026-10-12T03:19:55.249Z",
+    "operationalCost": 135.51,
+    "processingTimeSeconds": 10.16,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000092",
+    "timestamp": "2026-10-12T03:18:55.249Z",
+    "operationalCost": 625.21,
+    "processingTimeSeconds": 46.89,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000093",
+    "timestamp": "2026-10-12T03:17:55.249Z",
+    "operationalCost": 92.37,
+    "processingTimeSeconds": 6.93,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000094",
+    "timestamp": "2026-10-12T03:16:55.249Z",
+    "operationalCost": 199.97,
+    "processingTimeSeconds": 15,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000095",
+    "timestamp": "2026-10-12T03:15:55.249Z",
+    "operationalCost": 166.52,
+    "processingTimeSeconds": 12.49,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000096",
+    "timestamp": "2026-10-12T03:14:55.249Z",
+    "operationalCost": 1032.76,
+    "processingTimeSeconds": 77.46,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000097",
+    "timestamp": "2026-10-12T03:13:55.249Z",
+    "operationalCost": 1128.32,
+    "processingTimeSeconds": 84.62,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000098",
+    "timestamp": "2026-10-12T03:12:55.249Z",
+    "operationalCost": 738.38,
+    "processingTimeSeconds": 55.38,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000099",
+    "timestamp": "2026-10-12T03:11:55.249Z",
+    "operationalCost": 370.37,
+    "processingTimeSeconds": 27.78,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000100",
+    "timestamp": "2026-10-12T03:10:55.249Z",
+    "operationalCost": 1020.56,
+    "processingTimeSeconds": 76.54,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000101",
+    "timestamp": "2026-10-12T03:09:55.249Z",
+    "operationalCost": 440.81,
+    "processingTimeSeconds": 33.06,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000102",
+    "timestamp": "2026-10-12T03:08:55.249Z",
+    "operationalCost": 1005.2,
+    "processingTimeSeconds": 75.39,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000103",
+    "timestamp": "2026-10-12T03:07:55.249Z",
+    "operationalCost": 376.68,
+    "processingTimeSeconds": 28.25,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000104",
+    "timestamp": "2026-10-12T03:06:55.249Z",
+    "operationalCost": 973.79,
+    "processingTimeSeconds": 73.03,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000105",
+    "timestamp": "2026-10-12T03:05:55.249Z",
+    "operationalCost": 1037.25,
+    "processingTimeSeconds": 77.79,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000106",
+    "timestamp": "2026-10-12T03:04:55.249Z",
+    "operationalCost": 896.7,
+    "processingTimeSeconds": 67.25,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000107",
+    "timestamp": "2026-10-12T03:03:55.249Z",
+    "operationalCost": 437.32,
+    "processingTimeSeconds": 32.8,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000108",
+    "timestamp": "2026-10-12T03:02:55.249Z",
+    "operationalCost": 966.52,
+    "processingTimeSeconds": 72.49,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000109",
+    "timestamp": "2026-10-12T03:01:55.249Z",
+    "operationalCost": 680.6,
+    "processingTimeSeconds": 51.05,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000110",
+    "timestamp": "2026-10-12T03:00:55.249Z",
+    "operationalCost": 531.41,
+    "processingTimeSeconds": 39.86,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000111",
+    "timestamp": "2026-10-12T02:59:55.249Z",
+    "operationalCost": 93.02,
+    "processingTimeSeconds": 6.98,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000112",
+    "timestamp": "2026-10-12T02:58:55.249Z",
+    "operationalCost": 228.4,
+    "processingTimeSeconds": 17.13,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000113",
+    "timestamp": "2026-10-12T02:57:55.249Z",
+    "operationalCost": 556.05,
+    "processingTimeSeconds": 41.7,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000114",
+    "timestamp": "2026-10-12T02:56:55.249Z",
+    "operationalCost": 116.74,
+    "processingTimeSeconds": 8.76,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000115",
+    "timestamp": "2026-10-12T02:55:55.249Z",
+    "operationalCost": 40.08,
+    "processingTimeSeconds": 3.01,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000116",
+    "timestamp": "2026-10-12T02:54:55.249Z",
+    "operationalCost": 1011.26,
+    "processingTimeSeconds": 75.84,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000117",
+    "timestamp": "2026-10-12T02:53:55.249Z",
+    "operationalCost": 337.68,
+    "processingTimeSeconds": 25.33,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000118",
+    "timestamp": "2026-10-12T02:52:55.249Z",
+    "operationalCost": 615.65,
+    "processingTimeSeconds": 46.17,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000119",
+    "timestamp": "2026-10-12T02:51:55.249Z",
+    "operationalCost": 1197.01,
+    "processingTimeSeconds": 89.78,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000120",
+    "timestamp": "2026-10-12T02:50:55.249Z",
+    "operationalCost": 55.84,
+    "processingTimeSeconds": 4.19,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000121",
+    "timestamp": "2026-10-12T02:49:55.249Z",
+    "operationalCost": 55.11,
+    "processingTimeSeconds": 4.13,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000122",
+    "timestamp": "2026-10-12T02:48:55.249Z",
+    "operationalCost": 413.32,
+    "processingTimeSeconds": 31,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000123",
+    "timestamp": "2026-10-12T02:47:55.249Z",
+    "operationalCost": 971.23,
+    "processingTimeSeconds": 72.84,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000124",
+    "timestamp": "2026-10-12T02:46:55.249Z",
+    "operationalCost": 58.46,
+    "processingTimeSeconds": 4.38,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000125",
+    "timestamp": "2026-10-12T02:45:55.249Z",
+    "operationalCost": 360.19,
+    "processingTimeSeconds": 27.01,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000126",
+    "timestamp": "2026-10-12T02:44:55.249Z",
+    "operationalCost": 1183.84,
+    "processingTimeSeconds": 88.79,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000127",
+    "timestamp": "2026-10-12T02:43:55.249Z",
+    "operationalCost": 1125.69,
+    "processingTimeSeconds": 84.43,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000128",
+    "timestamp": "2026-10-12T02:42:55.249Z",
+    "operationalCost": 337.61,
+    "processingTimeSeconds": 25.32,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000129",
+    "timestamp": "2026-10-12T02:41:55.249Z",
+    "operationalCost": 1193.67,
+    "processingTimeSeconds": 89.53,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000130",
+    "timestamp": "2026-10-12T02:40:55.249Z",
+    "operationalCost": 156.82,
+    "processingTimeSeconds": 11.76,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000131",
+    "timestamp": "2026-10-12T02:39:55.249Z",
+    "operationalCost": 845.59,
+    "processingTimeSeconds": 63.42,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000132",
+    "timestamp": "2026-10-12T02:38:55.249Z",
+    "operationalCost": 300.72,
+    "processingTimeSeconds": 22.55,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000133",
+    "timestamp": "2026-10-12T02:37:55.249Z",
+    "operationalCost": 51.84,
+    "processingTimeSeconds": 3.89,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000134",
+    "timestamp": "2026-10-12T02:36:55.249Z",
+    "operationalCost": 1184.13,
+    "processingTimeSeconds": 88.81,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000135",
+    "timestamp": "2026-10-12T02:35:55.249Z",
+    "operationalCost": 204.99,
+    "processingTimeSeconds": 15.37,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000136",
+    "timestamp": "2026-10-12T02:34:55.249Z",
+    "operationalCost": 110.74,
+    "processingTimeSeconds": 8.31,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000137",
+    "timestamp": "2026-10-12T02:33:55.249Z",
+    "operationalCost": 653.22,
+    "processingTimeSeconds": 48.99,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000138",
+    "timestamp": "2026-10-12T02:32:55.249Z",
+    "operationalCost": 206.49,
+    "processingTimeSeconds": 15.49,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000139",
+    "timestamp": "2026-10-12T02:31:55.249Z",
+    "operationalCost": 833.53,
+    "processingTimeSeconds": 62.52,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000140",
+    "timestamp": "2026-10-12T02:30:55.249Z",
+    "operationalCost": 952.86,
+    "processingTimeSeconds": 71.46,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000141",
+    "timestamp": "2026-10-12T02:29:55.249Z",
+    "operationalCost": 805.21,
+    "processingTimeSeconds": 60.39,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000142",
+    "timestamp": "2026-10-12T02:28:55.249Z",
+    "operationalCost": 320.22,
+    "processingTimeSeconds": 24.02,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000143",
+    "timestamp": "2026-10-12T02:27:55.249Z",
+    "operationalCost": 183.06,
+    "processingTimeSeconds": 13.73,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000144",
+    "timestamp": "2026-10-12T02:26:55.249Z",
+    "operationalCost": 101.15,
+    "processingTimeSeconds": 7.59,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000145",
+    "timestamp": "2026-10-12T02:25:55.249Z",
+    "operationalCost": 270.79,
+    "processingTimeSeconds": 20.31,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000146",
+    "timestamp": "2026-10-12T02:24:55.249Z",
+    "operationalCost": 43.82,
+    "processingTimeSeconds": 3.29,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000147",
+    "timestamp": "2026-10-12T02:23:55.249Z",
+    "operationalCost": 994.32,
+    "processingTimeSeconds": 74.57,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000148",
+    "timestamp": "2026-10-12T02:22:55.249Z",
+    "operationalCost": 1185.25,
+    "processingTimeSeconds": 88.89,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000149",
+    "timestamp": "2026-10-12T02:21:55.249Z",
+    "operationalCost": 1035.13,
+    "processingTimeSeconds": 77.63,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000150",
+    "timestamp": "2026-10-12T02:20:55.249Z",
+    "operationalCost": 384.7,
+    "processingTimeSeconds": 28.85,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000151",
+    "timestamp": "2026-10-12T02:19:55.249Z",
+    "operationalCost": 1163.6,
+    "processingTimeSeconds": 87.27,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000152",
+    "timestamp": "2026-10-12T02:18:55.249Z",
+    "operationalCost": 57,
+    "processingTimeSeconds": 4.27,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000153",
+    "timestamp": "2026-10-12T02:17:55.249Z",
+    "operationalCost": 1172.31,
+    "processingTimeSeconds": 87.92,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000154",
+    "timestamp": "2026-10-12T02:16:55.249Z",
+    "operationalCost": 705.83,
+    "processingTimeSeconds": 52.94,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000155",
+    "timestamp": "2026-10-12T02:15:55.249Z",
+    "operationalCost": 9.42,
+    "processingTimeSeconds": 0.71,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000156",
+    "timestamp": "2026-10-12T02:14:55.249Z",
+    "operationalCost": 257.14,
+    "processingTimeSeconds": 19.29,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000157",
+    "timestamp": "2026-10-12T02:13:55.249Z",
+    "operationalCost": 311.96,
+    "processingTimeSeconds": 23.4,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000158",
+    "timestamp": "2026-10-12T02:12:55.249Z",
+    "operationalCost": 192.4,
+    "processingTimeSeconds": 14.43,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000159",
+    "timestamp": "2026-10-12T02:11:55.249Z",
+    "operationalCost": 539.19,
+    "processingTimeSeconds": 40.44,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000160",
+    "timestamp": "2026-10-12T02:10:55.249Z",
+    "operationalCost": 481.98,
+    "processingTimeSeconds": 36.15,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000161",
+    "timestamp": "2026-10-12T02:09:55.249Z",
+    "operationalCost": 1105.93,
+    "processingTimeSeconds": 82.94,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000162",
+    "timestamp": "2026-10-12T02:08:55.249Z",
+    "operationalCost": 118.47,
+    "processingTimeSeconds": 8.89,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000163",
+    "timestamp": "2026-10-12T02:07:55.249Z",
+    "operationalCost": 515.88,
+    "processingTimeSeconds": 38.69,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000164",
+    "timestamp": "2026-10-12T02:06:55.249Z",
+    "operationalCost": 850.02,
+    "processingTimeSeconds": 63.75,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000165",
+    "timestamp": "2026-10-12T02:05:55.249Z",
+    "operationalCost": 694.96,
+    "processingTimeSeconds": 52.12,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000166",
+    "timestamp": "2026-10-12T02:04:55.249Z",
+    "operationalCost": 913.67,
+    "processingTimeSeconds": 68.53,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000167",
+    "timestamp": "2026-10-12T02:03:55.249Z",
+    "operationalCost": 1124.67,
+    "processingTimeSeconds": 84.35,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000168",
+    "timestamp": "2026-10-12T02:02:55.249Z",
+    "operationalCost": 368.68,
+    "processingTimeSeconds": 27.65,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000169",
+    "timestamp": "2026-10-12T02:01:55.249Z",
+    "operationalCost": 975.35,
+    "processingTimeSeconds": 73.15,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000170",
+    "timestamp": "2026-10-12T02:00:55.249Z",
+    "operationalCost": 29.87,
+    "processingTimeSeconds": 2.24,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000171",
+    "timestamp": "2026-10-12T01:59:55.249Z",
+    "operationalCost": 839.62,
+    "processingTimeSeconds": 62.97,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000172",
+    "timestamp": "2026-10-12T01:58:55.249Z",
+    "operationalCost": 0.93,
+    "processingTimeSeconds": 0.07,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000173",
+    "timestamp": "2026-10-12T01:57:55.249Z",
+    "operationalCost": 465.62,
+    "processingTimeSeconds": 34.92,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000174",
+    "timestamp": "2026-10-12T01:56:55.249Z",
+    "operationalCost": 207.79,
+    "processingTimeSeconds": 15.58,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000175",
+    "timestamp": "2026-10-12T01:55:55.249Z",
+    "operationalCost": 890.39,
+    "processingTimeSeconds": 66.78,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000176",
+    "timestamp": "2026-10-12T01:54:55.249Z",
+    "operationalCost": 531.93,
+    "processingTimeSeconds": 39.9,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000177",
+    "timestamp": "2026-10-12T01:53:55.249Z",
+    "operationalCost": 173.17,
+    "processingTimeSeconds": 12.99,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000178",
+    "timestamp": "2026-10-12T01:52:55.249Z",
+    "operationalCost": 543.73,
+    "processingTimeSeconds": 40.78,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000179",
+    "timestamp": "2026-10-12T01:51:55.249Z",
+    "operationalCost": 728.8,
+    "processingTimeSeconds": 54.66,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000180",
+    "timestamp": "2026-10-12T01:50:55.249Z",
+    "operationalCost": 35.78,
+    "processingTimeSeconds": 2.68,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000181",
+    "timestamp": "2026-10-12T01:49:55.249Z",
+    "operationalCost": 660.97,
+    "processingTimeSeconds": 49.57,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000182",
+    "timestamp": "2026-10-12T01:48:55.249Z",
+    "operationalCost": 356.22,
+    "processingTimeSeconds": 26.72,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000183",
+    "timestamp": "2026-10-12T01:47:55.249Z",
+    "operationalCost": 295.61,
+    "processingTimeSeconds": 22.17,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000184",
+    "timestamp": "2026-10-12T01:46:55.249Z",
+    "operationalCost": 542.1,
+    "processingTimeSeconds": 40.66,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000185",
+    "timestamp": "2026-10-12T01:45:55.249Z",
+    "operationalCost": 1114.2,
+    "processingTimeSeconds": 83.57,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000186",
+    "timestamp": "2026-10-12T01:44:55.249Z",
+    "operationalCost": 252.66,
+    "processingTimeSeconds": 18.95,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000187",
+    "timestamp": "2026-10-12T01:43:55.249Z",
+    "operationalCost": 687.11,
+    "processingTimeSeconds": 51.53,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000188",
+    "timestamp": "2026-10-12T01:42:55.249Z",
+    "operationalCost": 1102.74,
+    "processingTimeSeconds": 82.71,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000189",
+    "timestamp": "2026-10-12T01:41:55.249Z",
+    "operationalCost": 406.94,
+    "processingTimeSeconds": 30.52,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000190",
+    "timestamp": "2026-10-12T01:40:55.249Z",
+    "operationalCost": 396.02,
+    "processingTimeSeconds": 29.7,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000191",
+    "timestamp": "2026-10-12T01:39:55.249Z",
+    "operationalCost": 821.83,
+    "processingTimeSeconds": 61.64,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000192",
+    "timestamp": "2026-10-12T01:38:55.249Z",
+    "operationalCost": 58.44,
+    "processingTimeSeconds": 4.38,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000193",
+    "timestamp": "2026-10-12T01:37:55.249Z",
+    "operationalCost": 168.81,
+    "processingTimeSeconds": 12.66,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000194",
+    "timestamp": "2026-10-12T01:36:55.249Z",
+    "operationalCost": 771.47,
+    "processingTimeSeconds": 57.86,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000195",
+    "timestamp": "2026-10-12T01:35:55.249Z",
+    "operationalCost": 907.16,
+    "processingTimeSeconds": 68.04,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000196",
+    "timestamp": "2026-10-12T01:34:55.249Z",
+    "operationalCost": 505.49,
+    "processingTimeSeconds": 37.91,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000197",
+    "timestamp": "2026-10-12T01:33:55.249Z",
+    "operationalCost": 251.67,
+    "processingTimeSeconds": 18.88,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000198",
+    "timestamp": "2026-10-12T01:32:55.249Z",
+    "operationalCost": 1053.1,
+    "processingTimeSeconds": 78.98,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000199",
+    "timestamp": "2026-10-12T01:31:55.249Z",
+    "operationalCost": 706.06,
+    "processingTimeSeconds": 52.95,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000200",
+    "timestamp": "2026-10-12T01:30:55.249Z",
+    "operationalCost": 962.43,
+    "processingTimeSeconds": 72.18,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000201",
+    "timestamp": "2026-10-12T01:29:55.249Z",
+    "operationalCost": 996.26,
+    "processingTimeSeconds": 74.72,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000202",
+    "timestamp": "2026-10-12T01:28:55.249Z",
+    "operationalCost": 70.52,
+    "processingTimeSeconds": 5.29,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000203",
+    "timestamp": "2026-10-12T01:27:55.249Z",
+    "operationalCost": 1003.74,
+    "processingTimeSeconds": 75.28,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000204",
+    "timestamp": "2026-10-12T01:26:55.249Z",
+    "operationalCost": 36.65,
+    "processingTimeSeconds": 2.75,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000205",
+    "timestamp": "2026-10-12T01:25:55.249Z",
+    "operationalCost": 298.87,
+    "processingTimeSeconds": 22.42,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000206",
+    "timestamp": "2026-10-12T01:24:55.249Z",
+    "operationalCost": 875.61,
+    "processingTimeSeconds": 65.67,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000207",
+    "timestamp": "2026-10-12T01:23:55.249Z",
+    "operationalCost": 1074.25,
+    "processingTimeSeconds": 80.57,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000208",
+    "timestamp": "2026-10-12T01:22:55.249Z",
+    "operationalCost": 691.11,
+    "processingTimeSeconds": 51.83,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000209",
+    "timestamp": "2026-10-12T01:21:55.249Z",
+    "operationalCost": 1078.03,
+    "processingTimeSeconds": 80.85,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000210",
+    "timestamp": "2026-10-12T01:20:55.249Z",
+    "operationalCost": 1009.08,
+    "processingTimeSeconds": 75.68,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000211",
+    "timestamp": "2026-10-12T01:19:55.249Z",
+    "operationalCost": 547.24,
+    "processingTimeSeconds": 41.04,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000212",
+    "timestamp": "2026-10-12T01:18:55.249Z",
+    "operationalCost": 911.01,
+    "processingTimeSeconds": 68.33,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000213",
+    "timestamp": "2026-10-12T01:17:55.249Z",
+    "operationalCost": 341.14,
+    "processingTimeSeconds": 25.59,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000214",
+    "timestamp": "2026-10-12T01:16:55.249Z",
+    "operationalCost": 367.25,
+    "processingTimeSeconds": 27.54,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000215",
+    "timestamp": "2026-10-12T01:15:55.249Z",
+    "operationalCost": 874.54,
+    "processingTimeSeconds": 65.59,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000216",
+    "timestamp": "2026-10-12T01:14:55.249Z",
+    "operationalCost": 770.41,
+    "processingTimeSeconds": 57.78,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000217",
+    "timestamp": "2026-10-12T01:13:55.249Z",
+    "operationalCost": 651.16,
+    "processingTimeSeconds": 48.84,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000218",
+    "timestamp": "2026-10-12T01:12:55.249Z",
+    "operationalCost": 268.63,
+    "processingTimeSeconds": 20.15,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000219",
+    "timestamp": "2026-10-12T01:11:55.249Z",
+    "operationalCost": 396.91,
+    "processingTimeSeconds": 29.77,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000220",
+    "timestamp": "2026-10-12T01:10:55.249Z",
+    "operationalCost": 698.95,
+    "processingTimeSeconds": 52.42,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000221",
+    "timestamp": "2026-10-12T01:09:55.249Z",
+    "operationalCost": 793.28,
+    "processingTimeSeconds": 59.5,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000222",
+    "timestamp": "2026-10-12T01:08:55.249Z",
+    "operationalCost": 920.63,
+    "processingTimeSeconds": 69.05,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000223",
+    "timestamp": "2026-10-12T01:07:55.249Z",
+    "operationalCost": 1010.63,
+    "processingTimeSeconds": 75.8,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000224",
+    "timestamp": "2026-10-12T01:06:55.249Z",
+    "operationalCost": 548.48,
+    "processingTimeSeconds": 41.14,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000225",
+    "timestamp": "2026-10-12T01:05:55.249Z",
+    "operationalCost": 441.57,
+    "processingTimeSeconds": 33.12,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000226",
+    "timestamp": "2026-10-12T01:04:55.249Z",
+    "operationalCost": 886.2,
+    "processingTimeSeconds": 66.47,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000227",
+    "timestamp": "2026-10-12T01:03:55.249Z",
+    "operationalCost": 34.23,
+    "processingTimeSeconds": 2.57,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000228",
+    "timestamp": "2026-10-12T01:02:55.249Z",
+    "operationalCost": 659.73,
+    "processingTimeSeconds": 49.48,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000229",
+    "timestamp": "2026-10-12T01:01:55.249Z",
+    "operationalCost": 825.66,
+    "processingTimeSeconds": 61.92,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000230",
+    "timestamp": "2026-10-12T01:00:55.249Z",
+    "operationalCost": 950.55,
+    "processingTimeSeconds": 71.29,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000231",
+    "timestamp": "2026-10-12T00:59:55.249Z",
+    "operationalCost": 875.12,
+    "processingTimeSeconds": 65.63,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000232",
+    "timestamp": "2026-10-12T00:58:55.249Z",
+    "operationalCost": 129.01,
+    "processingTimeSeconds": 9.68,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000233",
+    "timestamp": "2026-10-12T00:57:55.249Z",
+    "operationalCost": 197.41,
+    "processingTimeSeconds": 14.81,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000234",
+    "timestamp": "2026-10-12T00:56:55.249Z",
+    "operationalCost": 387.73,
+    "processingTimeSeconds": 29.08,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000235",
+    "timestamp": "2026-10-12T00:55:55.249Z",
+    "operationalCost": 496.25,
+    "processingTimeSeconds": 37.22,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000236",
+    "timestamp": "2026-10-12T00:54:55.249Z",
+    "operationalCost": 674.84,
+    "processingTimeSeconds": 50.61,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000237",
+    "timestamp": "2026-10-12T00:53:55.249Z",
+    "operationalCost": 897.56,
+    "processingTimeSeconds": 67.32,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000238",
+    "timestamp": "2026-10-12T00:52:55.249Z",
+    "operationalCost": 27.38,
+    "processingTimeSeconds": 2.05,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000239",
+    "timestamp": "2026-10-12T00:51:55.249Z",
+    "operationalCost": 482.81,
+    "processingTimeSeconds": 36.21,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000240",
+    "timestamp": "2026-10-12T00:50:55.249Z",
+    "operationalCost": 504.61,
+    "processingTimeSeconds": 37.85,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000241",
+    "timestamp": "2026-10-12T00:49:55.249Z",
+    "operationalCost": 422.39,
+    "processingTimeSeconds": 31.68,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000242",
+    "timestamp": "2026-10-12T00:48:55.249Z",
+    "operationalCost": 121.35,
+    "processingTimeSeconds": 9.1,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000243",
+    "timestamp": "2026-10-12T00:47:55.249Z",
+    "operationalCost": 908.88,
+    "processingTimeSeconds": 68.17,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000244",
+    "timestamp": "2026-10-12T00:46:55.249Z",
+    "operationalCost": 981.3,
+    "processingTimeSeconds": 73.6,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000245",
+    "timestamp": "2026-10-12T00:45:55.249Z",
+    "operationalCost": 90.44,
+    "processingTimeSeconds": 6.78,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000246",
+    "timestamp": "2026-10-12T00:44:55.249Z",
+    "operationalCost": 210.38,
+    "processingTimeSeconds": 15.78,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000247",
+    "timestamp": "2026-10-12T00:43:55.249Z",
+    "operationalCost": 1004.09,
+    "processingTimeSeconds": 75.31,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000248",
+    "timestamp": "2026-10-12T00:42:55.249Z",
+    "operationalCost": 890.08,
+    "processingTimeSeconds": 66.76,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000249",
+    "timestamp": "2026-10-12T00:41:55.249Z",
+    "operationalCost": 109.1,
+    "processingTimeSeconds": 8.18,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000250",
+    "timestamp": "2026-10-12T00:40:55.249Z",
+    "operationalCost": 990.77,
+    "processingTimeSeconds": 74.31,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000251",
+    "timestamp": "2026-10-12T00:39:55.249Z",
+    "operationalCost": 620.28,
+    "processingTimeSeconds": 46.52,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000252",
+    "timestamp": "2026-10-12T00:38:55.249Z",
+    "operationalCost": 1105.04,
+    "processingTimeSeconds": 82.88,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000253",
+    "timestamp": "2026-10-12T00:37:55.249Z",
+    "operationalCost": 241.34,
+    "processingTimeSeconds": 18.1,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000254",
+    "timestamp": "2026-10-12T00:36:55.249Z",
+    "operationalCost": 981.04,
+    "processingTimeSeconds": 73.58,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000255",
+    "timestamp": "2026-10-12T00:35:55.249Z",
+    "operationalCost": 98.2,
+    "processingTimeSeconds": 7.37,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000256",
+    "timestamp": "2026-10-12T00:34:55.249Z",
+    "operationalCost": 455.8,
+    "processingTimeSeconds": 34.19,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000257",
+    "timestamp": "2026-10-12T00:33:55.249Z",
+    "operationalCost": 72.35,
+    "processingTimeSeconds": 5.43,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000258",
+    "timestamp": "2026-10-12T00:32:55.249Z",
+    "operationalCost": 1188.59,
+    "processingTimeSeconds": 89.14,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000259",
+    "timestamp": "2026-10-12T00:31:55.249Z",
+    "operationalCost": 934.15,
+    "processingTimeSeconds": 70.06,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000260",
+    "timestamp": "2026-10-12T00:30:55.249Z",
+    "operationalCost": 794.22,
+    "processingTimeSeconds": 59.57,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000261",
+    "timestamp": "2026-10-12T00:29:55.249Z",
+    "operationalCost": 76.2,
+    "processingTimeSeconds": 5.71,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000262",
+    "timestamp": "2026-10-12T00:28:55.249Z",
+    "operationalCost": 976.39,
+    "processingTimeSeconds": 73.23,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000263",
+    "timestamp": "2026-10-12T00:27:55.249Z",
+    "operationalCost": 46.64,
+    "processingTimeSeconds": 3.5,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000264",
+    "timestamp": "2026-10-12T00:26:55.249Z",
+    "operationalCost": 861.03,
+    "processingTimeSeconds": 64.58,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000265",
+    "timestamp": "2026-10-12T00:25:55.249Z",
+    "operationalCost": 1082.52,
+    "processingTimeSeconds": 81.19,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000266",
+    "timestamp": "2026-10-12T00:24:55.249Z",
+    "operationalCost": 729.62,
+    "processingTimeSeconds": 54.72,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000267",
+    "timestamp": "2026-10-12T00:23:55.249Z",
+    "operationalCost": 443.08,
+    "processingTimeSeconds": 33.23,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000268",
+    "timestamp": "2026-10-12T00:22:55.249Z",
+    "operationalCost": 552.53,
+    "processingTimeSeconds": 41.44,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000269",
+    "timestamp": "2026-10-12T00:21:55.249Z",
+    "operationalCost": 943.15,
+    "processingTimeSeconds": 70.74,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000270",
+    "timestamp": "2026-10-12T00:20:55.249Z",
+    "operationalCost": 522.36,
+    "processingTimeSeconds": 39.18,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000271",
+    "timestamp": "2026-10-12T00:19:55.249Z",
+    "operationalCost": 1086.44,
+    "processingTimeSeconds": 81.48,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000272",
+    "timestamp": "2026-10-12T00:18:55.249Z",
+    "operationalCost": 1187.24,
+    "processingTimeSeconds": 89.04,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000273",
+    "timestamp": "2026-10-12T00:17:55.249Z",
+    "operationalCost": 398.85,
+    "processingTimeSeconds": 29.91,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000274",
+    "timestamp": "2026-10-12T00:16:55.249Z",
+    "operationalCost": 784.23,
+    "processingTimeSeconds": 58.82,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000275",
+    "timestamp": "2026-10-12T00:15:55.249Z",
+    "operationalCost": 761.89,
+    "processingTimeSeconds": 57.14,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000276",
+    "timestamp": "2026-10-12T00:14:55.249Z",
+    "operationalCost": 572.57,
+    "processingTimeSeconds": 42.94,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000277",
+    "timestamp": "2026-10-12T00:13:55.249Z",
+    "operationalCost": 145.91,
+    "processingTimeSeconds": 10.94,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000278",
+    "timestamp": "2026-10-12T00:12:55.249Z",
+    "operationalCost": 167.09,
+    "processingTimeSeconds": 12.53,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000279",
+    "timestamp": "2026-10-12T00:11:55.249Z",
+    "operationalCost": 343.51,
+    "processingTimeSeconds": 25.76,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000280",
+    "timestamp": "2026-10-12T00:10:55.249Z",
+    "operationalCost": 871.48,
+    "processingTimeSeconds": 65.36,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000281",
+    "timestamp": "2026-10-12T00:09:55.249Z",
+    "operationalCost": 1102.84,
+    "processingTimeSeconds": 82.71,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000282",
+    "timestamp": "2026-10-12T00:08:55.249Z",
+    "operationalCost": 211.68,
+    "processingTimeSeconds": 15.88,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000283",
+    "timestamp": "2026-10-12T00:07:55.249Z",
+    "operationalCost": 1060.94,
+    "processingTimeSeconds": 79.57,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000284",
+    "timestamp": "2026-10-12T00:06:55.249Z",
+    "operationalCost": 469.16,
+    "processingTimeSeconds": 35.19,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000285",
+    "timestamp": "2026-10-12T00:05:55.249Z",
+    "operationalCost": 677.06,
+    "processingTimeSeconds": 50.78,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000286",
+    "timestamp": "2026-10-12T00:04:55.249Z",
+    "operationalCost": 14.29,
+    "processingTimeSeconds": 1.07,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000287",
+    "timestamp": "2026-10-12T00:03:55.249Z",
+    "operationalCost": 1166.02,
+    "processingTimeSeconds": 87.45,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000288",
+    "timestamp": "2026-10-12T00:02:55.249Z",
+    "operationalCost": 1039.67,
+    "processingTimeSeconds": 77.98,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000289",
+    "timestamp": "2026-10-12T00:01:55.249Z",
+    "operationalCost": 631.53,
+    "processingTimeSeconds": 47.36,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000290",
+    "timestamp": "2026-10-12T00:00:55.249Z",
+    "operationalCost": 93.45,
+    "processingTimeSeconds": 7.01,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000291",
+    "timestamp": "2026-10-11T23:59:55.249Z",
+    "operationalCost": 599.5,
+    "processingTimeSeconds": 44.96,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000292",
+    "timestamp": "2026-10-11T23:58:55.249Z",
+    "operationalCost": 1012.65,
+    "processingTimeSeconds": 75.95,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000293",
+    "timestamp": "2026-10-11T23:57:55.249Z",
+    "operationalCost": 151.42,
+    "processingTimeSeconds": 11.36,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000294",
+    "timestamp": "2026-10-11T23:56:55.249Z",
+    "operationalCost": 1056.55,
+    "processingTimeSeconds": 79.24,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000295",
+    "timestamp": "2026-10-11T23:55:55.249Z",
+    "operationalCost": 457.67,
+    "processingTimeSeconds": 34.33,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000296",
+    "timestamp": "2026-10-11T23:54:55.249Z",
+    "operationalCost": 639.96,
+    "processingTimeSeconds": 48,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000297",
+    "timestamp": "2026-10-11T23:53:55.249Z",
+    "operationalCost": 510.83,
+    "processingTimeSeconds": 38.31,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000298",
+    "timestamp": "2026-10-11T23:52:55.249Z",
+    "operationalCost": 666.57,
+    "processingTimeSeconds": 49.99,
+    "anomalyStatus": "NONE"
+  },
+  {
+    "transactionId": "TX-1000299",
+    "timestamp": "2026-10-11T23:51:55.249Z",
+    "operationalCost": 859.05,
+    "processingTimeSeconds": 64.43,
+    "anomalyStatus": "NONE"
+  }
+]

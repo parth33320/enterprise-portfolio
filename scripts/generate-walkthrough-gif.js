@@ -14,7 +14,7 @@ async function runRecordingPipeline() {
     return;
   }
   
-  const jobData = JSON.parse(fs.readFileSync(path.join(queueDir, jobFiles), 'utf8'));
+  const jobData = JSON.parse(fs.readFileSync(path.join(queueDir, jobFiles[0]), 'utf8'));
   const targetGifName = `${jobData.reqId.toLowerCase()}.gif`;
   const outputGifPath = path.join(__dirname, `../public/docs/assets/${targetGifName}`);
 
