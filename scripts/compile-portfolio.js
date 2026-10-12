@@ -8,9 +8,9 @@ const historyFilePath = path.join(__dirname, '../_job_queue/history_registry.jso
 const templatePath = path.join(__dirname, '../resume_template.md');
 const resumeOutputDir = path.join(__dirname, '../dist_resumes');
 
-if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir);
-if (!fs.existsSync(queueDir)) fs.mkdirSync(queueDir);
-if (!fs.existsSync(resumeOutputDir)) fs.mkdirSync(resumeOutputDir);
+if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir, { recursive: true });
+if (!fs.existsSync(queueDir)) fs.mkdirSync(queueDir, { recursive: true });
+if (!fs.existsSync(resumeOutputDir)) fs.mkdirSync(resumeOutputDir, { recursive: true });
 
 // 1. Initialize master history directory ledger safely
 let historicalCases = [];
@@ -87,7 +87,7 @@ const htmlContent = `<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enterprise Automation Audit Hub</title>
-    <script src="https://tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen p-4 md:p-12 antialiased font-sans">
     <main class="max-w-5xl mx-auto space-y-12">
@@ -148,11 +148,11 @@ const htmlContent = `<!DOCTYPE html>
                             <h4 class="font-bold text-white uppercase tracking-wider flex items-center gap-1.5 text-rose-400">
                                 <span class="w-2 h-2 rounded-full bg-rose-500"></span> Lean Six Sigma Waste Analysis (Muda)
                             </h4>
-                            <p class="text-slate-300 leading-relaxed font-sans text-[11px]">\text{\${project.painPoint}}</p>
+                            <p class="text-slate-300 leading-relaxed font-sans text-[11px]">\${project.painPoint}</p>
                         </div>
                         <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-800 space-y-1 text-xs">
                             <h4 class="font-bold text-cyan-400 uppercase tracking-wider">Bleeding Edge Countermeasure</h4>
-                            <p class="text-slate-400 leading-relaxed text-[11px]">\text{\${project.solution}}</p>
+                            <p class="text-slate-400 leading-relaxed text-[11px]">\${project.solution}</p>
                         </div>
                     </div>
 
@@ -171,59 +171,75 @@ const htmlContent = `<!DOCTYPE html>
                                 <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span> SECTION 3: SupplyAgent Sovereign Workflow (After)
                             </span>
                             <p class="text-[11px] text-slate-400 leading-relaxed font-sans">
-                            Strict middleware layer enforcement automatically maps an explicit query context table lock via tenant_id scoping constraints. Core inventory stockout triggers dispatch automatedTerm negotiation routines immediately.
+                                Strict middleware layer enforcement automatically maps an explicit query context table lock via tenant_id scoping constraints. Core inventory stockout triggers dispatch automatedTerm negotiation routines immediately.
+                            </p>
+                        </div>
+                    </div>
 
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2 border-t border-slate-800/80">
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 text-center">
+                            <span class="text-[10px] font-mono text-slate-400 block uppercase">Before Profits</span>
+                            <span class="text-sm font-bold text-rose-400 font-mono">$\${project.beforeProfits.toLocaleString()}</span>
+                        </div>
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 text-center">
+                            <span class="text-[10px] font-mono text-slate-400 block uppercase">After Profits</span>
+                            <span class="text-sm font-bold text-emerald-400 font-mono">$\${project.afterProfits.toLocaleString()}</span>
+                        </div>
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 text-center">
+                            <span class="text-[10px] font-mono text-slate-400 block uppercase">Investment Cost</span>
+                            <span class="text-sm font-bold text-slate-200 font-mono">$\${project.investmentCost.toLocaleString()}</span>
+                        </div>
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 text-center">
+                            <span class="text-[10px] font-mono text-slate-400 block uppercase">Projected ROI</span>
+                            <span class="text-sm font-bold text-cyan-400 font-mono">\${roi}%</span>
+                        </div>
+                    </div>
+                </div>
+            \`;
+        }
 
-Before Profits$${project.beforeProfits.toLocaleString()}
-After Profits$${project.afterProfits.toLocaleString()}
-Investment Cost$${project.investmentCost.toLocaleString()}
-Projected ROI${roi}%
-Functional Verification System Demo Walkthrough
+        function renderArchive() {
+            const grid = document.getElementById('portfolio-grid');
+            if (registry.length === 0) {
+                grid.innerHTML = '<p class="text-xs text-slate-400 col-span-2">No historic case runs recorded yet.</p>';
+                return;
+            }
+            grid.innerHTML = registry.map(item => {
+                const itemRoi = (((item.afterProfits - item.beforeProfits) / item.investmentCost) * 100).toFixed(2);
+                return \`
+                    <div class="case-card bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 p-5 rounded-2xl flex flex-col justify-between space-y-4 transition-all cursor-pointer" data-search="\${item.companyName} \${item.reqId} \${item.sector}" onclick="window.location.href='?req=\${item.reqId}'">
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-base font-bold text-white">\${item.companyName}</h3>
+                                <span class="text-[10px] font-mono bg-slate-800 text-cyan-400 px-2 py-0.5 rounded">\${item.reqId}</span>
+                            </div>
+                            <p class="text-xs font-semibold text-slate-300">\${item.sector} Optimization</p>
+                            <p class="text-[11px] text-slate-400 line-clamp-2">\${item.painPoint}</p>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-800/60 text-xs">
+                            <span class="font-mono text-emerald-400 font-bold">ROI: \${itemRoi}%</span>
+                            <span class="text-cyan-400 font-medium hover:underline text-[11px]">View Deep Trace →</span>
+                        </div>
+                    </div>
+                \`;
+            }).join('');
+        }
 
+        function executeFilter() {
+            const term = document.getElementById('archive-search').value.toLowerCase();
+            const cards = document.querySelectorAll('.case-card');
+            cards.forEach(card => {
+                const haystack = card.getAttribute('data-search').toLowerCase();
+                card.style.display = haystack.includes(term) ? 'flex' : 'none';
+            });
+        }
 
-
-
-
+        renderActiveShowcase();
+        renderArchive();
+    </script>
+</body>
+</html>
 `;
-}
-function renderArchive() {
-const grid = document.getElementById('portfolio-grid');
-if (registry.length === 0) {
-grid.innerHTML = 'No historic case runs recorded yet.';
-return;
-}
-grid.innerHTML = registry.map(item => {
-const itemRoi = (((item.afterProfits - item.beforeProfits) / item.investmentCost) * 100).toFixed(2);
-return `
 
-
-
-${item.companyName}
-${item.reqId}
-
-${item.sector} Optimization
-${item.painPoint}
-
-
-ROI: ${itemRoi}%
-View Deep Trace →
-
-
-`;
-}).join('');
-}
-function executeFilter() {
-const term = document.getElementById('archive-search').value.toLowerCase();
-const cards = document.querySelectorAll('.case-card');
-cards.forEach(card => {
-const haystack = card.getAttribute('data-search').toLowerCase();
-card.style.display = haystack.includes(term) ? 'flex' : 'none';
-});
-}
-renderActiveShowcase();
-renderArchive();
-
-
-`;
 fs.writeFileSync(path.join(publicDir, 'index.html'), htmlContent);
 console.log('[Factory] Clean data-driven web app compiled successfully.');
