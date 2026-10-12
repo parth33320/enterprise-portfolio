@@ -12,45 +12,72 @@ if (!fs.existsSync(publicDir)) fs.mkdirSync(publicDir);
 if (!fs.existsSync(queueDir)) fs.mkdirSync(queueDir);
 if (!fs.existsSync(resumeOutputDir)) fs.mkdirSync(resumeOutputDir);
 
-// 1. Initialize master history directory ledger
+// 1. Initialize master history directory ledger safely
 let historicalCases = [];
 if (fs.existsSync(historyFilePath)) {
-  historicalCases = JSON.parse(fs.readFileSync(historyFilePath, 'utf8'));
+  try {
+    historicalCases = JSON.parse(fs.readFileSync(historyFilePath, 'utf8'));
+  } catch (err) {
+    console.warn('[Warning] Failed to parse history registry. Defaulting to empty array.');
+    historicalCases = [];
+  }
 }
 
-// 2. Switftly process newly dropped job configuration models
+// 2. Process newly dropped job configuration models in the queue
 const jobFiles = fs.readdirSync(queueDir).filter(f => f.endsWith('.json') && f !== 'history_registry.json');
+
+// Track if a brand new job was actively injected during this pipeline run
+let processedSector = null;
 
 jobFiles.forEach(file => {
   const filePath = path.join(queueDir, file);
-  const fileData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-  
-  // Deduplicate by explicit Requisition ID to prevent dirty overwrites
-  if (!historicalCases.some(item => item.reqId === fileData.reqId)) {
-    historicalCases.unshift(fileData); // Insert newest at the absolute front
+  try {
+    const fileData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    
+    // Dynamically capture the incoming active sector before clearing the file
+    processedSector = fileData.sector;
+    
+    // Deduplicate by explicit Requisition ID to prevent dirty overwrites
+    if (!historicalCases.some(item => item.reqId === fileData.reqId)) {
+      historicalCases.unshift(fileData); // Insert newest at the absolute front
+    }
+    fs.unlinkSync(filePath); // Clean the staging queue file instantly
+  } catch (err) {
+    console.error(`[Error] Failed to process queue file ${file}:`, err.message);
   }
-  fs.unlinkSync(filePath); // Clean the staging queue file instantly
 });
 
+// Update the master long-term registry back onto the workspace disk
 fs.writeFileSync(historyFilePath, JSON.stringify(historicalCases, null, 2));
 
-// 3. Trigger 100k Big Data Simulation loops on the active target context
-if (historicalCases.length > 0) {
+// 3. Trigger 100k Big Data Simulation Loop safely
+if (processedSector) {
+  // Scenario A: A fresh job arrived, use its explicit sector profile
+  generateDomainData(processedSector, 100000);
+} else if (historicalCases.length > 0 && historicalCases[0].sector) {
+  // Scenario B: Fallback to the latest record inside your persistent ledger
   generateDomainData(historicalCases[0].sector, 100000);
+} else {
+  // Scenario C: Total fallback safeguard to prevent pipeline dropout crashes
+  console.log('[Factory] Staging queue empty and no historic cases found. Skipping data simulation loop.');
 }
 
 // 4. Dynamic Resume Interpolation Engine: Compiles custom CV files automatically
 if (fs.existsSync(templatePath)) {
-  const templateContent = fs.readFileSync(templatePath, 'utf8');
-  historicalCases.forEach(job => {
-    const safeCompName = job.companyName.replace(/[^a-zA-Z0-9]/g, '_');
-    const resumeFileName = `Resume_${safeCompName}_${job.reqId}.md`;
-    
-    // Inject the specific requisition parameters into the hyper-targeted link macro
-    const tailoredResume = templateContent.replace(/{{JOB_REQ_ID}}/g, job.reqId);
-    fs.writeFileSync(path.join(resumeOutputDir, resumeFileName), tailoredResume);
-  });
-  console.log(`[Resume Factory] Generated ${historicalCases.length} customized resume targets.`);
+  try {
+    const templateContent = fs.readFileSync(templatePath, 'utf8');
+    historicalCases.forEach(job => {
+      const safeCompName = job.companyName.replace(/[^a-zA-Z0-9]/g, '_');
+      const resumeFileName = `Resume_${safeCompName}_${job.reqId}.md`;
+      
+      // Inject the unique requisition identifier into your template links
+      const tailoredResume = templateContent.replace(/{{JOB_REQ_ID}}/g, job.reqId);
+      fs.writeFileSync(path.join(resumeOutputDir, resumeFileName), tailoredResume);
+    });
+    console.log(`[Resume Factory] Generated ${historicalCases.length} customized resume targets.`);
+  } catch (err) {
+    console.error('[Error] Exception inside the Resume Generation module:', err.message);
+  }
 }
 
 // 5. Compile the Interactive Dashboard Frontend Architecture
@@ -87,7 +114,7 @@ const htmlContent = `<!DOCTYPE html>
         function getActiveProject() {
             const params = new URLSearchParams(window.location.search);
             const reqTarget = params.get('req');
-            if (!reqTarget && registry.length > 0) return registry[0]; // Fallback to newest case study
+            if (!reqTarget && registry.length > 0) return registry[0]; // Fallback to newest study
             return registry.find(item => item.reqId.toLowerCase() === reqTarget.toLowerCase()) || registry[0];
         }
 
@@ -121,47 +148,60 @@ const htmlContent = `<!DOCTYPE html>
                             <h4 class="font-bold text-white uppercase tracking-wider flex items-center gap-1.5 text-rose-400">
                                 <span class="w-2 h-2 rounded-full bg-rose-500"></span> Lean Six Sigma Waste Analysis (Muda)
                             </h4>
-                            <p class="text-slate-300 leading-relaxed font-sans text-[11px]">\${project.painPoint}</p>
+                            <p class="text-slate-300 leading-relaxed font-sans text-[11px]">\text{\${project.painPoint}}</p>
                         </div>
                         <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-800 space-y-1 text-xs">
                             <h4 class="font-bold text-cyan-400 uppercase tracking-wider">Bleeding Edge Countermeasure</h4>
-                            <p class="text-slate-400 leading-relaxed text-[11px]">\${project.solution}</p>
+                            <p class="text-slate-400 leading-relaxed text-[11px]">\text{\${project.solution}}</p>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono">
-                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800"><div class="text-slate-500">Before Profits</div><div class="text-lg font-bold text-rose-400 mt-0.5">$\${project.beforeProfits.toLocaleString()}</div></div>
-                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800"><div class="text-slate-500">After Profits</div><div class="text-lg font-bold text-emerald-400 mt-0.5">$\${project.afterProfits.toLocaleString()}</div></div>
-                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800"><div class="text-slate-500">Investment Cost</div><div class="text-lg font-bold text-white mt-0.5">$\${project.investmentCost.toLocaleString()}</div></div>
-                        <div class="bg-slate-900 p-4 rounded-xl border border-cyan-800 bg-gradient-to-br from-slate-900 to-cyan-950/30"><div class="text-cyan-500">Projected ROI</div><div class="text-lg font-bold text-cyan-300 mt-0.5">\${roi}%</div></div>
-                    </div>
-
-                    <div class="bg-slate-900/40 border border-slate-800/80 p-4 rounded-xl space-y-4">
-                        <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Functional Verification System Demo</h4>
-                        <div class="bg-slate-950 border border-slate-800 rounded-lg overflow-hidden aspect-video max-w-2xl mx-auto">
-                            <img src="\${project.gifAsset}" class="w-full h-full object-cover" alt="System Verification Trace">
+                    <!-- SECTION 2 & 3: Side-by-Side Presentation Layout Embedded Dynamically -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-slate-900/40 p-5 rounded-xl border border-rose-950/40 space-y-2 text-xs">
+                            <span class="text-[10px] font-mono text-rose-400 uppercase tracking-wider font-bold flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> SECTION 2: Legacy Workflow Baseline (Before)
+                            </span>
+                            <p class="text-[11px] text-slate-400 leading-relaxed font-sans">
+                                Unmitigated multi-tenant data drift across un-isolated databases. Manual spreadsheet reconciliation loops create compounding operational processing latency, causing stock tracking defects and severe transactional transaction lag.
+                            </p>
                         </div>
-                    </div>
-                </div>
-            \`;
-        }
+                        <div class="bg-slate-900/40 p-5 rounded-xl border border-cyan-950/40 space-y-2 text-xs">
+                            <span class="text-[10px] font-mono text-cyan-400 uppercase tracking-wider font-bold flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span> SECTION 3: SupplyAgent Sovereign Workflow (After)
+                            </span>
+                            <p class="text-[11px] text-slate-400 leading-relaxed font-sans">
+                            Strict middleware layer enforcement automatically maps an explicit query context table lock via tenant_id scoping constraints. Core inventory stockout triggers dispatch automatedTerm negotiation routines immediately.
 
-        function renderArchive() {
-            const grid = document.getElementById('portfolio-grid');
-            if(registry.length === 0) {
-               grid.innerHTML = '<p class="text-xs text-slate-500">No historic case runs recorded yet.</p>';
-               return;
-            }
-            grid.innerHTML = registry.map(item => {
-                const itemRoi = (((item.afterProfits - item.beforeProfits) / item.investmentCost) * 100).toFixed(2);
-                return \`
-                    <div class="case-card bg-slate-900 p-5 rounded-xl border border-slate-800 hover:border-slate-700 transition-colors text-xs flex flex-col justify-between gap-4" data-search="\${item.companyName} \${item.sector} \${item.reqId}">
-                        <div class="space-y-2">
-                            <div class="flex justify-between items-center font-mono text-[10px]">
-                                <span class="text-cyan-400 font-bold">\${item.companyName}</span>
-                                <span class="text-slate-500">\${item.reqId}</span>
-                            </div>
-${item.sector} Systems Sync
+
+Before Profits$${project.beforeProfits.toLocaleString()}
+After Profits$${project.afterProfits.toLocaleString()}
+Investment Cost$${project.investmentCost.toLocaleString()}
+Projected ROI${roi}%
+Functional Verification System Demo Walkthrough
+
+
+
+
+
+`;
+}
+function renderArchive() {
+const grid = document.getElementById('portfolio-grid');
+if (registry.length === 0) {
+grid.innerHTML = 'No historic case runs recorded yet.';
+return;
+}
+grid.innerHTML = registry.map(item => {
+const itemRoi = (((item.afterProfits - item.beforeProfits) / item.investmentCost) * 100).toFixed(2);
+return `
+
+
+
+${item.companyName}
+${item.reqId}
+
+${item.sector} Optimization
 ${item.painPoint}
 
 
@@ -186,28 +226,4 @@ renderArchive();
 
 `;
 fs.writeFileSync(path.join(publicDir, 'index.html'), htmlContent);
-console.log('[Factory] Dashboard surface compiled successfully.');
-
-// Ensure this update is integrated inside your scripts/compile-portfolio.js HTML string generation block:
-const sectionHtmlPatch = `
-<!-- SECTION 2 & 3 Side-by-Side Presentation Layout -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div class="bg-slate-900/40 p-5 rounded-xl border border-rose-950/40 space-y-2">
-        <span class="text-[10px] font-mono text-rose-400 uppercase tracking-wider font-bold flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> SECTION 2: Legacy Workflow Baseline (Before)
-        </span>
-        <p class="text-[11px] text-slate-400 leading-relaxed font-sans">
-            Unmitigated multi-tenant data drift across un-isolated databases. Manual spreadsheet reconciliation loops create compounding operational processing latency, causing stock tracking defects and severe transactional transaction lag.
-        </p>
-    </div>
-    
-    <div class="bg-slate-900/40 p-5 rounded-xl border border-cyan-950/40 space-y-2">
-        <span class="text-[10px] font-mono text-cyan-400 uppercase tracking-wider font-bold flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-cyan-500"></span> SECTION 3: SupplyAgent Sovereign Workflow (After)
-        </span>
-        <p class="text-[11px] text-slate-400 leading-relaxed font-sans">
-            Strict middleware layer enforcement automatically maps an explicit query context table lock via <code class="text-cyan-400 font-mono">tenant_id</code> scoping constraints. Core inventory stockout triggers dispatch automatedTerm negotiation routines immediately.
-        </p>
-    </div>
-</div>`;
-
+console.log('[Factory] Clean data-driven web app compiled successfully.');
