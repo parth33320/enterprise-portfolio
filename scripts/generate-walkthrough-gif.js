@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 async function runRecordingPipeline() {
-  console.log('[Jules Media Engine] Launching headless browser for Dual-State recording loop...');
+  console.log('[Jules Media Engine] Initializing domain-agnostic headless recording workspace...');
   
   const queueDir = path.join(__dirname, '../_job_queue');
   const jobFiles = fs.readdirSync(queueDir).filter(f => f.endsWith('.json') && f !== 'history_registry.json');
@@ -14,6 +14,7 @@ async function runRecordingPipeline() {
     return;
   }
   
+  // Track and process the incoming active payload parameters
   const jobData = JSON.parse(fs.readFileSync(path.join(queueDir, jobFiles[0]), 'utf8'));
   const targetGifName = `${jobData.reqId.toLowerCase()}.gif`;
   const outputGifPath = path.join(__dirname, `../public/docs/assets/${targetGifName}`);
@@ -27,39 +28,41 @@ async function runRecordingPipeline() {
   const page = await context.newPage();
   
   const renderTitleCard = (sectionNum, title, body) => `
-    <html lang="en"><body style="background-color: #020617; color: #f8fafc; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; padding: 40px; box-sizing: border-box;">
-      <div style="max-width: 800px; border: 1px solid #1e293b; padding: 40px; border-radius: 16px; background-color: #0f172a; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
+    <html lang="en">
+    <body style="background-color: #020617; color: #f8fafc; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; padding: 40px; box-sizing: border-box; -webkit-font-smoothing: antialiased;">
+      <div style="width: 100%; max-width: 800px; border: 1px solid #1e293b; padding: 40px; border-radius: 16px; background-color: #0f172a; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
         <span style="font-family: monospace; color: #22d3ee; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em;">${sectionNum}</span>
-        <h1 style="font-size: 26px; font-weight: bold; color: #ffffff; margin-top: 6px; margin-bottom: 14px;">${title}</h1>
+        <h1 style="font-size: 24px; font-weight: bold; color: #ffffff; margin-top: 6px; margin-bottom: 14px; tracking: -0.02em;">${title}</h1>
         <p style="font-size: 13px; color: #94a3b8; line-height: 1.6; margin: 0;">${body}</p>
       </div>
-    </body></html>`;
+    </body>
+    </html>`;
 
   // =========================================================================
-  // --- SECTION 1: STRATEGIC BUSINESS BRIEF & METRICS ---
+  // --- SECTION 1: SYSTEM TARGET METRICS BRIEF ---
   // =========================================================================
   const roi = (((jobData.afterProfits - jobData.beforeProfits) / jobData.investmentCost) * 100).toFixed(2);
   const section1Summary = `
-    <strong>Target Corporate Account:</strong> ${jobData.companyName} <br>
-    <strong>Core Operational Sector:</strong> ${jobData.sector} <br><br>
-    <strong>EVM Financial Target Architecture Modeling:</strong><br>
-    • Baseline System Annual Profits: $${jobData.beforeProfits.toLocaleString()} USD <br>
-    • Projected Optimized Annual Profits: $${jobData.afterProfits.toLocaleString()} USD <br>
-    • Capital Solution Onboarding Cost: $${jobData.investmentCost.toLocaleString()} USD <br>
-    • Calculated Return on Investment (ROI): <strong>${roi}%</strong> over Year 1 <br>
-    • CPI Index Balance: ${jobData.cpi} | SPI Index Balance: ${jobData.spi} <br>
-    • SAFe Program Increment (PI) Predictability Target: ${jobData.piPredictability}%`;
+    <strong>Target Corporate Entity:</strong> ${jobData.companyName} <br>
+    <strong>Operational Sector Domain:</strong> ${jobData.sector} <br><br>
+    <strong>Project Governance & Value Engineering Parameters:</strong><br>
+    • Old Process Cost / Profit Leak: $${jobData.beforeProfits.toLocaleString()} USD <br>
+    • Recovered Profit / Annual Savings: $${jobData.afterProfits.toLocaleString()} USD <br>
+    • Solution Implementation Cost: $${jobData.investmentCost.toLocaleString()} USD <br>
+    • Calculated Return on Investment (ROI): <strong>${roi}%</strong> <br>
+    • Cost Performance (CPI): ${jobData.cpi} | Schedule Velocity (SPI): ${jobData.spi} <br>
+    • Agile Release Delivery Accuracy (SAFe): ${jobData.piPredictability}%`;
   
-  await page.setContent(renderTitleCard("Section 1: Audit Brief", "Enterprise Production Optimization Architecture", section1Summary));
+  await page.setContent(renderTitleCard("Section 1: Audit Brief", "Enterprise Production Optimization Framework", section1Summary));
   await page.waitForTimeout(6500);
 
   // =========================================================================
-  // --- SECTION 2: LEGACY WORKFLOW SIMULATION WALKTHROUGH ---
+  // --- SECTION 2: LEGACY WORKFLOW BASELINE SIMULATION ---
   // =========================================================================
   await page.setContent(renderTitleCard("Section 2: Legacy Baseline", "Visual Simulation of Identified Process Waste (Muda)", jobData.painPoint));
   await page.waitForTimeout(5000);
 
-  // Boot app interface and inject simulated broken constraints via DOM injection
+  // Navigates to local server workspace context
   await page.goto('http://localhost:3000/inventory');
   await page.waitForTimeout(1000);
 
@@ -77,56 +80,43 @@ async function runRecordingPipeline() {
     hud.style.borderRadius = '8px';
     hud.style.zIndex = '99999';
     hud.style.fontSize = '11px';
-    hud.style.boxShadow = '0 10px 15px -3px rgba(0,0,0,0.3)';
     hud.innerHTML = `<strong>⚠️ LEGACY FRICTION ENVIRONMENT INJECTED</strong><br>
-                    • Muda Type: Processing & Waiting Waste<br>
-                    • Data Scoping: UNISOLATED_DATA_DRIFT<br>
-                    • Latency: Compounding +3000ms Loop Delay`;
+                    • Status: UNOPTIMIZED_PROCESS_OVERHEAD<br>
+                    • Latency: Compounding Loop Processing Latency`;
     document.body.appendChild(hud);
-
-    // Corrupt table elements visually to simulate severe multi-tenant data leaks to a recruiter
-    const badges = document.querySelectorAll('span');
-    badges.forEach(b => {
-      if(b.textContent.includes('Scoped:')) {
-        b.textContent = '❌ SCOPING FAILURE: CROSS_TENANT_LEAK';
-        b.style.backgroundColor = '#7f1d1d';
-        b.style.color = '#fca5a5';
-      }
-    });
   });
   await page.waitForTimeout(2000);
 
-  // Simulate slow, painful system interactions under high processing overhead
+  // Simulate slow interaction tracking scroll speeds
   await page.evaluate(() => window.scrollBy({ top: 300, behavior: 'smooth' }));
-  await page.waitForTimeout(3000); // Visual hold on the lag
+  await page.waitForTimeout(3000);
 
-  // Trigger a fake unhandled system validation crash overlay
+  // Trigger an clean runtime exception trace layout
   await page.evaluate(() => {
     document.body.innerHTML = `
       <div style="background-color: #000000; color: #dc2626; font-family: monospace; padding: 40px; height: 100vh; box-sizing: border-box; font-size: 13px;">
-        <h1 style="font-size: 20px; text-transform: uppercase; margin-bottom: 20px;">🚨 CRITICAL RUNTIME EXCEPTION: TRANSACTION_FAILED</h1>
-        <p>Internal Server Error 500 -- server/routes/inventory.js Line 84</p>
+        <h1 style="font-size: 18px; text-transform: uppercase; margin-bottom: 20px;">🚨 CRITICAL RUNTIME EXCEPTION: TRANSACTION_FAILED</h1>
+        <p>Internal Server Error 500 -- Core Validation Exception Trace</p>
         <p style="color: #94a3b8; margin-top: 10px;">
-          > Error: validateInventoryPayload constraint breached.<br>
-          > Parameter 'quantity' received negative value (-500) during raw mutation loop.<br>
-          > Relational isolation checks dropped out. Process execution aborted.
+          > Error: Process constraint loop breach detected.<br>
+          > Relational isolation boundary dropped. Context aborted.
         </p>
-        <p style="color: #64748b; margin-top: 30px;">[System state halted. Core business profit leaking out.]</p>
+        <p style="color: #64748b; margin-top: 30px;">[System state execution halted. Processing waste compounding.]</p>
       </div>`;
   });
   await page.waitForTimeout(4500);
 
   // =========================================================================
-  // --- SECTION 3: OPTIMIZED SOVEREIGN WORKFLOW APPLICATION RUN ---
+  // --- SECTION 3: SOVEREIGN OPTIMIZED APPLICATION RUN ---
   // =========================================================================
-  await page.setContent(renderTitleCard("Section 3: Optimized State", "Deploying SupplyAgent Core Automation Engine", jobData.solution));
+  await page.setContent(renderTitleCard("Section 3: Optimized State", "Deploying Custom Automation Engine Countermeasure", jobData.solution));
   await page.waitForTimeout(5000);
 
-  // Reload the clean, production-grade functional server application surface
+  // Reload the clean application environment layer
   await page.goto('http://localhost:3000/inventory');
   await page.waitForTimeout(1500);
 
-  // Execute precise, human-speed interaction traces (1500ms slowMo pacing)
+  // Precise human-speed action steps
   await page.evaluate(() => window.scrollBy({ top: 380, behavior: 'smooth' }));
   await page.waitForTimeout(1500);
 
@@ -134,10 +124,9 @@ async function runRecordingPipeline() {
   if (await inspectButton.isVisible()) {
     await inspectButton.hover();
     await page.waitForTimeout(600);
-    await inspectButton.click(); // Trigger slide-out pane transition
+    await inspectButton.click();
     await page.waitForTimeout(2200);
 
-    // Smoothly evaluate nested components inside the slide-out pane
     await page.evaluate(() => {
       const pane = document.querySelector('.overflow-y-auto');
       if (pane) pane.scrollBy({ top: 250, behavior: 'smooth' });
@@ -145,21 +134,20 @@ async function runRecordingPipeline() {
     await page.waitForTimeout(2000);
   }
 
-  // Finalize video recording configuration hooks
   const videoPath = await page.video().path();
   await context.close();
   await browser.close();
 
-  // Convert raw WebM into an enterprise-grade, highly-compressed loop GIF
-  console.log('[Jules Media Engine] Processing final video compilation via ffmpeg conversion metrics...');
+  console.log('[Jules Media Engine] Processing final video artifacts conversion steps...');
   const assetsDir = path.dirname(outputGifPath);
   if (!fs.existsSync(assetsDir)) fs.mkdirSync(assetsDir, { recursive: true });
 
   try {
     execSync(`ffmpeg -y -i "${videoPath}" -vf "fps=10,scale=800:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 "${outputGifPath}"`);
-    console.log(`[Jules Media Engine] Asset compiled successfully: ${outputGifPath}`);
+    console.log(`[Jules Media Engine] Walkthrough GIF loop successfully generated at: ${outputGifPath}`);
   } catch (err) {
-    console.error('[Jules Media Engine] Compilation exception occurred:', err.message);
+    console.error('[Jules Media Engine] Media pipeline compilation error:', err.message);
   }
 }
+
 runRecordingPipeline();
