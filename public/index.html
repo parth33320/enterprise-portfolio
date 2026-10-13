@@ -3,9 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Automation Hub</title>
+    <title>Enterprise Automation Audit Hub</title>
+    <script src="https://tailwindcss.com"></script>
 </head>
-<body style="background: #020617; color: #f8fafc; font-family: sans-serif; display: flex; align-items: center; justify-content: center; min-h: screen; margin: 0;">
-    <p style="font-size: 14px; color: #94a3b8; font-family: monospace;">Compiling system architecture index matrix...</p>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-4 md:p-12 antialiased font-sans">
+    <main class="max-w-5xl mx-auto space-y-8">
+
+        <!-- Pinned Top Header Search Section -->
+        <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <h1 class="text-xl font-bold text-white tracking-tight">System Architecture Walkthrough Index</h1>
+                <p class="text-xs text-slate-400 mt-0.5">Verified solutions engineered to optimize enterprise operational margins.</p>
+            </div>
+            <div class="w-full md:w-72 shrink-0">
+                <input type="text" id="archive-search" oninput="executeFilter()" placeholder="Search Company, Job Title, Requisition ID..." class="w-full bg-slate-950 border border-slate-800 text-xs px-4 py-2.5 rounded-xl focus:outline-none focus:border-cyan-500 text-slate-200">
+            </div>
+        </div>
+
+        <!-- Deep-Linked Active Showcase Target Zone -->
+        <div id="active-showcase-zone" class="hidden"></div>
+
+        <!-- Master Portfolio Directory Grid -->
+        <div id="portfolio-grid" class="grid grid-cols-1 gap-8"></div>
+    </main>
+
+    <script>
+        const registry = [{"reqId":"19075","companyName":"Lockheed Martin","jobTitle":"Corporate Development M&A Analyst","sector":"Defense & Aerospace","painPoint":"Manual document reading, regular keyword search limitations (missing 'Subordinated Borrowing Notes'), and manual copy-paste spreadsheet errors causing deal valuation crashes and $4.5M in annual profit leaks under heavy M&A deal volume.","solution":"An M&A Due Diligence & Deal Target Evaluation Workspace featuring AI RAG Smart Search and AI Business Relationship Mapping Ontology to automatically search document meaning, map company relationships, detect hidden liabilities, and render executive deal summaries.","beforeProfits":4500000,"afterProfits":13200000,"investmentCost":1800000,"cpi":1.15,"spi":1.1,"piPredictability":92.5,"implementationSchedule":"4 Sprints / 8 Weeks","gifAsset":"docs/assets/19075.gif"}];
+
+        function getActiveProject() {
+            const params = new URLSearchParams(window.location.search);
+            const reqTarget = params.get('req');
+            if (!reqTarget && registry.length > 0) return registry[0];
+            return registry.find(item => item.reqId.toLowerCase() === reqTarget.toLowerCase()) || registry[0];
+        }
+
+        function renderActiveShowcase() {
+            const project = getActiveProject();
+            const zone = document.getElementById('active-showcase-zone');
+            if (!project) return;
+
+            zone.classList.remove('hidden');
+            const roi = (((project.afterProfits - project.beforeProfits) / project.investmentCost) * 100).toFixed(2);
+
+            zone.innerHTML = `
+                <div class="bg-slate-900/40 border border-cyan-500/20 p-6 rounded-2xl space-y-6 shadow-2xl relative">
+                    <div class="absolute -top-3 left-6 bg-cyan-600 text-slate-950 font-mono text-[9px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                        Active Verification Target
+                    </div>
+
+                    <!-- Civilian Parameter Metadata Strip -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800/80 pb-4 gap-2 pt-1 font-mono text-xs">
+                        <div>
+                            <div class="text-cyan-400 font-bold text-sm">${project.companyName}</div>
+                            <div class="text-white font-sans text-base font-bold mt-0.5">${project.jobTitle}</div>
+                            <div class="text-[11px] text-slate-500 mt-1">REQUISITION ID: <span class="text-slate-300">${project.reqId}</span></div>
+                        </div>
+                        <div class="text-right text-[11px] text-slate-400 space-y-0.5 bg-slate-950/60 p-3 rounded-xl border border-slate-800">
+                            <div>• Implementation Timeline: <span class="text-white font-bold">${project.implementationSchedule}</span></div>
+                            <div>• Release Accuracy (SAFe): <span class="text-white font-bold">${project.piPredictability}%</span></div>
+                            <div>• Budget Performance (CPI): <span class="text-white font-bold">${project.cpi}</span></div>
+                            <div>• Schedule Performance (SPI): <span class="text-white font-bold">${project.spi}</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Clean Financial & Value Metrics Overlay Grid -->
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono">
+                        <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                            <span class="text-[10px] text-slate-500 block uppercase">Old Process Cost / Profit Leak</span>
+                            <span class="text-base font-bold text-rose-400 block mt-1">$${project.beforeProfits.toLocaleString()}</span>
+                        </div>
+                        <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                            <span class="text-[10px] text-slate-500 block uppercase">Recovered Profit / Savings</span>
+                            <span class="text-base font-bold text-emerald-400 block mt-1">$${project.afterProfits.toLocaleString()}</span>
+                        </div>
+                        <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                            <span class="text-[10px] text-slate-500 block uppercase">Solution Implementation Cost</span>
+                            <span class="text-base font-bold text-slate-200 block mt-1">$${project.investmentCost.toLocaleString()}</span>
+                        </div>
+                        <div class="bg-slate-950 p-3.5 rounded-xl border border-cyan-900 bg-gradient-to-br from-slate-950 to-cyan-950/20">
+                            <span class="text-[10px] text-cyan-500 block uppercase">Return on Investment (ROI)</span>
+                            <span class="text-base font-bold text-cyan-300 block mt-1">${roi}%</span>
+                        </div>
+                    </div>
+
+                    <!-- Pinned Centralized Walkthrough Media Loop Container -->
+                    <div class="bg-slate-950 border border-slate-800/80 rounded-xl overflow-hidden aspect-video w-full flex items-center justify-center shadow-inner relative group">
+                        <img src="${project.gifAsset}" class="w-full h-full object-cover" alt="System Verification Output Asset" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="hidden absolute inset-0 flex items-center justify-center text-xs text-slate-500 bg-slate-950 font-mono">
+                            [Walking-trace animation (.gif) currently generating in branch pipeline workspace]
+                        </div>
+                    </div>
+                </div>`;
+        }
+
+        function renderArchive() {
+            const grid = document.getElementById('portfolio-grid');
+            if (registry.length === 0) {
+                grid.innerHTML = '<div class="text-xs text-slate-500 font-mono p-4">No historical automation case traces recorded in ledger.</div>';
+                return;
+            }
+            grid.innerHTML = registry.map(item => {
+                const itemRoi = (((item.afterProfits - item.beforeProfits) / item.investmentCost) * 100).toFixed(2);
+                return `
+                    <div class="case-card bg-slate-900/30 border border-slate-800 hover:border-cyan-500/30 p-5 rounded-2xl flex flex-col lg:flex-row gap-6 justify-between items-start lg:items-center transition-all cursor-pointer" data-search="${item.companyName} ${item.jobTitle} ${item.reqId}" onclick="window.location.href='?req=${item.reqId}'">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2 font-mono text-[10px]">
+                                <span class="text-cyan-400 font-bold text-xs uppercase">${item.companyName}</span>
+                                <span class="text-slate-500">| REQ ID: ${item.reqId}</span>
+                            </div>
+                            <h3 class="text-sm font-bold text-white font-sans mt-1">${item.jobTitle} Optimization Trace</h3>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-800/60 font-mono text-[10px] w-full mt-2">
+                            <span class="text-emerald-400 font-bold">Solution ROI: ${itemRoi}%</span>
+                            <span class="text-cyan-400 font-semibold">View System Demo →</span>
+                        </div>
+                    </div>`;
+            }).join('');
+        }
+
+        function executeFilter() {
+            const term = document.getElementById('archive-search').value.toLowerCase();
+            document.querySelectorAll('.case-card').forEach(card => {
+                const haystack = card.getAttribute('data-search').toLowerCase();
+                card.style.display = haystack.includes(term) ? 'flex' : 'none';
+            });
+        }
+
+        renderActiveShowcase();
+        renderArchive();
+    </script>
 </body>
 </html>
