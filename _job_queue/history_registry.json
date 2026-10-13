@@ -1,15 +1,1 @@
-[
-  {
-    "reqId": "19075",
-    "companyName": "Lockheed Martin",
-    "sector": "Aerospace & Defense",
-    "painPoint": "Manual financial modeling and fragmented data room due diligence across defense targets create severe processing bottlenecks, leading to delayed M&A target screening, unmitigated valuation risks, and compounding operational Muda waste.",
-    "solution": "An automated M&A valuation & due diligence intelligence platform with deterministic RAG simulation, automated financial statement parsing, and zero-trust multi-tenant data room isolation.",
-    "beforeProfits": 145000000,
-    "afterProfits": 182000000,
-    "investmentCost": 6500000,
-    "cpi": 1.15,
-    "spi": 1.08,
-    "piPredictability": 94.5
-  }
-]
+
