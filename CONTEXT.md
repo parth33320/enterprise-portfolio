@@ -1,4 +1,4 @@
-# SupplyAgent Context & Ubiquitous Language
+# Context & Ubiquitous Language
 
 This glossary establishes the canonical corporate, operational, and project governance definitions for the automated sales-engineering factory. All synthesized metrics, case validations, and resume outputs must align strictly with these parameters.
 
