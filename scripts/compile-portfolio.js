@@ -188,8 +188,7 @@ const htmlContent = `<!DOCTYPE html>
     </script>
 </body>
 </html>
-\`;
+`;
 
 fs.writeFileSync(path.join(publicDir, 'index.html'), htmlContent);
 console.log('[Factory] Minimalist index assembled with absolute data scoping.');
-
