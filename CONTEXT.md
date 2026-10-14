@@ -21,13 +21,17 @@ The bleeding-edge, sovereign full-stack software application built to eliminate 
 _Avoid_: Software, fix, script
 
 ## Financial Engineering
-**beforeProfits**:
-The prospective company's simulated annual net profits while operating under their legacy, unoptimized workflow, explicitly highlighting lost revenue from process friction.
-_Avoid_: Current revenue, old money
+**beforeCost**:
+The cost of ongoing enterprise operations under the prospective company's legacy, unoptimized workflow before implementing the solution.
+_Avoid_: Old cost, legacy expense, beforeProfits
 
-**afterProfits**:
-The projected annual net profits realized after implementing the solution, showing the complete recovery of previously leaked enterprise margins.
-_Avoid_: New profits, target margin
+**afterCosts**:
+The cost of ongoing enterprise operations realized after implementing the optimized automation/AI solution.
+_Avoid_: New cost, target expense, afterProfits
+
+**netSavings**:
+The annual net financial savings achieved by deducting `afterCosts` from `beforeCost` (`beforeCost - afterCosts`).
+_Avoid_: Total profit, margin bump
 
 **investmentCost**:
 The total calculated baseline cost required to fully build, verify, deploy, and scale the solution inside the target environment.
@@ -42,12 +46,12 @@ _Avoid_: Budget score, cost tracking
 A measure of the project's velocity efficiency, calculated as Earned Value (EV) divided by Planned Value (PV). A value ≥ 1.0 indicates the vertical slice implementation is tracking on or ahead of the schedule baseline.
 _Avoid_: Speed metric, progress rate
 
-**piPredictability (Program Increment Predictability Measure)**:
-The percentage ratio of business value fully delivered against the total planned value committed during Scaled Agile (SAFe) Program Increment (PI) planning loops.
+**piPredictability (Program Increment Predictability Measure / Historical Delivery Reliability)**:
+The percentage ratio of business value delivered against total planned value committed during Scaled Agile (SAFe) Program Increment (PI) planning loops.
 
 ---
 
 ## Cardinality & Context Relationships
 - A single **companyName** operates within one **sector** and experiences an active **painPoint**.
-- The **solution** resolves the **painPoint**, accelerating **beforeProfits** to **afterProfits** to justify the **investmentCost**.
+- The **solution** resolves the **painPoint**, reducing **beforeCost** down to **afterCosts** to generate net savings and justify the **investmentCost**.
 - Project execution is continuously audited and verified against the **cpi**, **spi**, and **piPredictability** guardrails.

@@ -19,5 +19,5 @@ test('compile-portfolio script compiles portfolio and generates index.html witho
   // Verify public/index.html was generated and is non-empty
   assert.strictEqual(fs.existsSync(publicIndex), true, 'public/index.html should exist');
   const content = fs.readFileSync(publicIndex, 'utf8');
-  assert.ok(content.includes('Enterprise Automation Audit Hub'), 'index.html should contain page title');
+  assert.ok(content.includes('System Architecture Walkthrough Index'), 'index.html should contain page title');
 });
