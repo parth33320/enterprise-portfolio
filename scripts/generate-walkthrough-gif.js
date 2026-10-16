@@ -56,7 +56,7 @@ async function runRecordingPipeline() {
   const renderTitleCard = (sectionNum, title, body) => `
     <html lang="en">
     <head>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     </head>
     <body style="background-color: #020617; color: #f8fafc; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; padding: 40px; box-sizing: border-box; -webkit-font-smoothing: antialiased;">
       <div style="width: 100%; max-width: 850px; border: 1px solid #1e293b; padding: 40px; border-radius: 20px; background-color: #0f172a; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6);">
@@ -98,37 +98,55 @@ async function runRecordingPipeline() {
   };
 
   // =========================================================================
-  // --- SECTION 1: SYSTEM TARGET METRICS BRIEF ---
+  // --- SECTION 1 OF 4: SYSTEM TARGET METRICS BRIEF ---
   // =========================================================================
   const section1Summary = `
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 12px; margin-bottom: 12px;">
-      <div><strong>Company:</strong> <span style="color: #38bdf8;">${jobData.companyName}</span></div>
-      <div><strong>Industry Sector:</strong> <span style="color: #cbd5e1;">${jobData.sector}</span></div>
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 12px; margin-bottom: 20px;">
+      <div>
+        <div style="font-size: 11px; font-weight: bold; color: #38bdf8; font-family: monospace; text-transform: uppercase;">${jobData.companyName}</div>
+        <div style="font-size: 16px; font-weight: 800; color: #ffffff;">${jobData.sector}</div>
+      </div>
+      <div style="background-color: #052e16; border: 1px solid #166534; color: #4ade80; font-family: monospace; font-size: 12px; font-weight: bold; padding: 6px 14px; border-radius: 9999px;">
+        +${roi}% ROI
+      </div>
     </div>
+
+    <!-- High-Impact KPI Metric Chips -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; font-family: monospace;">
+      <div style="background-color: #020617; border: 1px solid #1e293b; padding: 14px; border-radius: 12px;">
+        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px;">BEFORE COST</span>
+        <span style="font-size: 15px; font-weight: 800; color: #f87171;">$${beforeCost.toLocaleString()}</span>
+      </div>
+      <div style="background-color: #020617; border: 1px solid #1e293b; padding: 14px; border-radius: 12px;">
+        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px;">AFTER COST</span>
+        <span style="font-size: 15px; font-weight: 800; color: #4ade80;">$${afterCosts.toLocaleString()}</span>
+      </div>
+      <div style="background-color: #020617; border: 1px solid #1e293b; padding: 14px; border-radius: 12px;">
+        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px;">ANNUAL SAVINGS</span>
+        <span style="font-size: 15px; font-weight: 800; color: #38bdf8;">$${netSavings.toLocaleString()}</span>
+      </div>
+    </div>
+
     <div style="background-color: #020617; border: 1px solid #1e293b; padding: 16px; border-radius: 12px; font-family: monospace; font-size: 11px; line-height: 1.8;">
-      • Ongoing Legacy Process Cost: <span style="color: #f87171;">$${beforeCost.toLocaleString()} USD</span><br>
-      • Ongoing Optimized Process Cost: <span style="color: #4ade80;">$${afterCosts.toLocaleString()} USD</span><br>
-      • Calculated Annual Net Savings: <span style="color: #4ade80;">$${netSavings.toLocaleString()} USD</span><br>
-      • Solution Implementation Cost: <span style="color: #e2e8f0;">$${jobData.investmentCost.toLocaleString()} USD</span><br>
-      • Calculated Return on Investment (ROI): <strong style="color: #38bdf8;">${roi}%</strong><br>
-      • Project Performance: CPI <span style="color: #4ade80;">${jobData.cpi}</span> | SPI <span style="color: #4ade80;">${jobData.spi}</span> | Historical Delivery Reliability: <span style="color: #38bdf8;">${jobData.piPredictability}%</span><br>
+      • Solution Investment Cost: <span style="color: #e2e8f0;">$${jobData.investmentCost.toLocaleString()} USD</span><br>
+      • Project Performance: CPI <span style="color: #4ade80;">${jobData.cpi}</span> | SPI <span style="color: #4ade80;">${jobData.spi}</span> | Delivery Reliability: <span style="color: #38bdf8;">${jobData.piPredictability}%</span><br>
       • Implementation Schedule: <span style="color: #f8fafc;">${jobData.implementationSchedule}</span>
     </div>`;
   
-  await page.setContent(renderTitleCard("Section 1: Audit Brief", "M&A Workflow Optimization Framework", section1Summary));
+  await page.setContent(renderTitleCard("SECTION 1 OF 4 | AUDIT BRIEF", "M&A Workflow Optimization Framework", section1Summary));
   await captureFrames(8, 600);
 
   // =========================================================================
-  // --- SECTION 2: LEGACY WORKFLOW BASELINE SIMULATION ---
+  // --- SECTION 2 OF 4: LEGACY WORKFLOW BASELINE SIMULATION ---
   // =========================================================================
   const section2Explanation = `
-    <strong>Target:</strong> AeroPropulsion Systems Inc. <br><br>
+    <strong>Target Entity:</strong> AeroPropulsion Systems Inc. <br><br>
     <strong>Legacy Friction Breakdown:</strong><br>
     1. Non-AI search fails on target filings because it misses synonyms (searches for 'Debt Liabilities' but document lists 'Subordinated Borrowing Notes').<br>
     2. Analysts are forced into manual PDF reading and copy-pasting numbers into master Excel spreadsheets.<br>
     3. Under deal volume, manual typing leads to human formula errors, missing debt figures, and spreadsheet calculation crashes.`;
 
-  await page.setContent(renderTitleCard("Section 2: Legacy Baseline", "Section 2: Non-AI Inefficient M&A Workflow Demo", section2Explanation));
+  await page.setContent(renderTitleCard("SECTION 2 OF 4 | LEGACY BASELINE", "Non-AI Inefficient M&A Workflow Demo", section2Explanation));
   await captureFrames(8, 600);
 
   // Navigate to local application workspace
@@ -160,16 +178,15 @@ async function runRecordingPipeline() {
   await captureFrames(10, 600);
 
   // =========================================================================
-  // --- SECTION 3: SOVEREIGN OPTIMIZED APPLICATION RUN ---
+  // --- SECTION 3 OF 4: AI RAG & ONTOLOGY OPTIMIZATION RUN ---
   // =========================================================================
   const section3Explanation = `
-    <strong>Target:</strong> AeroPropulsion Systems Inc. <br><br>
-    <strong>Sovereign AI Countermeasure Integration:</strong><br>
+    <strong>Target Entity:</strong> AeroPropulsion Systems Inc. <br><br>
+    <strong>AI RAG & Ontology Optimization Suite:</strong><br>
     1. <strong>AI RAG Smart Search:</strong> Searches document meaning and synonyms to automatically find hidden borrowing notes.<br>
-    2. <strong>AI Business Relationship Mapping (Ontology):</strong> Categorizes AeroPropulsion Systems under Lockheed's Missile Division and checks debt limits.<br>
-    3. <strong>Executive Deal Brief & Valuation Chart:</strong> Renders real-time debt risk analysis and transaction pricing recommendations.`;
+    2. <strong>AI Business Relationship Mapping (Ontology):</strong> Categorizes AeroPropulsion Systems under Lockheed's Missile Division and checks debt limits.`;
 
-  await page.setContent(renderTitleCard("Section 3: Optimized State", "Deploying Custom AI RAG & Ontology Countermeasure", section3Explanation));
+  await page.setContent(renderTitleCard("SECTION 3 OF 4 | OPTIMIZED STATE", "Deploying Custom AI RAG & Ontology Optimization", section3Explanation));
   await captureFrames(8, 600);
 
   // Reload clean application environment
@@ -185,11 +202,29 @@ async function runRecordingPipeline() {
   await simulateClickWithRipple('#btn-ontology-audit');
   await captureFrames(12, 600);
 
-  // Smooth scroll down to Executive Deal Brief so the entire card fits inside view
+  // =========================================================================
+  // --- SECTION 4 OF 4: DEDICATED EXECUTIVE DEAL BRIEF & VALUATION ---
+  // =========================================================================
+  const section4Explanation = `
+    <strong>Target Entity:</strong> AeroPropulsion Systems Inc. <br><br>
+    <strong>Executive Deal Summary & Risk Analysis:</strong><br>
+    1. <strong>Risk Identification:</strong> Renders real-time uncovered debt liability benchmarks ($42.5M subordinated debt vs. $25M threshold).<br>
+    2. <strong>Pricing Recommendation:</strong> Advises corporate development to adjust purchase offer price prior to acquisition close.`;
+
+  await page.setContent(renderTitleCard("SECTION 4 OF 4 | EXECUTIVE DEAL BRIEF", "Executive M&A Deal Brief & Valuation Risk Matrix", section4Explanation));
+  await captureFrames(8, 600);
+
+  // Reload application workspace and isolate Executive M&A Deal Brief card cleanly in full viewport
+  await page.goto('http://localhost:3000/demo');
   await page.evaluate(() => {
-    const el = document.getElementById('executive-deal-brief-card');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const briefCard = document.getElementById('executive-deal-brief-card');
+    if (briefCard) {
+      document.body.innerHTML = `
+        <div style="background-color: #020617; min-height: 100vh; padding: 40px; box-sizing: border-box; display: flex; align-items: center; justify-content: center;">
+          <div style="width: 100%; max-width: 950px;">
+            ${briefCard.outerHTML}
+          </div>
+        </div>`;
     }
   });
   await captureFrames(12, 650);

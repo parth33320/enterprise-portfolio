@@ -57,7 +57,7 @@ const htmlContent = `<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Architecture Walkthrough Index</title>
+    <title>Business Solutions Index</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -71,11 +71,14 @@ const htmlContent = `<!DOCTYPE html>
         <!-- Top Header & Search Control Bar -->
         <div class="bg-slate-900/80 border border-slate-800 p-6 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-2xl backdrop-blur-sm">
             <div>
-                <h1 class="text-xl font-extrabold text-white tracking-tight">System Architecture Walkthrough Index</h1>
-                <p class="text-xs text-slate-400 mt-1">Verified solution walkthroughs engineered to optimize enterprise operational workflows.</p>
+                <h1 class="text-xl font-extrabold text-white tracking-tight">Business Solutions Index</h1>
             </div>
-            <div class="w-full md:w-80 shrink-0">
-                <input type="text" id="archive-search" oninput="executeFilter()" placeholder="Search Company, Job Title, Requisition ID..." class="w-full bg-slate-950 border border-slate-800 text-xs px-4 py-3 rounded-xl focus:outline-none focus:border-cyan-500 text-slate-200 font-mono shadow-inner transition-colors">
+            <div class="w-full md:w-96 shrink-0 space-y-1">
+                <div class="relative">
+                    <input type="text" id="archive-search" oninput="executeFilter(false)" onkeydown="handleSearchKeydown(event)" placeholder="Search Company, Job Title, Requisition ID..." class="w-full bg-slate-950 border border-slate-800 text-xs px-4 py-3 rounded-xl focus:outline-none focus:border-cyan-500 text-slate-200 font-mono shadow-inner transition-colors pr-24">
+                    <button onclick="executeFilter(true)" class="absolute right-2 top-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-mono px-2.5 py-1.5 rounded-lg border border-slate-700 transition">Jump ↵</button>
+                </div>
+                <div class="text-[10px] text-slate-400 font-mono text-right">Press Enter to Jump to Top Result</div>
             </div>
         </div>
 
@@ -121,12 +124,51 @@ const htmlContent = `<!DOCTYPE html>
             }).join('');
         }
 
-        function executeFilter() {
+        function executeFilter(shouldJump = false) {
             const term = document.getElementById('archive-search').value.toLowerCase().trim();
-            document.querySelectorAll('.case-card').forEach(card => {
+            const cards = document.querySelectorAll('.case-card');
+            let visibleCount = 0;
+            let firstVisibleCard = null;
+
+            cards.forEach(card => {
                 const haystack = card.getAttribute('data-search').toLowerCase();
-                card.style.display = haystack.includes(term) ? 'block' : 'none';
+                const isMatch = haystack.includes(term);
+                card.style.display = isMatch ? 'block' : 'none';
+                if (isMatch) {
+                    visibleCount++;
+                    if (!firstVisibleCard) firstVisibleCard = card;
+                }
             });
+
+            // Handle Empty State
+            let emptyStateEl = document.getElementById('search-empty-state');
+            if (visibleCount === 0) {
+                if (!emptyStateEl) {
+                    emptyStateEl = document.createElement('div');
+                    emptyStateEl.id = 'search-empty-state';
+                    emptyStateEl.className = 'bg-slate-900/40 border border-dashed border-slate-800 p-12 rounded-2xl text-center space-y-3';
+                    document.getElementById('portfolio-grid').appendChild(emptyStateEl);
+                }
+                emptyStateEl.innerHTML = \`
+                    <div class="text-cyan-400 font-mono text-2xl font-bold">🔍</div>
+                    <div class="text-sm font-bold text-slate-200">No Business Solutions Found</div>
+                    <div class="text-xs text-slate-400 font-mono">No matching walkthrough entries found for "<span class="text-cyan-400">\${term}</span>". Try searching company name, job title, or REQ ID.</div>
+                \`;
+                emptyStateEl.style.display = 'block';
+            } else if (emptyStateEl) {
+                emptyStateEl.style.display = 'none';
+            }
+
+            // Smooth Jump to Top Match if requested or on Enter
+            if (shouldJump && firstVisibleCard) {
+                firstVisibleCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function handleSearchKeydown(event) {
+            if (event.key === 'Enter') {
+                executeFilter(true);
+            }
         }
 
         renderPortfolio();

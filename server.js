@@ -53,7 +53,7 @@ const htmlContent = `<!DOCTYPE html>
     </svg>
   </div>
 
-  <main class="max-w-5xl mx-auto space-y-4">
+  <main class="max-w-5xl mx-auto space-y-6">
 
     <!-- TOP DISPLAY BANNER FOR LIVE SYSTEM EXPLANATIONS -->
     <div id="status-banner" class="hidden p-4 rounded-xl border text-xs font-sans leading-relaxed shadow-lg transition-all"></div>
@@ -62,13 +62,18 @@ const htmlContent = `<!DOCTYPE html>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
       <!-- LEFT PANEL: RAG SMART SEARCH WORKSPACE -->
-      <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg">
-        <div class="border-b border-slate-800 pb-2">
-          <h2 class="text-sm font-bold text-white flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
-            AI RAG Smart Search
-          </h2>
-          <p class="text-[11px] text-slate-400">Semantic Meaning & Synonym Vector Search vs. Standard Keyword Search</p>
+      <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg relative">
+        <div class="flex justify-between items-start border-b border-slate-800 pb-2">
+          <div>
+            <h2 class="text-sm font-bold text-white flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+              AI RAG Smart Search
+            </h2>
+            <p class="text-[11px] text-slate-400 mt-0.5">Semantic Meaning & Synonym Vector Search vs. Standard Keyword Search</p>
+          </div>
+          <span class="bg-cyan-950 border border-cyan-800 text-cyan-300 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0">
+            SECTION 3 | AI RAG & ONTOLOGY OPTIMIZATION
+          </span>
         </div>
 
         <!-- Search Input Controls -->
@@ -100,13 +105,18 @@ const htmlContent = `<!DOCTYPE html>
 
 
       <!-- RIGHT PANEL: ONTOLOGY BUSINESS RELATIONSHIP WORKSPACE -->
-      <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg">
-        <div class="border-b border-slate-800 pb-2">
-          <h2 class="text-sm font-bold text-white flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            AI Business Relationship Mapping (Ontology Engine)
-          </h2>
-          <p class="text-[11px] text-slate-400">Corporate Structure & Defense Compliance Rule Mapping</p>
+      <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg relative">
+        <div class="flex justify-between items-start border-b border-slate-800 pb-2">
+          <div>
+            <h2 class="text-sm font-bold text-white flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              AI Business Relationship Mapping (Ontology Engine)
+            </h2>
+            <p class="text-[11px] text-slate-400 mt-0.5">Corporate Structure & Defense Compliance Rule Mapping</p>
+          </div>
+          <span class="bg-emerald-950 border border-emerald-800 text-emerald-300 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0">
+            SECTION 3 | AI RAG & ONTOLOGY OPTIMIZATION
+          </span>
         </div>
 
         <!-- Ontology Action Controls -->
@@ -140,12 +150,19 @@ const htmlContent = `<!DOCTYPE html>
     <div id="executive-deal-brief-card" class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-2xl relative">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-3 gap-2">
         <div>
-          <span class="text-cyan-400 font-mono text-[10px] font-bold tracking-widest uppercase block">Lockheed Martin Corporate Development</span>
+          <div class="flex items-center gap-2">
+            <span class="text-cyan-400 font-mono text-[10px] font-bold tracking-widest uppercase block">Lockheed Martin Corporate Development</span>
+          </div>
           <h2 class="text-base font-extrabold text-white tracking-tight mt-0.5">Executive M&A Deal Brief: AeroPropulsion Systems Inc.</h2>
         </div>
-        <div class="bg-slate-950 border border-slate-800 px-3 py-1 rounded-xl text-right font-mono text-xs">
-          <span class="text-slate-400 block text-[9px]">Requisition ID:</span>
-          <span class="text-cyan-300 font-bold">19075</span>
+        <div class="flex items-center gap-3">
+          <span class="bg-emerald-950 border border-emerald-800 text-emerald-300 text-[9px] font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+            SECTION 4 | EXECUTIVE DEAL BRIEF & VALUATION
+          </span>
+          <div class="bg-slate-950 border border-slate-800 px-3 py-1 rounded-xl text-right font-mono text-xs">
+            <span class="text-slate-400 block text-[9px]">Requisition ID:</span>
+            <span class="text-cyan-300 font-bold">19075</span>
+          </div>
         </div>
       </div>
 
