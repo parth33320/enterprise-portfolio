@@ -1,5 +1,18 @@
 [
   {
+    "companyName": "Collins Aerospace",
+    "sector": "Aerospace & Defense Indirect Procurement",
+    "jobTitle": "Sr Analyst, Procurement (Remote)",
+    "reqId": "01870341",
+    "beforeCost": 12400000,
+    "afterCosts": 3100000,
+    "investmentCost": 2800000,
+    "cpi": 1.15,
+    "spi": 1.08,
+    "piPredictability": 96,
+    "gifAsset": "docs/assets/01870341.gif"
+  },
+  {
     "reqId": "19075",
     "companyName": "Lockheed Martin",
     "jobTitle": "Corporate Development M&A Analyst",
