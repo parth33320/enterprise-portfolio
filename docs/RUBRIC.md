@@ -1,4 +1,4 @@
-# System Portfolio & Walkthrough Standardization Rubric (v1.0)
+# System Portfolio & Walkthrough Standardization Rubric (v1.1)
 
 This document establishes the official design, presentation, UI, and terminology standards for all portfolio web assets (`public/index.html`), demonstration applications (`server.js`), and generated media walkthroughs (`scripts/generate-walkthrough-gif.js`).
 
@@ -35,17 +35,19 @@ To enforce strict repeat consistency, the following canonical metric labels **MU
 - `RETURN ON INVESTMENT` (Calculated as `(NET ANNUAL SAVINGS / SOLUTION INVESTMENT) * 100`)
 - `EVM DELIVERABILITY` (Project control metrics: Cost Performance Index `CPI` and Schedule Performance Index `SPI`)
 - `Debt/EBITDA` (Financial debt multiple; always written as `Debt/EBITDA`, never `EBITDA Multiple` or `Debt Ratio`)
+- `SECTION 2 | LEGACY WORKFLOW` (Badge label for legacy baseline workflow simulation panel)
+- `SECTION 3 | OPTIMIZED WORKFLOW` (Badge label for optimized AI/automation workflow simulation panel)
 
 ---
 
 ## 3. Walkthrough Video Presentation Standards (`scripts/generate-walkthrough-gif.js`)
 
-### **3.1 Mandatory 4-Section Flow**
-Every generated walkthrough video **MUST** follow a standardized 4-section structure:
-1. **Section 1: System Target Metrics Brief** (Title Card + Standardized 6-KPI Chips Grid)
-2. **Section 2: Legacy Baseline Simulation** (Title Card + Non-AI Keyword Search Failure & Spreadsheet Crash)
-3. **Section 3: Optimized State Simulation** (Title Card + AI/Automation Workspace Run)
-4. **Section 4: Executive Brief & Valuation Risk Matrix** (Title Card + Dedicated Viewport Centered Executive Brief & Risk Benchmark Chart)
+### **3.1 Mandatory 4-Section Flow & URL Mode Control**
+Every generated walkthrough video **MUST** follow a standardized 4-section structure, navigated via direct URL mode parameters (`?mode=section1`, `?mode=section2`, `?mode=section3`, `?mode=section4`):
+1. **Section 1: System Target Metrics Brief** (`?mode=section1`) (Title Card + Standardized 6-KPI Chips Grid)
+2. **Section 2: Legacy Workflow Baseline Simulation** (`?mode=section2`) (Title Card + Full-Screen Non-AI Keyword Search Terminal with `SECTION 2 | LEGACY WORKFLOW` Badge & Spreadsheet Crash)
+3. **Section 3: Optimized Workflow Simulation** (`?mode=section3`) (Title Card + Side-by-Side AI RAG Smart Search & Business Relationship Mapping Panels with `SECTION 3 | OPTIMIZED WORKFLOW` Badge)
+4. **Section 4: Executive Brief & Valuation Risk Matrix** (`?mode=section4`) (Title Card + Dedicated Viewport Centered Executive Brief & Risk Benchmark Chart)
 
 *Note on Solution Diversity*: Section 3 demonstrates AI RAG/Vector Search, LLM Reasoning, or Business Relationship Mapping for AI-focused jobs. For non-AI jobs where AI is overengineered, Section 3 demonstrates High-Throughput Deterministic Data Pipelines, Rule Engines, or Event-Driven Automations.
 
@@ -54,11 +56,11 @@ Every generated walkthrough video **MUST** follow a standardized 4-section struc
 - Title cards must display top step indicators: `SECTION 1 OF 4`, `SECTION 2 OF 4`, `SECTION 3 OF 4`, `SECTION 4 OF 4`.
 
 ### **3.3 Dedicated Viewport Centering Across ALL Sections**
-- ALL application content frames across Section 2, Section 3, and Section 4 **MUST** be rendered with dedicated full-viewport centering (1280x720 viewport), zero page scrollbars, and zero upper/lower screen clutter.
-- Section 4 (Executive Brief) **MUST NOT** show upper terminal streams, query inputs, or search buttons.
+- ALL application content frames across Section 1, Section 2, Section 3, and Section 4 **MUST** be rendered with dedicated full-viewport centering (1280x720 viewport), zero page scrollbars, and zero upper/lower screen clutter.
+- Section 2 **MUST NOT** show Ontology panels or Executive Brief cards. Section 3 **MUST NOT** show Non-AI Search buttons or Executive Brief cards. Section 4 (Executive Brief) **MUST NOT** show upper terminal streams, query inputs, or search buttons.
 
 ### **3.4 Context Orientation Badges**
-- Every active application panel in Section 3 and Section 4 **MUST** display a top-right Context Orientation Badge indicating the active step (e.g. `SECTION 3 | OPTIMIZED STATE` or `SECTION 4 | EXECUTIVE DEAL BRIEF & VALUATION`).
+- Every active application panel in Section 2, Section 3, and Section 4 **MUST** display a top-right Context Orientation Badge indicating the active step (e.g. `SECTION 2 | LEGACY WORKFLOW`, `SECTION 3 | OPTIMIZED WORKFLOW`, or `SECTION 4 | EXECUTIVE DEAL BRIEF & VALUATION`).
 
 ### **3.5 Section 1 Standardized 6-KPI Chips Grid**
 - Section 1 **MUST** use a uniform grid of 6 distinct KPI chips with high-contrast borders and clear subtitles:

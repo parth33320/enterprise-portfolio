@@ -3,7 +3,13 @@ const url = require('url');
 
 const PORT = 3000;
 
-const htmlContent = `<!DOCTYPE html>
+function generateHtml(mode) {
+  const isSection1 = mode === 'section1';
+  const isSection2 = mode === 'section2';
+  const isSection3 = mode === 'section3';
+  const isSection4 = mode === 'section4';
+
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -53,28 +59,82 @@ const htmlContent = `<!DOCTYPE html>
     </svg>
   </div>
 
-  <main class="max-w-5xl mx-auto space-y-12">
+  <main class="max-w-5xl mx-auto space-y-12 min-h-screen flex flex-col justify-center">
 
-    <!-- SECTION 3 CONTAINER: OPTIMIZED STATE WORKSPACE -->
-    <section id="section-3-container" class="min-h-screen flex flex-col justify-center space-y-4 py-4">
+    ${isSection1 ? `
+    <!-- SECTION 1 CONTAINER: SYSTEM TARGET METRICS BRIEF -->
+    <section id="section-1-container" class="space-y-6 py-4">
+      <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 space-y-6 shadow-2xl">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+          <div>
+            <div class="font-mono text-cyan-400 text-xs font-bold uppercase tracking-wider">AeroPropulsion Systems Inc.</div>
+            <h1 class="text-xl font-extrabold text-white mt-1">M&A Workflow Optimization Framework</h1>
+          </div>
+          <span class="bg-emerald-950 border border-emerald-800 text-emerald-300 text-xs font-mono font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+            +293.33% ROI
+          </span>
+        </div>
+
+        <!-- Standardized 6-KPI Chips Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono">
+          <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
+            <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">LEGACY OPERATING COST</span>
+            <span class="text-base font-extrabold text-rose-400">$17,700,000 / yr</span>
+            <span class="text-[10px] text-slate-500 block mt-1">(Pre-optimization manual cost)</span>
+          </div>
+          <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
+            <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">OPTIMIZED OPERATING COST</span>
+            <span class="text-base font-extrabold text-emerald-400">$4,500,000 / yr</span>
+            <span class="text-[10px] text-slate-500 block mt-1">(Post-optimization automated cost)</span>
+          </div>
+          <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
+            <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">NET ANNUAL SAVINGS</span>
+            <span class="text-base font-extrabold text-cyan-400">$13,200,000 / yr</span>
+            <span class="text-[10px] text-slate-500 block mt-1">(Legacy minus Optimized)</span>
+          </div>
+          <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
+            <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">SOLUTION INVESTMENT</span>
+            <span class="text-base font-extrabold text-slate-100">$4,500,000 USD</span>
+            <span class="text-[10px] text-slate-500 block mt-1">(Platform build & deploy cost)</span>
+          </div>
+          <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
+            <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">RETURN ON INVESTMENT</span>
+            <span class="text-base font-extrabold text-emerald-400">+293.33% ROI</span>
+            <span class="text-[10px] text-slate-500 block mt-1">(Annual Savings / Investment)</span>
+          </div>
+          <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
+            <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">EVM DELIVERABILITY</span>
+            <span class="text-sm font-extrabold text-cyan-400">CPI 1.12 | SPI 1.05</span>
+            <span class="text-[10px] text-slate-500 block mt-1">(94% Delivery Reliability)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    ` : ''}
+
+    ${!isSection1 && !isSection4 ? `
+    <!-- WORKSPACE SECTION CONTAINER -->
+    <section id="workspace-container" class="space-y-4 py-4">
       <!-- TOP DISPLAY BANNER FOR LIVE SYSTEM EXPLANATIONS -->
       <div id="status-banner" class="hidden p-4 rounded-xl border text-xs font-sans leading-relaxed shadow-lg transition-all"></div>
 
       <!-- WORKSPACE PANEL GRID -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 ${isSection2 ? 'grid-cols-1' : 'md:grid-cols-2'} gap-4">
 
-      <!-- LEFT PANEL: RAG SMART SEARCH WORKSPACE -->
+      <!-- LEFT PANEL: SEARCH WORKSPACE -->
       <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg relative">
         <div class="flex justify-between items-start border-b border-slate-800 pb-2">
           <div>
             <h2 class="text-sm font-bold text-white flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
-              AI RAG Smart Search
+              <span class="w-2 h-2 rounded-full ${isSection2 ? 'bg-rose-400' : 'bg-cyan-400'}"></span>
+              ${isSection2 ? 'Non-AI Keyword Search' : 'AI RAG Smart Search'}
             </h2>
-            <p class="text-[11px] text-slate-400 mt-0.5">Semantic Meaning & Synonym Vector Search vs. Standard Keyword Search</p>
+            <p class="text-[11px] text-slate-400 mt-0.5">
+              ${isSection2 ? 'Exact String Keyword Search on Target Documents' : 'Semantic Meaning & Synonym Vector Search vs. Standard Keyword Search'}
+            </p>
           </div>
-          <span class="bg-cyan-950 border border-cyan-800 text-cyan-300 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0 panel-section-badge">
-            SECTION 3 | OPTIMIZED STATE
+          <span class="${isSection2 ? 'bg-rose-950 border-rose-800 text-rose-300' : 'bg-cyan-950 border-cyan-800 text-cyan-300'} border text-[9px] font-mono font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0 panel-section-badge">
+            ${isSection2 ? 'SECTION 2 | LEGACY WORKFLOW' : 'SECTION 3 | OPTIMIZED WORKFLOW'}
           </span>
         </div>
 
@@ -83,8 +143,8 @@ const htmlContent = `<!DOCTYPE html>
           <label class="block text-xs text-slate-300 font-mono">Search Target Disclosure Documents:</label>
           <div class="flex gap-2">
             <input type="text" id="rag-query-input" value="" placeholder="Type query here..." class="flex-1 bg-slate-950 border border-slate-800 text-xs px-3.5 py-2 rounded-xl text-white font-mono focus:outline-none focus:border-cyan-500">
-            <button id="btn-regular-search" onclick="runRegularSearch()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono px-3 py-2 rounded-xl border border-slate-700">Non-AI Search</button>
-            <button id="btn-rag-search" onclick="runRAGSearch()" class="bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold text-xs font-mono px-3.5 py-2 rounded-xl transition">Run AI RAG Search</button>
+            ${isSection2 || !isSection3 ? `<button id="btn-regular-search" onclick="runRegularSearch()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono px-3.5 py-2 rounded-xl border border-slate-700">Non-AI Search</button>` : ''}
+            ${isSection3 || !isSection2 ? `<button id="btn-rag-search" onclick="runRAGSearch()" class="bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold text-xs font-mono px-3.5 py-2 rounded-xl transition">Run AI RAG Search</button>` : ''}
           </div>
         </div>
 
@@ -106,6 +166,7 @@ const htmlContent = `<!DOCTYPE html>
       </div>
 
 
+      ${!isSection2 ? `
       <!-- RIGHT PANEL: ONTOLOGY BUSINESS RELATIONSHIP WORKSPACE -->
       <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg relative">
         <div class="flex justify-between items-start border-b border-slate-800 pb-2">
@@ -117,7 +178,7 @@ const htmlContent = `<!DOCTYPE html>
             <p class="text-[11px] text-slate-400 mt-0.5">Corporate Structure & Defense Compliance Rule Mapping</p>
           </div>
           <span class="bg-emerald-950 border border-emerald-800 text-emerald-300 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0 panel-section-badge">
-            SECTION 3 | OPTIMIZED STATE
+            SECTION 3 | OPTIMIZED WORKFLOW
           </span>
         </div>
 
@@ -145,12 +206,15 @@ const htmlContent = `<!DOCTYPE html>
           </div>
         </div>
       </div>
+      ` : ''}
 
       </div>
     </section>
+    ` : ''}
 
+    ${isSection4 || (!isSection1 && !isSection2 && !isSection3) ? `
     <!-- SECTION 4 CONTAINER: EXECUTIVE DEAL BRIEF & VALUATION MATRIX -->
-    <section id="section-4-container" class="min-h-screen flex flex-col justify-center py-4">
+    <section id="section-4-container" class="py-4">
       <div id="executive-deal-brief-card" class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-2xl relative">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-3 gap-2">
         <div>
@@ -228,6 +292,7 @@ const htmlContent = `<!DOCTYPE html>
       </div>
     </div>
     </section>
+    ` : ''}
 
   </main>
 
@@ -269,6 +334,7 @@ const htmlContent = `<!DOCTYPE html>
 
     function showBanner(htmlContent, bgClass) {
       const banner = document.getElementById('status-banner');
+      if (!banner) return;
       banner.classList.remove('hidden');
       banner.className = "p-3.5 rounded-xl border text-xs font-sans leading-relaxed shadow-lg " + bgClass;
       banner.innerHTML = htmlContent;
@@ -276,6 +342,7 @@ const htmlContent = `<!DOCTYPE html>
 
     function runRegularSearch() {
       const results = document.getElementById('rag-search-results');
+      if (!results) return;
 
       results.innerHTML = \`
         <div class="space-y-2">
@@ -303,6 +370,7 @@ const htmlContent = `<!DOCTYPE html>
 
     function runRAGSearch() {
       const results = document.getElementById('rag-search-results');
+      if (!results) return;
 
       results.innerHTML = \`
         <div class="space-y-2">
@@ -333,6 +401,7 @@ const htmlContent = `<!DOCTYPE html>
 
     function runOntologyAudit() {
       const results = document.getElementById('ontology-results');
+      if (!results) return;
 
       results.innerHTML = \`
         <div class="space-y-2">
@@ -360,12 +429,15 @@ const htmlContent = `<!DOCTYPE html>
   </script>
 </body>
 </html>`;
+}
 
 const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
+  const mode = parsedUrl.query.mode;
+
   if (parsedUrl.pathname === '/' || parsedUrl.pathname === '/demo') {
     res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end(htmlContent);
+    res.end(generateHtml(mode));
   } else {
     res.writeHead(404, { 'Content-Type': 'text/plain' });
     res.end('Not Found');
