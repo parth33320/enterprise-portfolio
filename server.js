@@ -159,10 +159,6 @@ const htmlContent = `<!DOCTYPE html>
           <span class="bg-emerald-950 border border-emerald-800 text-emerald-300 text-[9px] font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
             SECTION 4 | EXECUTIVE DEAL BRIEF & VALUATION
           </span>
-          <div class="bg-slate-950 border border-slate-800 px-3 py-1 rounded-xl text-right font-mono text-xs">
-            <span class="text-slate-400 block text-[9px]">Requisition ID:</span>
-            <span class="text-cyan-300 font-bold">19075</span>
-          </div>
         </div>
       </div>
 
@@ -171,7 +167,7 @@ const htmlContent = `<!DOCTYPE html>
         <div class="bg-slate-950 p-3 rounded-xl border border-rose-900/50 bg-rose-950/10">
           <span class="text-[10px] text-rose-400 font-bold block uppercase tracking-wider">Specific Risk Identified</span>
           <p class="text-slate-200 font-sans text-xs mt-1 leading-snug">
-            AeroPropulsion Systems carries <strong class="text-rose-400 font-mono">$42.5 Million</strong> in hidden subordinated borrowing debt. Debt-to-EBITDA ratio is <strong class="text-rose-400 font-mono">4.2x</strong> (exceeding Lockheed's 3.0x safe limit).
+            AeroPropulsion Systems carries <strong class="text-rose-400 font-mono">$42.5 Million</strong> in hidden subordinated borrowing debt. Debt/EBITDA ratio is <strong class="text-rose-400 font-mono">4.2x Debt/EBITDA</strong> (exceeding Lockheed's 3.0x Debt/EBITDA safe limit).
           </p>
         </div>
 
@@ -201,8 +197,8 @@ const htmlContent = `<!DOCTYPE html>
           <!-- Baseline Safe Threshold -->
           <div>
             <div class="flex justify-between text-[11px] mb-1">
-              <span class="text-slate-400">Lockheed Martin Safe Debt Baseline (3.0x EBITDA Limit):</span>
-              <span class="text-emerald-400 font-bold">$25.0M</span>
+              <span class="text-slate-400">3.0x Debt/EBITDA Safe Baseline ($25.0M Cap):</span>
+              <span class="text-emerald-400 font-bold">$25.0M (Unflagged Ceiling)</span>
             </div>
             <div class="w-full bg-slate-900 h-3.5 rounded-full overflow-hidden border border-slate-800">
               <div class="bg-emerald-500 h-full rounded-full" style="width: 58%"></div>
@@ -212,7 +208,7 @@ const htmlContent = `<!DOCTYPE html>
           <!-- Actual Target Debt -->
           <div>
             <div class="flex justify-between text-[11px] mb-1">
-              <span class="text-slate-400">AeroPropulsion Systems Actual Uncovered Debt:</span>
+              <span class="text-slate-400">4.2x Debt/EBITDA Actual Debt ($42.5M Total):</span>
               <span class="text-rose-400 font-bold">$42.5M (Excess +$17.5M)</span>
             </div>
             <div class="w-full bg-slate-900 h-3.5 rounded-full overflow-hidden border border-slate-800">
@@ -337,7 +333,7 @@ const htmlContent = `<!DOCTYPE html>
         <div class="space-y-2">
           <div class="text-emerald-400 font-bold">Rule Check: AI Business Relationship Mapping (Ontology Engine)</div>
           <div class="text-rose-400 font-extrabold text-sm border-l-2 border-rose-500 pl-3 py-1 bg-rose-950/20">
-            FLAGGED FOR REVIEW: Debt-to-EBITDA 4.2x vs. 3.0x Sector Limit
+            FLAGGED FOR REVIEW: 4.2x Debt/EBITDA ($42.5M) vs. 3.0x Debt/EBITDA ($25.0M) Safe Limit
           </div>
           <div class="text-slate-300 text-[11px] font-mono">
             Mapped Entity: AeroPropulsion Systems -> Lockheed Missiles & Fire Control Division
@@ -348,7 +344,7 @@ const htmlContent = `<!DOCTYPE html>
         "Reading company structure for AeroPropulsion Systems...",
         "Semantic Triple: <AeroPropulsionSystems, subContractorOf, LockheedFireControl>",
         "Running ITAR Compliance & Financial Rule Check...",
-        "FLAGGED: Debt-to-EBITDA ratio (4.2x) exceeds sector baseline (3.0x)"
+        "FLAGGED: 4.2x Debt/EBITDA ($42.5M) exceeds 3.0x Debt/EBITDA ($25.0M) limit"
       ]);
 
       showBanner(
