@@ -53,13 +53,15 @@ const htmlContent = `<!DOCTYPE html>
     </svg>
   </div>
 
-  <main class="max-w-5xl mx-auto space-y-6">
+  <main class="max-w-5xl mx-auto space-y-12">
 
-    <!-- TOP DISPLAY BANNER FOR LIVE SYSTEM EXPLANATIONS -->
-    <div id="status-banner" class="hidden p-4 rounded-xl border text-xs font-sans leading-relaxed shadow-lg transition-all"></div>
+    <!-- SECTION 3 CONTAINER: OPTIMIZED STATE WORKSPACE -->
+    <section id="section-3-container" class="min-h-screen flex flex-col justify-center space-y-4 py-4">
+      <!-- TOP DISPLAY BANNER FOR LIVE SYSTEM EXPLANATIONS -->
+      <div id="status-banner" class="hidden p-4 rounded-xl border text-xs font-sans leading-relaxed shadow-lg transition-all"></div>
 
-    <!-- WORKSPACE PANEL GRID -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- WORKSPACE PANEL GRID -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
       <!-- LEFT PANEL: RAG SMART SEARCH WORKSPACE -->
       <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg relative">
@@ -71,8 +73,8 @@ const htmlContent = `<!DOCTYPE html>
             </h2>
             <p class="text-[11px] text-slate-400 mt-0.5">Semantic Meaning & Synonym Vector Search vs. Standard Keyword Search</p>
           </div>
-          <span class="bg-cyan-950 border border-cyan-800 text-cyan-300 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0">
-            SECTION 3 | AI RAG & ONTOLOGY OPTIMIZATION
+          <span class="bg-cyan-950 border border-cyan-800 text-cyan-300 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0 panel-section-badge">
+            SECTION 3 | OPTIMIZED STATE
           </span>
         </div>
 
@@ -114,8 +116,8 @@ const htmlContent = `<!DOCTYPE html>
             </h2>
             <p class="text-[11px] text-slate-400 mt-0.5">Corporate Structure & Defense Compliance Rule Mapping</p>
           </div>
-          <span class="bg-emerald-950 border border-emerald-800 text-emerald-300 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0">
-            SECTION 3 | AI RAG & ONTOLOGY OPTIMIZATION
+          <span class="bg-emerald-950 border border-emerald-800 text-emerald-300 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0 panel-section-badge">
+            SECTION 3 | OPTIMIZED STATE
           </span>
         </div>
 
@@ -144,10 +146,12 @@ const htmlContent = `<!DOCTYPE html>
         </div>
       </div>
 
-    </div>
+      </div>
+    </section>
 
-    <!-- EXECUTIVE DEAL SUMMARY & VALUATION CHART -->
-    <div id="executive-deal-brief-card" class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-2xl relative">
+    <!-- SECTION 4 CONTAINER: EXECUTIVE DEAL BRIEF & VALUATION MATRIX -->
+    <section id="section-4-container" class="min-h-screen flex flex-col justify-center py-4">
+      <div id="executive-deal-brief-card" class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-2xl relative">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-3 gap-2">
         <div>
           <div class="flex items-center gap-2">
@@ -223,6 +227,7 @@ const htmlContent = `<!DOCTYPE html>
         <strong>✅ Executive Deal Recommendation:</strong> AI Relationship Mapping detected $42.5M in hidden debt for AeroPropulsion Systems. Lockheed can eliminate this profit margin risk by reducing the purchase offer by $42.5M before closing.
       </div>
     </div>
+    </section>
 
   </main>
 
