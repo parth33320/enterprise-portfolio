@@ -55,3 +55,9 @@ The percentage ratio of business value delivered against total planned value com
 - A single **companyName** operates within one **sector** and experiences an active **painPoint**.
 - The **solution** resolves the **painPoint**, reducing **beforeCost** down to **afterCosts** to generate net savings and justify the **investmentCost**.
 - Project execution is continuously audited and verified against the **cpi**, **spi**, and **piPredictability** guardrails.
+
+---
+
+## Continual Learning & Presentation Governance
+- All portfolio web views, demonstration apps, and media walkthroughs are governed by **`docs/RUBRIC.md`** (v1.0+).
+- Every session that updates presentation outputs must verify adherence to the rubric and update `docs/RUBRIC.md` as new capabilities are added.

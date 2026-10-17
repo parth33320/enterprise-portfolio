@@ -58,10 +58,10 @@ async function runRecordingPipeline() {
     <head>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     </head>
-    <body style="background-color: #020617; color: #f8fafc; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; padding: 40px; box-sizing: border-box; -webkit-font-smoothing: antialiased;">
-      <div style="width: 100%; max-width: 850px; border: 1px solid #1e293b; padding: 40px; border-radius: 20px; background-color: #0f172a; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6);">
+    <body style="background-color: #020617; color: #f8fafc; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; padding: 40px; box-sizing: border-box; -webkit-font-smoothing: antialiased; overflow: hidden;">
+      <div style="width: 100%; max-width: 900px; border: 1px solid #1e293b; padding: 40px; border-radius: 20px; background-color: #0f172a; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6);">
         <span style="font-family: monospace; color: #22d3ee; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.12em;">${sectionNum}</span>
-        <h1 style="font-size: 26px; font-weight: 800; color: #ffffff; margin-top: 8px; margin-bottom: 16px; letter-spacing: -0.02em;">${title}</h1>
+        <h1 style="font-size: 24px; font-weight: 800; color: #ffffff; margin-top: 8px; margin-bottom: 20px; letter-spacing: -0.02em;">${title}</h1>
         <div style="font-size: 13px; color: #94a3b8; line-height: 1.7;">${body}</div>
       </div>
     </body>
@@ -101,9 +101,9 @@ async function runRecordingPipeline() {
   // --- SECTION 1 OF 4: SYSTEM TARGET METRICS BRIEF ---
   // =========================================================================
   const section1Summary = `
-    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 12px; margin-bottom: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 14px; margin-bottom: 20px;">
       <div>
-        <div style="font-size: 11px; font-weight: bold; color: #38bdf8; font-family: monospace; text-transform: uppercase;">${jobData.companyName}</div>
+        <div style="font-size: 12px; font-weight: bold; color: #38bdf8; font-family: monospace; text-transform: uppercase;">${jobData.companyName}</div>
         <div style="font-size: 16px; font-weight: 800; color: #ffffff;">${jobData.sector}</div>
       </div>
       <div style="background-color: #052e16; border: 1px solid #166534; color: #4ade80; font-family: monospace; font-size: 12px; font-weight: bold; padding: 6px 14px; border-radius: 9999px;">
@@ -111,26 +111,38 @@ async function runRecordingPipeline() {
       </div>
     </div>
 
-    <!-- High-Impact KPI Metric Chips -->
-    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; font-family: monospace;">
+    <!-- Standardized 6-KPI Chips Grid -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; font-family: monospace;">
       <div style="background-color: #020617; border: 1px solid #1e293b; padding: 14px; border-radius: 12px;">
-        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px;">BEFORE COST</span>
-        <span style="font-size: 15px; font-weight: 800; color: #f87171;">$${beforeCost.toLocaleString()}</span>
+        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px; font-weight: bold; uppercase;">LEGACY OPERATING COST</span>
+        <span style="font-size: 15px; font-weight: 800; color: #f87171;">$${beforeCost.toLocaleString()} / yr</span>
+        <span style="font-size: 9px; color: #64748b; display: block; margin-top: 2px;">(Pre-optimization manual cost)</span>
       </div>
       <div style="background-color: #020617; border: 1px solid #1e293b; padding: 14px; border-radius: 12px;">
-        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px;">AFTER COST</span>
-        <span style="font-size: 15px; font-weight: 800; color: #4ade80;">$${afterCosts.toLocaleString()}</span>
+        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px; font-weight: bold; uppercase;">OPTIMIZED OPERATING COST</span>
+        <span style="font-size: 15px; font-weight: 800; color: #4ade80;">$${afterCosts.toLocaleString()} / yr</span>
+        <span style="font-size: 9px; color: #64748b; display: block; margin-top: 2px;">(Post-optimization automated cost)</span>
       </div>
       <div style="background-color: #020617; border: 1px solid #1e293b; padding: 14px; border-radius: 12px;">
-        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px;">ANNUAL SAVINGS</span>
-        <span style="font-size: 15px; font-weight: 800; color: #38bdf8;">$${netSavings.toLocaleString()}</span>
+        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px; font-weight: bold; uppercase;">NET ANNUAL SAVINGS</span>
+        <span style="font-size: 15px; font-weight: 800; color: #38bdf8;">$${netSavings.toLocaleString()} / yr</span>
+        <span style="font-size: 9px; color: #64748b; display: block; margin-top: 2px;">(Legacy minus Optimized)</span>
       </div>
-    </div>
-
-    <div style="background-color: #020617; border: 1px solid #1e293b; padding: 16px; border-radius: 12px; font-family: monospace; font-size: 11px; line-height: 1.8;">
-      • Solution Investment Cost: <span style="color: #e2e8f0;">$${jobData.investmentCost.toLocaleString()} USD</span><br>
-      • Project Performance: CPI <span style="color: #4ade80;">${jobData.cpi}</span> | SPI <span style="color: #4ade80;">${jobData.spi}</span> | Delivery Reliability: <span style="color: #38bdf8;">${jobData.piPredictability}%</span><br>
-      • Implementation Schedule: <span style="color: #f8fafc;">${jobData.implementationSchedule}</span>
+      <div style="background-color: #020617; border: 1px solid #1e293b; padding: 14px; border-radius: 12px;">
+        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px; font-weight: bold; uppercase;">SOLUTION INVESTMENT</span>
+        <span style="font-size: 15px; font-weight: 800; color: #f8fafc;">$${jobData.investmentCost.toLocaleString()} USD</span>
+        <span style="font-size: 9px; color: #64748b; display: block; margin-top: 2px;">(Platform build & deploy cost)</span>
+      </div>
+      <div style="background-color: #020617; border: 1px solid #1e293b; padding: 14px; border-radius: 12px;">
+        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px; font-weight: bold; uppercase;">RETURN ON INVESTMENT</span>
+        <span style="font-size: 15px; font-weight: 800; color: #4ade80;">+${roi}% ROI</span>
+        <span style="font-size: 9px; color: #64748b; display: block; margin-top: 2px;">(Annual Savings / Investment)</span>
+      </div>
+      <div style="background-color: #020617; border: 1px solid #1e293b; padding: 14px; border-radius: 12px;">
+        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px; font-weight: bold; uppercase;">EVM DELIVERABILITY</span>
+        <span style="font-size: 13px; font-weight: 800; color: #38bdf8;">CPI ${jobData.cpi} | SPI ${jobData.spi}</span>
+        <span style="font-size: 9px; color: #64748b; display: block; margin-top: 2px;">(${jobData.piPredictability}% Delivery Reliability)</span>
+      </div>
     </div>`;
   
   await page.setContent(renderTitleCard("SECTION 1 OF 4 | AUDIT BRIEF", "M&A Workflow Optimization Framework", section1Summary));
@@ -142,11 +154,11 @@ async function runRecordingPipeline() {
   const section2Explanation = `
     <strong>Target Entity:</strong> AeroPropulsion Systems Inc. <br><br>
     <strong>Legacy Friction Breakdown:</strong><br>
-    1. Non-AI search fails on target filings because it misses synonyms (searches for 'Debt Liabilities' but document lists 'Subordinated Borrowing Notes').<br>
-    2. Analysts are forced into manual PDF reading and copy-pasting numbers into master Excel spreadsheets.<br>
-    3. Under deal volume, manual typing leads to human formula errors, missing debt figures, and spreadsheet calculation crashes.`;
+    • <strong>Non-AI Search Failure:</strong> Searching 'Debt Liabilities' fails because Page 187 lists 'Subordinated Borrowing Notes'.<br>
+    • <strong>Manual Processing:</strong> Analysts forced into manual PDF reading and copy-pasting numbers into Excel spreadsheets.<br>
+    • <strong>Process Breakdown:</strong> Manual typing leads to missing debt figures and spreadsheet calculation crashes under deal volume.`;
 
-  await page.setContent(renderTitleCard("SECTION 2 OF 4 | LEGACY BASELINE", "Non-AI Inefficient M&A Workflow Demo", section2Explanation));
+  await page.setContent(renderTitleCard("SECTION 2 OF 4 | LEGACY BASELINE", "Non-AI Inefficient M&A Workflow Simulation", section2Explanation));
   await captureFrames(8, 600);
 
   // Navigate to local application workspace
@@ -158,20 +170,21 @@ async function runRecordingPipeline() {
   await simulateClickWithRipple('#btn-regular-search');
   await captureFrames(10, 600);
 
-  // Demonstrate Step 2: Injected Manual Process Crash
+  // Demonstrate Step 2: Injected Manual Process Crash in centered viewport
   await page.evaluate(() => {
     document.body.innerHTML = `
-      <div style="background-color: #000000; color: #ef4444; font-family: monospace; padding: 50px; height: 100vh; box-sizing: border-box; font-size: 13px; display: flex; flex-direction: column; justify-content: center;">
-        <div style="max-width: 800px; margin: 0 auto; border: 2px solid #dc2626; padding: 30px; border-radius: 12px; background-color: #450a0a;">
-          <h1 style="font-size: 20px; text-transform: uppercase; margin-bottom: 16px; font-weight: bold;">🚨 MANUAL PROCESS FAILURE: SPREADSHEET_CALCULATION_CRASH</h1>
-          <p style="color: #fca5a5; font-size: 14px; margin-bottom: 20px;">
-            Spreadsheet calculation broke down due to missing debt numbers and human copy-paste errors under deal volume.
+      <div style="background-color: #020617; color: #ef4444; font-family: monospace; padding: 40px; height: 100vh; box-sizing: border-box; font-size: 13px; display: flex; flex-direction: column; justify-content: center; overflow: hidden;">
+        <div style="max-width: 850px; margin: 0 auto; border: 2px solid #dc2626; padding: 30px; border-radius: 16px; background-color: #450a0a; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);">
+          <div style="color: #f87171; font-size: 10px; font-weight: bold; text-transform: uppercase; margin-bottom: 8px;">SECTION 2 | LEGACY BASELINE</div>
+          <h1 style="font-size: 18px; text-transform: uppercase; margin-bottom: 16px; font-weight: bold; color: #ffffff;">🚨 MANUAL PROCESS FAILURE: SPREADSHEET_CALCULATION_CRASH</h1>
+          <p style="color: #fca5a5; font-size: 13px; margin-bottom: 20px; font-family: sans-serif; line-height: 1.6;">
+            Spreadsheet calculation broke down due to missing debt numbers and human copy-paste errors under deal volume. Target acquisition valuation failed due to undetected $42.5M subordinated debt liability.
           </p>
-          <div style="color: #94a3b8; line-height: 1.6; font-size: 12px;">
+          <div style="color: #94a3b8; line-height: 1.6; font-size: 11px;">
             > Error: Disclosure filing 'AeroPropulsion_Notes.pdf' contains $42.5M in undetected debt liabilities.<br>
-            > Target acquisition valuation failed due to undetected financial debt.
+            > Non-AI keyword search failed on exact string match for 'Debt Liabilities'.
           </div>
-          <div style="color: #ef4444; margin-top: 24px; font-weight: bold;">[Annual Profit Leak Impact from Hidden Debt: $4,500,000 USD]</div>
+          <div style="color: #ef4444; margin-top: 20px; font-weight: bold; font-size: 13px;">[ Annual Profit Leak Impact: $4,500,000 USD ]</div>
         </div>
       </div>`;
   });
@@ -182,15 +195,19 @@ async function runRecordingPipeline() {
   // =========================================================================
   const section3Explanation = `
     <strong>Target Entity:</strong> AeroPropulsion Systems Inc. <br><br>
-    <strong>AI RAG & Ontology Optimization Suite:</strong><br>
-    1. <strong>AI RAG Smart Search:</strong> Searches document meaning and synonyms to automatically find hidden borrowing notes.<br>
-    2. <strong>AI Business Relationship Mapping (Ontology):</strong> Categorizes AeroPropulsion Systems under Lockheed's Missile Division and checks debt limits.`;
+    <strong>Optimization Breakdown:</strong><br>
+    • <strong>AI RAG Search:</strong> AI RAG understands the meaning of words, so searching for 'Debt Liabilities' automatically matches 'Subordinated Borrowing Notes' ($42.5M debt).<br>
+    • <strong>Ontology Engine:</strong> Connects AeroPropulsion to Lockheed's Missiles Division, triggering Division Policy #402 (3.0x Debt/EBITDA cap, $25.0M debt cap) to flag $42.5M debt (4.2x Debt/EBITDA, +$17.5M excess).`;
 
-  await page.setContent(renderTitleCard("SECTION 3 OF 4 | OPTIMIZED STATE", "Deploying Custom AI RAG & Ontology Optimization", section3Explanation));
+  await page.setContent(renderTitleCard("SECTION 3 OF 4 | OPTIMIZED STATE", "Custom AI RAG & Business Relationship Ontology Optimization", section3Explanation));
   await captureFrames(8, 600);
 
-  // Reload clean application environment
+  // Reload clean application environment and isolate Section 3 panels by hiding Section 4 brief card
   await page.goto('http://localhost:3000/demo');
+  await page.evaluate(() => {
+    const briefCard = document.getElementById('executive-deal-brief-card');
+    if (briefCard) briefCard.style.display = 'none';
+  });
   await captureFrames(3, 500);
 
   // Type query and run AI RAG Search with click ripple
@@ -207,9 +224,9 @@ async function runRecordingPipeline() {
   // =========================================================================
   const section4Explanation = `
     <strong>Target Entity:</strong> AeroPropulsion Systems Inc. <br><br>
-    <strong>Executive Deal Summary & Risk Analysis:</strong><br>
-    1. <strong>Risk Identification:</strong> Renders real-time uncovered debt liability benchmarks ($42.5M subordinated debt vs. $25M threshold).<br>
-    2. <strong>Pricing Recommendation:</strong> Advises corporate development to adjust purchase offer price prior to acquisition close.`;
+    <strong>Executive Risk Summary:</strong><br>
+    • <strong>Risk Identified:</strong> Uncovered $42.5M debt (4.2x Debt/EBITDA vs. 3.0x Debt/EBITDA ($25.0M) safe cap; +$17.5M excess).<br>
+    • <strong>Valuation Advice:</strong> Lower purchase price offer by $42.5M (or require seller debt payoff prior to close) to eliminate post-acquisition risk.`;
 
   await page.setContent(renderTitleCard("SECTION 4 OF 4 | EXECUTIVE DEAL BRIEF", "Executive M&A Deal Brief & Valuation Risk Matrix", section4Explanation));
   await captureFrames(8, 600);
@@ -220,7 +237,7 @@ async function runRecordingPipeline() {
     const briefCard = document.getElementById('executive-deal-brief-card');
     if (briefCard) {
       document.body.innerHTML = `
-        <div style="background-color: #020617; min-height: 100vh; padding: 40px; box-sizing: border-box; display: flex; align-items: center; justify-content: center;">
+        <div style="background-color: #020617; min-height: 100vh; padding: 40px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; overflow: hidden;">
           <div style="width: 100%; max-width: 950px;">
             ${briefCard.outerHTML}
           </div>

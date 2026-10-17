@@ -61,6 +61,7 @@ Record Playwright videos of tests.
 Suggested Tasks: Jules is instructed to scan the codebase for #TODO comments and performance optimizations, surfacing them as actionable tasks.
 Audit Logging: Every interaction must be saved to a structured, append-only log (JSONL or SQLite). This provides the accountability layer needed for high-stakes domains.
 CI/CD Integration: Jules is connected to Render. If a build fails, Jules autonomously analyzes the logs, pushes a fix to the PR, and triggers a redeploy.
+Continual Learning Protocol: All sessions modifying web assets or walkthrough scripts MUST verify compliance with `docs/RUBRIC.md`. When new capabilities or layout standards are merged, update `docs/RUBRIC.md` and increment its version number (e.g. v1.0 -> v1.1).
 
 7. JMaster
 Use this prompt to start any new project or major milestone:
