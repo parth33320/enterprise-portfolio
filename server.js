@@ -133,8 +133,8 @@ function generateHtml(mode) {
               ${isSection2 ? 'Exact String Keyword Search on Target Documents' : 'Semantic Meaning & Synonym Vector Search vs. Standard Keyword Search'}
             </p>
           </div>
-          <span class="${isSection2 ? 'bg-rose-950 border-rose-800 text-rose-300' : 'bg-cyan-950 border-cyan-800 text-cyan-300'} border text-[9px] font-mono font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0 panel-section-badge">
-            ${isSection2 ? 'SECTION 2 | LEGACY WORKFLOW' : 'SECTION 3 | OPTIMIZED WORKFLOW'}
+          <span class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider shrink-0 panel-section-badge">
+            ${isSection2 ? 'SECTION 2 OF 4 | LEGACY WORKFLOW' : 'SECTION 3 OF 4 | OPTIMIZED WORKFLOW'}
           </span>
         </div>
 
@@ -177,8 +177,8 @@ function generateHtml(mode) {
             </h2>
             <p class="text-[11px] text-slate-400 mt-0.5">Corporate Structure & Defense Compliance Rule Mapping</p>
           </div>
-          <span class="bg-emerald-950 border border-emerald-800 text-emerald-300 text-[9px] font-mono font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0 panel-section-badge">
-            SECTION 3 | OPTIMIZED WORKFLOW
+          <span class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider shrink-0 panel-section-badge">
+            SECTION 3 OF 4 | OPTIMIZED WORKFLOW
           </span>
         </div>
 
@@ -224,8 +224,8 @@ function generateHtml(mode) {
           <h2 class="text-base font-extrabold text-white tracking-tight mt-0.5">Executive M&A Deal Brief: AeroPropulsion Systems Inc.</h2>
         </div>
         <div class="flex items-center gap-3">
-          <span class="bg-emerald-950 border border-emerald-800 text-emerald-300 text-[9px] font-mono font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
-            SECTION 4 | EXECUTIVE DEAL BRIEF & VALUATION
+          <span class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">
+            SECTION 4 OF 4 | EXECUTIVE DEAL BRIEF & VALUATION
           </span>
         </div>
       </div>
