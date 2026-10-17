@@ -148,10 +148,6 @@ async function runRecordingPipeline() {
   await page.setContent(renderTitleCard("SECTION 1 OF 4 | AUDIT BRIEF", "M&A Workflow Optimization Framework", section1Summary));
   await captureFrames(8, 600);
 
-  // Demonstrate Section 1 Live Application View
-  await page.goto('http://localhost:3000/demo?mode=section1');
-  await captureFrames(8, 600);
-
   // =========================================================================
   // --- SECTION 2 OF 4: LEGACY WORKFLOW BASELINE SIMULATION ---
   // =========================================================================
@@ -179,7 +175,7 @@ async function runRecordingPipeline() {
     document.body.innerHTML = `
       <div style="background-color: #020617; color: #ef4444; font-family: monospace; padding: 40px; height: 100vh; box-sizing: border-box; font-size: 13px; display: flex; flex-direction: column; justify-content: center; overflow: hidden;">
         <div style="max-width: 850px; margin: 0 auto; border: 2px solid #dc2626; padding: 30px; border-radius: 16px; background-color: #450a0a; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);">
-          <div style="color: #f87171; font-size: 10px; font-weight: bold; text-transform: uppercase; margin-bottom: 8px;">SECTION 2 | LEGACY WORKFLOW</div>
+          <div style="color: #22d3ee; font-size: 12px; font-weight: bold; text-transform: uppercase; margin-bottom: 8px;">SECTION 2 OF 4 | LEGACY WORKFLOW</div>
           <h1 style="font-size: 18px; text-transform: uppercase; margin-bottom: 16px; font-weight: bold; color: #ffffff;">🚨 MANUAL PROCESS FAILURE: SPREADSHEET_CALCULATION_CRASH</h1>
           <p style="color: #fca5a5; font-size: 13px; margin-bottom: 20px; font-family: sans-serif; line-height: 1.6;">
             Spreadsheet calculation broke down due to missing debt numbers and human copy-paste errors under deal volume. Target acquisition valuation failed due to undetected $42.5M subordinated debt liability.
