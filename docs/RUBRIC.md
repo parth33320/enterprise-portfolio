@@ -1,4 +1,4 @@
-# System Portfolio & Walkthrough Standardization Rubric (v1.4)
+# System Portfolio & Walkthrough Standardization Rubric (v1.5)
 
 This document establishes the official design, presentation, UI, terminology, architectural justification, and governance standards for all portfolio web assets (`public/index.html`), demonstration applications (`server.js`), and generated media walkthroughs (`scripts/generate-walkthrough-gif.js`).
 
@@ -8,7 +8,7 @@ This document establishes the official design, presentation, UI, terminology, ar
 
 ### **1.1 Continual Learning & Versioning**
 - Every future session that modifies web assets, walkthrough scripts, or demonstration pages **MUST** read `docs/RUBRIC.md` to verify full compliance.
-- When new capabilities, layout improvements, or solution patterns are merged into the repository, the active session **MUST** update `docs/RUBRIC.md` and increment the version (e.g., `v1.0` → `v1.1` → `v1.2` → `v1.3` → `v1.4`).
+- When new capabilities, layout improvements, or solution patterns are merged into the repository, the active session **MUST** update `docs/RUBRIC.md` and increment the version (e.g., `v1.0` → `v1.1` → `v1.2` → `v1.3` → `v1.4` → `v1.5`).
 - Historical PRs, git logs, and `docs/plans/` serve as training data for future agents to continuously improve solution quality.
 
 ### **1.2 Mandatory Wireframes Before Implementation**
@@ -65,13 +65,19 @@ This document establishes the official design, presentation, UI, terminology, ar
 - **Inner Software UI Mockup Window**: The software UI mockup (e.g., SAP Ariba UI clone for Procurement, or Lockheed UI clone for M&A) MUST be rendered INSIDE an inner window frame within the main window. ALL job-specific details (company name, plant site, requisition IDs, supplier names) belong strictly inside the inner software mockup window.
 
 ### **2.4 Standardized Top-Left Section Step Labels**
-- Every demo slide/screen across ALL job cards MUST feature the `SECTION X OF Y` label positioned consistently in the **TOP-LEFT CORNER** of the outer main window (e.g., `SECTION 1 OF 5`, `SECTION 2 OF 5`, `SECTION 3 OF 5`, `SECTION 4 OF 5`, `SECTION 5 OF 5`).
+- Every demo slide/screen across ALL job cards MUST feature the `SECTION X OF Y` label positioned consistently in the **TOP-LEFT CORNER** of the outer main window (e.g., `SECTION 1 OF 5`, `SECTION 2 OF 5`, `SECTION 3 OF 5`, `SECTION 4 OF 5`, `SECTION 5 OF 5`), completely detached and independent from any inner content box or modal card.
+- The `SECTION X OF Y` label MUST maintain identical font size, font family (`font-mono`), color (`text-cyan-400`), weight (`font-bold`), and uppercase tracking across all sections and title cards.
 
-### **2.5 Terminal Stream Formatting & Zero Clipping Guardrail**
-- All terminal stream outputs in demo panels MUST be strictly contained within fixed-height containers (`max-h-[140px]` or `max-h-[160px]`) with automatic bottom-scrolling (`scrollTop = scrollHeight`), guaranteeing zero vertical clipping or bottom cutoffs in recorded video walkthroughs.
+### **2.5 Terminal Stream Formatting, Frozen Viewport & Zero Clipping Guardrail**
+- All terminal stream outputs in demo panels MUST be strictly contained within fixed-height containers (`max-h-[120px]` or `max-h-[130px]`) with internal automatic bottom-scrolling (`scrollTop = scrollHeight`) and internal bottom padding, guaranteeing zero vertical clipping or bottom text cutoffs in recorded video walkthroughs.
+- During terminal stream text printing in walkthroughs, the outer page viewport MUST remain frozen and fixed (no outer page scrolling), so text above terminal sections remains completely static and readable without page jitter.
 
-### **2.6 Zero Commingling of Previous Demo Content**
-- Content from previous job role demos (e.g., "Target Entity", "M&A", "Deal Target", or "Subordinated Notes" from Lockheed) **MUST NEVER** appear in new job role demos. Each demo must be 100% cleanly scoped to the target job role.
+### **2.6 Zero Commingling of Previous Demo Content & Terminology**
+- Content or terminology from previous job role demos (e.g., "Target Entity", "M&A", "Deal Target", "Deal Brief", or "Subordinated Notes" from Lockheed) **MUST NEVER** appear in new job role demos (such as Procurement or Engineering). Each demo must be 100% cleanly scoped to its specific target job role domain.
+
+### **2.7 Standardized Reusable UI Titles vs. Job-Specific Demo Mockups**
+- Webpage job cards on Git pages MUST feature standardized, job-independent outer card containers and standard section titles (`SECTION 1 OF 5 | AUDIT BRIEF`, `SECTION 2 OF 5 | LEGACY WORKFLOW`, `SECTION 3 OF 5 | OPTIMIZED WORKFLOW`, `SECTION 4 OF 5 | EXECUTIVE BRIEF`, `SECTION 5 OF 5 | APPENDIX & KEY TERMS GUIDE`).
+- While outer card layouts and main section titles are standardized across all cards, the inner UI titles, software UI mockups, and specific operational data inside the inner windows MUST be built from scratch for every unique job role demo card.
 
 ### **2.7 Surface Mirroring & Repeat Consistency Invariant**
 - **Cross-Surface Mirroring**: Exact identical wording, labels, and phrases must be used across BOTH the Git Webpage (`public/index.html`) and the Walkthrough Video (`.gif`).
@@ -88,7 +94,7 @@ The following canonical metric labels **MUST** be used verbatim whenever these v
 - `SECTION 1 OF 5 | AUDIT BRIEF`
 - `SECTION 2 OF 5 | LEGACY WORKFLOW`
 - `SECTION 3 OF 5 | OPTIMIZED WORKFLOW`
-- `SECTION 4 OF 5 | EXECUTIVE DEAL BRIEF & VALUATION`
+- `SECTION 4 OF 5 | EXECUTIVE BRIEF`
 - `SECTION 5 OF 5 | APPENDIX & KEY TERMS GUIDE`
 
 ---
@@ -100,7 +106,7 @@ Every generated walkthrough video **MUST** follow a standardized 5-section struc
 1. **Section 1: System Target Metrics Brief** (`?mode=section1`) (Title Card + Standardized 6-KPI Chips Grid)
 2. **Section 2: Legacy Workflow Baseline Simulation** (`?mode=section2`) (Title Card + Legacy Workflow Panel with `SECTION 2 OF 5 | LEGACY WORKFLOW` Top-Left Cyan Label & Process Failure Crash)
 3. **Section 3: Optimized Workflow Simulation** (`?mode=section3`) (Title Card + Side-by-Side AI & Rule Engine Panels with `SECTION 3 OF 5 | OPTIMIZED WORKFLOW` Top-Left Cyan Label)
-4. **Section 4: Executive Brief & Valuation Risk Matrix** (`?mode=section4`) (Title Card + Dedicated Viewport Centered Executive Brief & Benchmark Chart with `SECTION 4 OF 5 | EXECUTIVE DEAL BRIEF & VALUATION` Top-Left Cyan Label)
+4. **Section 4: Executive Brief & Benchmark Analysis** (`?mode=section4`) (Title Card + Dedicated Viewport Centered Executive Brief & Benchmark Chart with `SECTION 4 OF 5 | EXECUTIVE BRIEF` Top-Left Cyan Label)
 5. **Section 5: Key Terms Appendix** (`?mode=appendix`) (Title Card + Standalone Glossary & Key Terms Guide with `SECTION 5 OF 5 | APPENDIX & KEY TERMS GUIDE` Top-Left Cyan Label)
 
 ### **3.2 Complete Segregation of Title Cards**
