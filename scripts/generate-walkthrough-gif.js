@@ -84,13 +84,13 @@ async function runRecordingPipeline() {
   };
 
   // =========================================================================
-  // --- SECTION 1 OF 4: SYSTEM TARGET METRICS BRIEF ---
+  // --- SECTION 1 OF 5: SYSTEM TARGET METRICS BRIEF ---
   // =========================================================================
   const section1Summary = `
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 14px; margin-bottom: 20px;">
       <div>
-        <div style="font-size: 12px; font-weight: bold; color: #38bdf8; font-family: monospace; text-transform: uppercase;">${jobData.companyName}</div>
-        <div style="font-size: 16px; font-weight: 800; color: #ffffff;">${jobData.sector}</div>
+        <div style="font-size: 12px; font-weight: bold; color: #38bdf8; font-family: monospace; text-transform: uppercase;">Procure-to-Pay (P2P) Optimization</div>
+        <div style="font-size: 16px; font-weight: 800; color: #ffffff;">Indirect Materials Procurement Automation</div>
       </div>
       <div style="background-color: #052e16; border: 1px solid #166534; color: #4ade80; font-family: monospace; font-size: 12px; font-weight: bold; padding: 6px 14px; border-radius: 9999px;">
         +${roi}% ROI
@@ -131,20 +131,19 @@ async function runRecordingPipeline() {
       </div>
     </div>`;
   
-  await page.setContent(renderTitleCard("SECTION 1 OF 4 | AUDIT BRIEF", "Procure-to-Pay (P2P) Optimization Framework", section1Summary));
+  await page.setContent(renderTitleCard("SECTION 1 OF 5 | AUDIT BRIEF", "Procure-to-Pay (P2P) Optimization Framework", section1Summary));
   await captureFrames(8, 600);
 
   // =========================================================================
-  // --- SECTION 2 OF 4: LEGACY WORKFLOW BASELINE SIMULATION ---
+  // --- SECTION 2 OF 5: LEGACY WORKFLOW BASELINE SIMULATION ---
   // =========================================================================
   const section2Explanation = `
-    <strong>Target Entity:</strong> Collins Aerospace (Site 496 - Mexicali Plant) <br><br>
-    <strong>Legacy Manual Sourcing Friction:</strong><br>
+    <strong>Legacy Baseline Workflow Friction:</strong><br><br>
     • <strong>Manual Quote Evaluation:</strong> Requisition #PR-496-082 for CNC carbide inserts requires manual reading of 3 vendor PDF quotes.<br>
-    • <strong>Human Errors:</strong> Analyst manually copy-pastes quote pricing into Excel spreadsheets but misses a hidden 14-week lead time clause on Page 12 of Vendor B quote.<br>
-    • <strong>Process Breakdown:</strong> Selecting Vendor B causes long factory downtime and $3.1M in unbudgeted off-contract maverick spend.`;
+    • <strong>Human Error Impact:</strong> Analyst manually copy-pastes quote pricing into Excel spreadsheets but misses a hidden 14-week lead time clause on Page 12 of Vendor B quote.<br>
+    • <strong>Process Breakdown:</strong> Selecting Vendor B causes long factory assembly line downtime and $3.1M in unbudgeted off-contract maverick spend.`;
 
-  await page.setContent(renderTitleCard("SECTION 2 OF 4 | LEGACY WORKFLOW", "Manual Quote Evaluation & Spreadsheet Failure", section2Explanation));
+  await page.setContent(renderTitleCard("SECTION 2 OF 5 | LEGACY WORKFLOW", "Manual Quote Evaluation & Spreadsheet Failure", section2Explanation));
   await captureFrames(8, 600);
 
   // Navigate to local application workspace Section 2 Legacy Workflow view
@@ -160,7 +159,7 @@ async function runRecordingPipeline() {
     document.body.innerHTML = `
       <div style="background-color: #020617; color: #ef4444; font-family: monospace; padding: 40px; height: 100vh; box-sizing: border-box; font-size: 13px; display: flex; flex-direction: column; justify-content: center; overflow: hidden;">
         <div style="max-width: 850px; margin: 0 auto; border: 2px solid #dc2626; padding: 30px; border-radius: 16px; background-color: #450a0a; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);">
-          <div style="color: #22d3ee; font-size: 12px; font-weight: bold; text-transform: uppercase; margin-bottom: 8px;">SECTION 2 OF 4 | LEGACY WORKFLOW</div>
+          <div style="color: #22d3ee; font-size: 12px; font-weight: bold; text-transform: uppercase; margin-bottom: 8px;">SECTION 2 OF 5 | LEGACY WORKFLOW</div>
           <h1 style="font-size: 18px; text-transform: uppercase; margin-bottom: 16px; font-weight: bold; color: #ffffff;">🚨 MANUAL PROCESS FAILURE: SPREADSHEET_SOURCING_EVALUATION_CRASH</h1>
           <p style="color: #fca5a5; font-size: 13px; margin-bottom: 20px; font-family: sans-serif; line-height: 1.6;">
             Manual quote comparison selected non-compliant Vendor B ($88/unit), missing a hidden fine-print clause for a 14-week delivery delay on Page 12. Contracted Vendor A ($92/unit, 2-week delivery, Net 60) was bypassed, causing factory line shutdown.
@@ -176,15 +175,14 @@ async function runRecordingPipeline() {
   await captureFrames(10, 600);
 
   // =========================================================================
-  // --- SECTION 3 OF 4: AI QUOTE EXTRACTION & SAP AUTO-EXECUTION ---
+  // --- SECTION 3 OF 5: AI QUOTE EXTRACTION & SAP AUTO-EXECUTION ---
   // =========================================================================
   const section3Explanation = `
-    <strong>Target Entity:</strong> Collins Aerospace (Site 496 - Mexicali Plant) <br><br>
-    <strong>Optimization Breakdown:</strong><br>
-    • <strong>AI LLM Quote Extraction Engine:</strong> Automatically parses supplier PDF quotes in seconds, extracting unit pricing, payment terms (Net 60), and flagging hidden lead-time risk clauses.<br>
+    <strong>System Optimization Breakdown:</strong><br><br>
+    • <strong>AI Hybrid RAG Quote Extraction Engine:</strong> Qdrant Vector DB + BM25 Lexical Search parses supplier PDF quotes in seconds, extracting unit pricing, Net 60 terms, and flagging hidden lead-time risk clauses.<br>
     • <strong>Deterministic SAP P2P Rule Engine:</strong> Automatically generates SAP Purchase Order (#PO-MX496-882), enforces agreement compliance, and completes 3-way invoice matching in <strong><1.5 hours</strong>.`;
 
-  await page.setContent(renderTitleCard("SECTION 3 OF 4 | OPTIMIZED WORKFLOW", "AI Quote & Terms Extraction Engine + SAP P2P Auto-Execution", section3Explanation));
+  await page.setContent(renderTitleCard("SECTION 3 OF 5 | OPTIMIZED WORKFLOW", "AI Quote & Terms Extraction Engine + SAP P2P Auto-Execution", section3Explanation));
   await captureFrames(8, 600);
 
   // Reload clean application environment for Section 3 Optimized Workflow view
@@ -200,19 +198,33 @@ async function runRecordingPipeline() {
   await captureFrames(12, 600);
 
   // =========================================================================
-  // --- SECTION 4 OF 4: DEDICATED EXECUTIVE DEAL BRIEF & VALUATION ---
+  // --- SECTION 4 OF 5: DEDICATED EXECUTIVE DEAL BRIEF & VALUATION ---
   // =========================================================================
   const section4Explanation = `
-    <strong>Target Entity:</strong> Collins Aerospace (Site 496 - Mexicali Plant) <br><br>
-    <strong>Executive Risk Summary:</strong><br>
+    <strong>Executive Risk & Valuation Summary:</strong><br><br>
     • <strong>Risk Identified:</strong> Manual quote evaluations missed hidden fine-print 14-week lead times, causing factory assembly downtime and $3.1M in maverick spend.<br>
     • <strong>Executive Recommendation:</strong> Deploy SAP Ariba AI Quote & T&C Extraction Engine to cut purchasing turn times from 72h down to 1.5h and capture $9.3M net annual savings.`;
 
-  await page.setContent(renderTitleCard("SECTION 4 OF 4 | EXECUTIVE DEAL BRIEF", "Executive Procurement Brief & Benchmark Matrix", section4Explanation));
+  await page.setContent(renderTitleCard("SECTION 4 OF 5 | EXECUTIVE DEAL BRIEF", "Executive Procurement Brief & Benchmark Matrix", section4Explanation));
   await captureFrames(8, 600);
 
   // Reload application workspace Section 4 view
   await page.goto('http://localhost:3000/demo?mode=section4');
+  await captureFrames(12, 650);
+
+  // =========================================================================
+  // --- SECTION 5 OF 5: STANDALONE APPENDIX & KEY TERMS GUIDE ---
+  // =========================================================================
+  const section5Explanation = `
+    <strong>Procurement Glossary & Acronyms Appendix:</strong><br><br>
+    • Dedicated standalone reference screen defining domain acronyms (P2P, PO, PR, GRN, LTA, SLA, TCO, 3-Way Match).<br>
+    • Provides clear civilian accessibility for non-technical stakeholders and hiring managers.`;
+
+  await page.setContent(renderTitleCard("SECTION 5 OF 5 | APPENDIX & KEY TERMS GUIDE", "Procurement Terminology & Industry Acronyms Appendix", section5Explanation));
+  await captureFrames(8, 600);
+
+  // Reload application workspace Section 5 Appendix view
+  await page.goto('http://localhost:3000/demo?mode=appendix');
   await captureFrames(12, 650);
 
   await browser.close();
