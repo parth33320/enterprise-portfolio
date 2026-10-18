@@ -65,11 +65,11 @@ function generateHtml(mode) {
 
     ${isSection1 ? `
     <!-- SECTION 1 CONTAINER: SYSTEM TARGET METRICS BRIEF -->
-    <section id="section-1-container" class="space-y-6 py-4">
+    <section id="section-1-container" class="space-y-4 py-2">
+      <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">SECTION 1 OF 5 | AUDIT BRIEF</div>
       <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 space-y-6 shadow-2xl">
         <div class="flex justify-between items-start border-b border-slate-800 pb-4">
           <div>
-            <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">SECTION 1 OF 5 | AUDIT BRIEF</div>
             <h1 class="text-xl font-extrabold text-white mt-1">Indirect Procurement Procure-to-Pay (P2P) Optimization</h1>
             <p class="text-xs text-slate-400 mt-1">Automating supplier quote analysis and Purchase Order execution to cut purchasing turn times from 72 hours down to 1.5 hours.</p>
           </div>
@@ -200,7 +200,7 @@ function generateHtml(mode) {
                 <span>Terminal Stream</span>
                 <span id="sourcing-terminal-status" class="text-slate-600">IDLE</span>
               </div>
-              <div id="sourcing-terminal-body" class="space-y-1 text-slate-300">
+              <div id="sourcing-terminal-body" class="space-y-1 text-slate-300 pb-2">
                 <span class="text-slate-600">> Ready for quote evaluation execution...</span>
               </div>
             </div>
@@ -237,7 +237,7 @@ function generateHtml(mode) {
                 <span>Terminal Stream</span>
                 <span id="p2p-terminal-status" class="text-slate-600">IDLE</span>
               </div>
-              <div id="p2p-terminal-body" class="space-y-1 text-slate-300">
+              <div id="p2p-terminal-body" class="space-y-1 text-slate-300 pb-2">
                 <span class="text-slate-600">> Ready for automated order placement...</span>
               </div>
             </div>
@@ -252,9 +252,9 @@ function generateHtml(mode) {
     ${isSection4 ? `
     <!-- SECTION 4 CONTAINER: EXECUTIVE BRIEF -->
     <section id="section-4-container" class="py-2 space-y-3">
-      <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">SECTION 4 OF 5 | EXECUTIVE DEAL BRIEF & VALUATION</div>
+      <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">SECTION 4 OF 5 | EXECUTIVE BRIEF</div>
 
-      <div id="executive-deal-brief-card" class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-2xl relative">
+      <div id="executive-brief-card" class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-2xl relative">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-3 gap-2">
           <div>
             <h2 class="text-base font-extrabold text-white tracking-tight">Executive Procurement Brief & Operational Risk Assessment</h2>
@@ -425,7 +425,11 @@ function generateHtml(mode) {
         div.className = "text-slate-200 font-mono text-[10.5px]";
         div.innerHTML = \`<span class="text-cyan-400">></span> \${line}\`;
         container.appendChild(div);
-        container.scrollTop = container.scrollHeight;
+        if (container.parentElement) {
+          container.parentElement.scrollTop = container.parentElement.scrollHeight;
+        } else {
+          container.scrollTop = container.scrollHeight;
+        }
         await new Promise(res => setTimeout(res, 400));
       }
 

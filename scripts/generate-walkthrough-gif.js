@@ -205,7 +205,7 @@ async function runRecordingPipeline() {
     • <strong>Risk Identified:</strong> Manual quote evaluations missed hidden fine-print 14-week lead times, causing factory assembly downtime and $3.1M in maverick spend.<br>
     • <strong>Executive Recommendation:</strong> Deploy SAP Ariba AI Quote & T&C Extraction Engine to cut purchasing turn times from 72h down to 1.5h and capture $9.3M net annual savings.`;
 
-  await page.setContent(renderTitleCard("SECTION 4 OF 5 | EXECUTIVE DEAL BRIEF", "Executive Procurement Brief & Benchmark Matrix", section4Explanation));
+  await page.setContent(renderTitleCard("SECTION 4 OF 5 | EXECUTIVE BRIEF", "Executive Procurement Brief & Benchmark Matrix", section4Explanation));
   await captureFrames(8, 600);
 
   // Reload application workspace Section 4 view
