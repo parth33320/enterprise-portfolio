@@ -134,37 +134,37 @@ function generateHtml(mode) {
           </div>
         </div>
 
-        <!-- Standardized 6-KPI Chips Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono">
-          <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
-            <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">LEGACY OPERATING COST</span>
-            <span class="text-base font-extrabold text-rose-400">$1,450,000 / yr</span>
-            <span class="text-[10px] text-slate-500 block mt-1">(Pre-optimization manual workflow)</span>
+        <!-- Standardized 6-KPI Chips Grid (Compact & Dynamically Scaled to Prevent Cutoff) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 font-mono">
+          <div class="bg-slate-950 border border-slate-800 p-2.5 rounded-xl">
+            <span class="text-[9.5px] text-slate-400 block mb-0.5 font-bold uppercase">LEGACY OPERATING COST</span>
+            <span class="text-sm font-extrabold text-rose-400">$1,450,000 / yr</span>
+            <span class="text-[9px] text-slate-500 block mt-0.5">(Pre-optimization manual workflow)</span>
           </div>
-          <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
-            <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">OPTIMIZED OPERATING COST</span>
-            <span class="text-base font-extrabold text-emerald-400">$320,000 / yr</span>
-            <span class="text-[10px] text-slate-500 block mt-1">(Post-optimization automated pipeline)</span>
+          <div class="bg-slate-950 border border-slate-800 p-2.5 rounded-xl">
+            <span class="text-[9.5px] text-slate-400 block mb-0.5 font-bold uppercase">OPTIMIZED OPERATING COST</span>
+            <span class="text-sm font-extrabold text-emerald-400">$320,000 / yr</span>
+            <span class="text-[9px] text-slate-500 block mt-0.5">(Post-optimization automated pipeline)</span>
           </div>
-          <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
-            <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">NET ANNUAL SAVINGS</span>
-            <span class="text-base font-extrabold text-cyan-400">$1,130,000 / yr</span>
-            <span class="text-[10px] text-slate-500 block mt-1">(Legacy minus Optimized)</span>
+          <div class="bg-slate-950 border border-slate-800 p-2.5 rounded-xl">
+            <span class="text-[9.5px] text-slate-400 block mb-0.5 font-bold uppercase">NET ANNUAL SAVINGS</span>
+            <span class="text-sm font-extrabold text-cyan-400">$1,130,000 / yr</span>
+            <span class="text-[9px] text-slate-500 block mt-0.5">(Legacy minus Optimized)</span>
           </div>
-          <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
-            <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">SOLUTION INVESTMENT</span>
-            <span class="text-base font-extrabold text-slate-100">$280,000 USD</span>
-            <span class="text-[10px] text-slate-500 block mt-1">(Platform build & deploy cost)</span>
+          <div class="bg-slate-950 border border-slate-800 p-2.5 rounded-xl">
+            <span class="text-[9.5px] text-slate-400 block mb-0.5 font-bold uppercase">SOLUTION INVESTMENT</span>
+            <span class="text-sm font-extrabold text-slate-100">$280,000 USD</span>
+            <span class="text-[9px] text-slate-500 block mt-0.5">(Platform build & deploy cost)</span>
           </div>
-          <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
-            <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">RETURN ON INVESTMENT</span>
-            <span class="text-base font-extrabold text-emerald-400">+403.57% ROI</span>
-            <span class="text-[10px] text-slate-500 block mt-1">(Annual Savings / Investment)</span>
+          <div class="bg-slate-950 border border-slate-800 p-2.5 rounded-xl">
+            <span class="text-[9.5px] text-slate-400 block mb-0.5 font-bold uppercase">RETURN ON INVESTMENT</span>
+            <span class="text-sm font-extrabold text-emerald-400">+403.57% ROI</span>
+            <span class="text-[9px] text-slate-500 block mt-0.5">(Annual Savings / Investment)</span>
           </div>
-          <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
-            <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">EVM DELIVERABILITY</span>
-            <span class="text-sm font-extrabold text-cyan-400">CPI 1.12 | SPI 1.06</span>
-            <span class="text-[10px] text-slate-500 block mt-1">(95% Delivery Reliability)</span>
+          <div class="bg-slate-950 border border-slate-800 p-2.5 rounded-xl">
+            <span class="text-[9.5px] text-slate-400 block mb-0.5 font-bold uppercase">EVM DELIVERABILITY</span>
+            <span class="text-xs font-extrabold text-cyan-400">CPI 1.12 | SPI 1.06</span>
+            <span class="text-[9px] text-slate-500 block mt-0.5">(95% Delivery Reliability)</span>
           </div>
         </div>
 
@@ -313,20 +313,9 @@ function generateHtml(mode) {
               </div>
             </div>
 
-            <!-- Results Container -->
-            <div id="publishing-results" class="min-h-[110px] bg-slate-900/60 border border-slate-800 rounded-xl p-3 font-mono text-xs flex flex-col justify-center">
+            <!-- Expanded Results Container (No Terminals, Zero Cutoff) -->
+            <div id="publishing-results" class="min-h-[180px] max-h-[220px] overflow-y-auto bg-slate-900/60 border border-slate-800 rounded-xl p-3 font-mono text-xs flex flex-col justify-center">
               <div class="text-slate-500 text-center text-[11px]">[Click button above to evaluate web code publishing]</div>
-            </div>
-
-            <!-- Terminal Stream Box -->
-            <div class="bg-black/90 border border-slate-800 rounded-xl p-2.5 font-mono text-[10.5px] text-cyan-400 max-h-[130px] overflow-y-auto">
-              <div class="text-slate-500 text-[9.5px] uppercase border-b border-slate-800 pb-1 mb-1.5 flex justify-between">
-                <span>Terminal Stream</span>
-                <span id="publishing-terminal-status" class="text-slate-600">IDLE</span>
-              </div>
-              <div id="publishing-terminal-body" class="space-y-1 text-slate-300 pb-2">
-                <span class="text-slate-600">> Ready for web publishing execution...</span>
-              </div>
             </div>
           </div>
 
@@ -350,20 +339,9 @@ function generateHtml(mode) {
               </div>
             </div>
 
-            <!-- Execution Results Container -->
-            <div id="webhook-results" class="min-h-[110px] bg-slate-900/60 border border-slate-800 rounded-xl p-3 font-mono text-xs flex flex-col justify-center">
+            <!-- Expanded Execution Results Container (No Terminals, Zero Cutoff) -->
+            <div id="webhook-results" class="min-h-[180px] max-h-[220px] overflow-y-auto bg-slate-900/60 border border-slate-800 rounded-xl p-3 font-mono text-xs flex flex-col justify-center">
               <div class="text-slate-500 text-center text-[11px]">[Click button above to execute automated API payload broadcast]</div>
-            </div>
-
-            <!-- Terminal Stream Box -->
-            <div class="bg-black/90 border border-slate-800 rounded-xl p-2.5 font-mono text-[10.5px] text-emerald-400 max-h-[130px] overflow-y-auto">
-              <div class="text-slate-500 text-[9.5px] uppercase border-b border-slate-800 pb-1 mb-1.5 flex justify-between">
-                <span>Terminal Stream</span>
-                <span id="webhook-terminal-status" class="text-slate-600">IDLE</span>
-              </div>
-              <div id="webhook-terminal-body" class="space-y-1 text-slate-300 pb-2">
-                <span class="text-slate-600">> Ready for automated payload broadcast...</span>
-              </div>
             </div>
           </div>
           ` : ''}
@@ -547,31 +525,6 @@ function generateHtml(mode) {
       setTimeout(() => ripple.remove(), 600);
     }
 
-    async function typeTerminalLines(containerId, statusId, lines, statusText = "RUNNING") {
-      const container = document.getElementById(containerId);
-      const status = document.getElementById(statusId);
-      if (!container || !status) return;
-      container.innerHTML = "";
-      status.innerText = statusText;
-      status.className = "text-cyan-400 font-bold animate-pulse";
-
-      for (const line of lines) {
-        const div = document.createElement("div");
-        div.className = "text-slate-200 font-mono text-[10.5px]";
-        div.innerHTML = \`<span class="text-cyan-400">></span> \${line}\`;
-        container.appendChild(div);
-        if (container.parentElement) {
-          container.parentElement.scrollTop = container.parentElement.scrollHeight;
-        } else {
-          container.scrollTop = container.scrollHeight;
-        }
-        await new Promise(res => setTimeout(res, 400));
-      }
-
-      status.innerText = "COMPLETE";
-      status.className = "text-emerald-400 font-bold";
-    }
-
     function showBanner(htmlContent, bgClass) {
       const banner = document.getElementById('status-banner');
       if (!banner) return;
@@ -585,24 +538,18 @@ function generateHtml(mode) {
       if (!results) return;
 
       results.innerHTML = \`
-        <div class="space-y-1.5">
-          <div class="text-rose-400 font-bold text-xs">Manual Upload: Requisition #PR-2026-0343</div>
-          <div class="text-rose-300 font-extrabold text-xs border-l-2 border-rose-500 pl-2.5 py-1 bg-rose-950/20">
+        <div class="space-y-2 font-mono">
+          <div class="text-rose-400 font-bold text-xs border-b border-rose-900/50 pb-1">Manual Upload: Requisition #PR-2026-0343</div>
+          <div class="text-rose-300 font-extrabold text-xs border-l-2 border-rose-500 pl-2.5 py-1 bg-rose-950/30 rounded-r">
             ⚠️ Manual Publishing Failed: WCAG contrast rules violated & mobile portal API timed out!
           </div>
-          <div class="text-slate-400 text-[10.5px]">
-            Text contrast ratio (2.1:1) failed WCAG 2.1 AA minimums (4.5:1). Missing ARIA landmarks broke screen readers. Modo Labs / OneCampus payload sync timed out.
+          <div class="text-slate-300 text-[11px] leading-relaxed space-y-1 font-sans">
+            <p>• <strong>WCAG Audit Error:</strong> Text contrast ratio 2.1:1 fails required 4.5:1 AA threshold.</p>
+            <p>• <strong>Screen Reader Fault:</strong> Missing ARIA landmark tags (&lt;nav&gt;, &lt;main&gt;) breaks screen-reader audio navigation.</p>
+            <p>• <strong>API Sync Failure:</strong> Modo Labs Mobile App & OneCampus Web Portal connection timed out (504 Gateway Error).</p>
+            <p class="text-rose-400 font-mono text-[10.5px] font-bold pt-1">Process halted. 72+ hour publishing backlog created; compliance risk flagged.</p>
           </div>
         </div>\`;
-
-      typeTerminalLines('publishing-terminal-body', 'publishing-terminal-status', [
-        "Reading developer upload for villanova.edu/arts-sciences...",
-        "Analyst manual upload completed without automated accessibility checks.",
-        "WCAG Audit Error: Text contrast ratio 2.1:1 fails required 4.5:1 threshold.",
-        "A11y Error: Missing ARIA landmark tags breaks screen-reader navigation.",
-        "Modo Labs Mobile App API: Connection Timeout (504 Gateway Error).",
-        "Process halted. 72+ hour publishing backlog created; compliance risk flagged."
-      ]);
 
       showBanner(
         "<strong>⚠️ Manual upload failed:</strong> Human copy-pasting missed invisible WCAG accessibility tags and caused mobile portal sync timeouts, risking federal compliance audits.",
@@ -615,25 +562,18 @@ function generateHtml(mode) {
       if (!results) return;
 
       results.innerHTML = \`
-        <div class="space-y-1.5">
-          <div class="text-cyan-400 font-bold text-xs">AI Agentic AST Auditor: Requisition #PR-2026-0343</div>
-          <div class="text-emerald-400 font-extrabold text-xs border-l-2 border-emerald-500 pl-2.5 py-1 bg-emerald-950/20">
-            SUCCESS: 100% WCAG 2.1 AA Accessibility Compliant in <20ms
+        <div class="space-y-2 font-mono">
+          <div class="text-cyan-400 font-bold text-xs border-b border-slate-800 pb-1">AI Agentic AST Auditor: Requisition #PR-2026-0343</div>
+          <div class="text-emerald-400 font-extrabold text-xs border-l-2 border-emerald-500 pl-2.5 py-1 bg-emerald-950/30 rounded-r">
+            SUCCESS: 100% WCAG 2.1 AA Accessibility Compliant in &lt;20ms
           </div>
-          <div class="text-slate-300 text-[10.5px] flex gap-3 font-mono">
-            <span>• Contrast Ratio: <strong class="text-emerald-300">Auto-Fixed to 7.1:1</strong></span>
-            <span>• ARIA Landmarks: <strong class="text-emerald-300">Inserted</strong></span>
+          <div class="text-slate-300 text-[11px] leading-relaxed space-y-1 font-sans">
+            <p>• <strong>AST In-Memory DOM Inspection:</strong> Constructed DOM tree for AEM EDS component in &lt;2ms.</p>
+            <p>• <strong>Auto-Fix Action:</strong> Hex color code auto-adjusted to high-contrast #0F172A (<strong class="text-emerald-300">7.1:1 ratio</strong>).</p>
+            <p>• <strong>ARIA Tag Insertion:</strong> Inserted invisible landmark tags (&lt;nav&gt;, &lt;main&gt;, &lt;header&gt;).</p>
+            <p class="text-emerald-400 font-mono text-[10.5px] font-bold pt-1">AST Re-Validation: 100% WCAG 2.1 AA compliance mathematically verified.</p>
           </div>
         </div>\`;
-
-      typeTerminalLines('publishing-terminal-body', 'publishing-terminal-status', [
-        "Executing AI Agentic AST Code Auditor (<20ms)...",
-        "AST Parsing: In-memory DOM tree constructed for AEM EDS component.",
-        "Mathematical Rule Check: Contrast ratio calculated at 2.1:1 (failing).",
-        "AI Agent Tool Action: Adjusted text hex color to high-contrast #0F172A (7.1:1 ratio).",
-        "AI Agent Tool Action: Inserted invisible ARIA landmark tags (<nav>, <main>).",
-        "AST Re-Validation: 100% WCAG 2.1 AA compliance mathematically verified."
-      ]);
 
       showBanner(
         "<strong>✅ AI Agentic AST Audit succeeded:</strong> Automatically inspected and fixed WCAG accessibility code in <20ms, ensuring 100% digital compliance.",
@@ -646,24 +586,18 @@ function generateHtml(mode) {
       if (!results) return;
 
       results.innerHTML = \`
-        <div class="space-y-1.5">
-          <div class="text-emerald-400 font-bold text-xs">Event Webhook Integration Gateway</div>
-          <div class="text-emerald-300 font-extrabold text-xs border-l-2 border-emerald-500 pl-2.5 py-1 bg-emerald-950/20">
-            SUCCESS: Multi-Platform Sync Complete in <1.5 Hours
+        <div class="space-y-2 font-mono">
+          <div class="text-emerald-400 font-bold text-xs border-b border-slate-800 pb-1">Event Webhook Integration Gateway</div>
+          <div class="text-emerald-300 font-extrabold text-xs border-l-2 border-emerald-500 pl-2.5 py-1 bg-emerald-950/30 rounded-r">
+            SUCCESS: Multi-Platform Sync Complete in &lt;1.5 Hours
           </div>
-          <div class="text-slate-300 text-[10.5px] font-mono">
-            Modo Labs Mobile API: 200 OK | OneCampus Portal API: 200 OK | Net Savings: $1,130,000/yr
+          <div class="text-slate-300 text-[11px] leading-relaxed space-y-1 font-sans">
+            <p>• <strong>Event Interception:</strong> Caught AEM 'PagePublished' event signal instantly.</p>
+            <p>• <strong>Modo Labs Mobile API:</strong> Executed HTTPS POST broadcast (<strong class="text-emerald-300">200 OK - Payload Synced</strong>).</p>
+            <p>• <strong>OneCampus Web Portal API:</strong> Executed HTTPS POST broadcast (<strong class="text-emerald-300">200 OK - Payload Synced</strong>).</p>
+            <p class="text-cyan-400 font-mono text-[10.5px] font-bold pt-1">Deployment complete in 1.5 hours SLA | Net Savings: $1,130,000/yr</p>
           </div>
         </div>\`;
-
-      typeTerminalLines('webhook-terminal-body', 'webhook-terminal-status', [
-        "Executing Event Webhook Integration Gateway...",
-        "Catching AEM 'PagePublished' event signal...",
-        "Payload Construction: Formatted JSON packages for Modo Labs & OneCampus APIs.",
-        "Executing HTTPS POST: Modo Labs Mobile REST API (200 OK - Payload Synced).",
-        "Executing HTTPS POST: OneCampus Web Portal REST API (200 OK - Payload Synced).",
-        "SUCCESS: Multi-platform deployment completed in 1.5 hours with zero errors."
-      ]);
 
       showBanner(
         "<strong>✅ Event Webhook Multi-Cast succeeded:</strong> Automatically updated both the Modo Labs student mobile app and OneCampus web portal in <1.5 hours, capturing $1.13M in annual savings.",

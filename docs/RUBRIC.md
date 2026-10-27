@@ -1,4 +1,4 @@
-# System Portfolio & Walkthrough Standardization Rubric (v2.1)
+# System Portfolio & Walkthrough Standardization Rubric (v2.2)
 
 This document establishes the official design, presentation, UI, terminology, architectural justification, and governance standards for all portfolio web assets (`public/index.html`), demonstration applications (`server.js`), and generated media walkthroughs (`scripts/generate-walkthrough-gif.js`).
 
@@ -7,8 +7,8 @@ This document establishes the official design, presentation, UI, terminology, ar
 ## 1. Core Principles & Continual Learning Protocol
 
 ### **1.1 Continual Learning & Versioning**
-- Every future session that modifies web assets, walkthrough scripts, or demonstration pages **MUST** read `docs/RUBRIC.md` to verify full compliance.
-- When new capabilities, layout improvements, or solution patterns are merged into the repository, the active session **MUST** update `docs/RUBRIC.md` and increment the version (e.g., `v1.0` → `v1.1` → `v1.2` → `v1.3` → `v1.4` → `v1.5`).
+- Every future session that modifies web assets, walkthrough scripts, or demonstration pages **MUST** read `docs/RUBRIC.md` and `LESSONS_LEARNED.md` to verify full compliance.
+- When new capabilities, layout improvements, or solution patterns are merged into the repository, the active session **MUST** update `docs/RUBRIC.md` and increment the version (e.g., `v2.1` → `v2.2`).
 - Historical PRs, git logs, and `docs/plans/` serve as training data for future agents to continuously improve solution quality.
 
 ### **1.2 Mandatory Wireframes Before Implementation**
@@ -69,9 +69,13 @@ This document establishes the official design, presentation, UI, terminology, ar
 - Every demo slide/screen across ALL job cards MUST feature the `SECTION X OF Y` label positioned consistently in the **TOP-LEFT CORNER** of the outer main window (e.g., `SECTION 1 OF 5`, `SECTION 2 OF 5`, `SECTION 3 OF 5`, `SECTION 4 OF 5`, `SECTION 5 OF 5`), completely detached and independent from any inner content box or modal card.
 - The `SECTION X OF Y` label MUST maintain identical font size, font family (`font-mono`), color (`text-cyan-400`), weight (`font-bold`), and uppercase tracking across all sections and title cards.
 
-### **2.5 Terminal Stream Formatting, Frozen Viewport & Zero Clipping Guardrail**
-- All terminal stream outputs in demo panels MUST be strictly contained within fixed-height containers (`max-h-[120px]` or `max-h-[130px]`) with internal automatic bottom-scrolling (`scrollTop = scrollHeight`) and internal bottom padding, guaranteeing zero vertical clipping or bottom text cutoffs in recorded video walkthroughs.
-- During terminal stream text printing in walkthroughs, the outer page viewport MUST remain frozen and fixed (no outer page scrolling), so text above terminal sections remains completely static and readable without page jitter.
+### **2.5 Permanent Removal of Terminal Streams & Clean Expanded Panels**
+- Terminal streams and raw terminal log boxes are **PERMANENTLY REMOVED** from all demo template code and workspace applications (`server.js`). Terminals do not convey useful information for executive viewers or hiring managers.
+- In place of terminal streams, execution result containers **MUST** be expanded (`min-h-[160px]` / `max-h-[220px]`, with internal `overflow-y-auto`) to display clear, high-contrast operational summaries, key performance indicators, and structured outcomes without empty whitespace.
+
+### **2.6 Universal Dynamic Text Scaling & Zero Vertical Cutoff Invariant**
+- **Strict Zero-Clipping Rule**: All UI elements, cards, chips, containers, and text font sizes **MUST** be dynamically styled and sized to guarantee zero vertical clipping or bottom text cutoffs within the standard 1280x720 video walkthrough viewport frame.
+- **Dynamic Font & Content Scaling**: All text font sizes (`text-[10px]` through `text-sm`) and chip containers **MUST** adjust and scale dynamically depending on surrounding content. If a slide or section contains additional descriptive text, chip sizes, text sizes, and padding (`p-2` to `p-2.5`) MUST shrink dynamically so that all content fits cleanly inside the viewport without pushing elements off-screen.
 
 ### **2.6 Zero Commingling of Previous Demo Content & Terminology**
 - Content or terminology from previous job role demos (e.g., "Target Entity", "M&A", "Deal Target", "Deal Brief", or "Subordinated Notes" from Lockheed) **MUST NEVER** appear in new job role demos (such as Procurement or Engineering). Each demo must be 100% cleanly scoped to its specific target job role domain.
