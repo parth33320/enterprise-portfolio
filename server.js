@@ -8,21 +8,23 @@ function generateHtml(mode) {
   const isSection2 = mode === 'section2';
   const isSection3 = mode === 'section3';
   const isSection4 = mode === 'section4';
-  const isAppendix = mode === 'appendix';
+  const isSection5 = mode === 'appendix' || mode === 'section5';
+  const isSection6 = mode === 'techdetails1' || mode === 'techdetails2' || mode === 'section6';
+  const techPart2 = mode === 'techdetails2';
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Procurement Optimization Workspace</title>
+  <title>Villanova UTS Web Services Workspace</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Inter', sans-serif; }
     .font-mono { font-family: 'JetBrains Mono', monospace; }
 
-    /* Custom Virtual Cursor & Click Ripple Animations */
+    /* Virtual Cursor & Ripple Effect Animations */
     #virtual-cursor {
       position: fixed;
       width: 20px;
@@ -60,83 +62,205 @@ function generateHtml(mode) {
     </svg>
   </div>
 
-  <!-- STANDARDIZED MAIN OUTER WINDOW CONTAINER -->
+  <!-- STANDARDIZED OUTER MAIN WINDOW CONTAINER -->
   <main class="max-w-5xl mx-auto space-y-6 min-h-screen flex flex-col justify-center">
 
-    ${isSection1 ? `
-    <!-- SECTION 1 CONTAINER: SYSTEM TARGET METRICS BRIEF -->
+    ${isSection1 || (!isSection2 && !isSection3 && !isSection4 && !isSection5 && !isSection6) ? `
+    <!-- SECTION 1 CONTAINER: EXECUTIVE BRIEF & TARGET METRICS -->
     <section id="section-1-container" class="space-y-4 py-2">
-      <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">SECTION 1 OF 5 | AUDIT BRIEF</div>
+      <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">SECTION 1 OF 5 | EXECUTIVE BRIEF</div>
       <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 space-y-6 shadow-2xl">
         <div class="flex justify-between items-start border-b border-slate-800 pb-4">
           <div>
-            <h1 class="text-xl font-extrabold text-white mt-1">Indirect Procurement Procure-to-Pay (P2P) Optimization</h1>
-            <p class="text-xs text-slate-400 mt-1">Automating supplier quote analysis and Purchase Order execution to cut purchasing turn times from 72 hours down to 1.5 hours.</p>
+            <h1 class="text-xl font-extrabold text-white mt-1">Villanova UTS Web Services & Digital Ecosystem Optimization</h1>
+            <p class="text-xs text-slate-400 mt-1">Automating AEM Edge Delivery Services (EDS) WCAG 2.1 AA accessibility checking and Modo Labs / OneCampus API payload sync.</p>
           </div>
           <span class="bg-emerald-950 border border-emerald-800 text-emerald-300 text-xs font-mono font-bold px-3 py-1 rounded-full uppercase tracking-wider shrink-0">
-            +332.14% ROI
+            +403.57% ROI
           </span>
+        </div>
+
+        <!-- Risk Analysis Matrix -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 font-mono text-xs">
+          <div class="bg-slate-950 p-3 rounded-xl border border-rose-900/50 bg-rose-950/10">
+            <span class="text-[10px] text-rose-400 font-bold block uppercase tracking-wider">Specific Risk Identified</span>
+            <p class="text-slate-200 font-sans text-xs mt-1 leading-snug">
+              Manual web uploading misses WCAG 2.1 AA accessibility rules and breaks mobile app (Modo Labs) and web portal (OneCampus) API payloads.
+            </p>
+          </div>
+
+          <div class="bg-slate-950 p-3 rounded-xl border border-amber-900/50 bg-amber-950/10">
+            <span class="text-[10px] text-amber-400 font-bold block uppercase tracking-wider">Why It Matters</span>
+            <p class="text-slate-200 font-sans text-xs mt-1 leading-snug">
+              Causes 72+ hour publishing backlogs, federal digital accessibility audit violation risks, and <strong class="text-amber-400 font-mono">$1,130,000</strong> in annual operating waste.
+            </p>
+          </div>
+
+          <div class="bg-slate-950 p-3 rounded-xl border border-emerald-900/50 bg-emerald-950/10">
+            <span class="text-[10px] text-emerald-400 font-bold block uppercase tracking-wider">How To Eliminate Risk</span>
+            <p class="text-slate-200 font-sans text-xs mt-1 leading-snug">
+              Deploy AI Agentic AST Code Auditor to auto-fix WCAG rules in <20ms, coupled with an Event-Driven Webhook Gateway to update mobile and portal APIs.
+            </p>
+          </div>
+        </div>
+
+        <!-- SLA Benchmark Comparison Chart -->
+        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+          <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800/80 pb-2">
+            <span class="text-slate-300 font-bold">Publishing & Multi-Platform Deployment SLA (Hours)</span>
+            <span class="text-slate-500 text-[10px]">Source: Villanova UTS Operations Audit</span>
+          </div>
+
+          <div class="space-y-2.5 font-mono text-xs pt-1">
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-slate-400">Legacy Manual Web Analyst Upload:</span>
+                <span class="text-rose-400 font-bold">72.0 Hours SLA (High Audit & Sync Risk)</span>
+              </div>
+              <div class="w-full bg-slate-900 h-3.5 rounded-full overflow-hidden border border-slate-800">
+                <div class="bg-rose-500 h-full rounded-full" style="width: 100%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-slate-400">Optimized AI AST & Webhook Pipeline:</span>
+                <span class="text-emerald-400 font-bold">1.5 Hours SLA (<20ms Code Audit)</span>
+              </div>
+              <div class="w-full bg-slate-900 h-3.5 rounded-full overflow-hidden border border-slate-800">
+                <div class="bg-emerald-500 h-full rounded-full" style="width: 4%"></div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Standardized 6-KPI Chips Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono">
           <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
             <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">LEGACY OPERATING COST</span>
-            <span class="text-base font-extrabold text-rose-400">$12,400,000 / yr</span>
-            <span class="text-[10px] text-slate-500 block mt-1">(Pre-optimization manual workflow cost)</span>
+            <span class="text-base font-extrabold text-rose-400">$1,450,000 / yr</span>
+            <span class="text-[10px] text-slate-500 block mt-1">(Pre-optimization manual workflow)</span>
           </div>
           <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
             <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">OPTIMIZED OPERATING COST</span>
-            <span class="text-base font-extrabold text-emerald-400">$3,100,000 / yr</span>
-            <span class="text-[10px] text-slate-500 block mt-1">(Post-optimization automated workflow cost)</span>
+            <span class="text-base font-extrabold text-emerald-400">$320,000 / yr</span>
+            <span class="text-[10px] text-slate-500 block mt-1">(Post-optimization automated pipeline)</span>
           </div>
           <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
             <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">NET ANNUAL SAVINGS</span>
-            <span class="text-base font-extrabold text-cyan-400">$9,300,000 / yr</span>
+            <span class="text-base font-extrabold text-cyan-400">$1,130,000 / yr</span>
             <span class="text-[10px] text-slate-500 block mt-1">(Legacy minus Optimized)</span>
           </div>
           <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
             <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">SOLUTION INVESTMENT</span>
-            <span class="text-base font-extrabold text-slate-100">$2,800,000 USD</span>
+            <span class="text-base font-extrabold text-slate-100">$280,000 USD</span>
             <span class="text-[10px] text-slate-500 block mt-1">(Platform build & deploy cost)</span>
           </div>
           <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
             <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">RETURN ON INVESTMENT</span>
-            <span class="text-base font-extrabold text-emerald-400">+332.14% ROI</span>
+            <span class="text-base font-extrabold text-emerald-400">+403.57% ROI</span>
             <span class="text-[10px] text-slate-500 block mt-1">(Annual Savings / Investment)</span>
           </div>
           <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl">
             <span class="text-[10px] text-slate-400 block mb-1 font-bold uppercase">EVM DELIVERABILITY</span>
-            <span class="text-sm font-extrabold text-cyan-400">CPI 1.15 | SPI 1.08</span>
-            <span class="text-[10px] text-slate-500 block mt-1">(96% Delivery Reliability)</span>
+            <span class="text-sm font-extrabold text-cyan-400">CPI 1.12 | SPI 1.06</span>
+            <span class="text-[10px] text-slate-500 block mt-1">(95% Delivery Reliability)</span>
+          </div>
+        </div>
+
+        <div class="p-3 bg-cyan-950/30 border border-cyan-500/30 text-cyan-200 rounded-xl text-xs font-sans leading-relaxed">
+          <strong>✅ Executive Recommendation:</strong> Deploy AI Agentic AST Code Auditor & Event-Driven Webhook Integration Engine to reduce web publishing SLA from 72 hours down to 1.5 hours and capture $1,130,000 in net annual savings.
+        </div>
+      </div>
+    </section>
+    ` : ''}
+
+    ${isSection2 ? `
+    <!-- SECTION 2 CONTAINER: TECHNICAL DEEP DIVE & ARCHITECTURE DIAGRAM -->
+    <section id="section-2-container" class="space-y-4 py-2">
+      <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">SECTION 2 OF 5 | SYSTEM ARCHITECTURE & DEEP DIVE</div>
+
+      <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-5 shadow-2xl">
+        <div class="border-b border-slate-800 pb-3">
+          <h2 class="text-base font-extrabold text-white tracking-tight">Comparative System Architecture & Information Flow</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Villanova UTS Web Services — Comparing Legacy Manual Upload vs. Optimized AI AST & Webhook Pipeline in Plain English</p>
+        </div>
+
+        <!-- Comparative Diagrammatic Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs">
+          <!-- Legacy Architecture Box -->
+          <div class="bg-slate-950 p-4 rounded-xl border border-rose-900/60 bg-rose-950/10 space-y-3">
+            <div class="text-rose-400 font-bold uppercase text-[11px] border-b border-rose-900/50 pb-2">
+              🚨 Legacy Manual Architecture (72-Hour Backlog & High Error Rate)
+            </div>
+
+            <div class="space-y-2 text-[11px] text-slate-300">
+              <div class="bg-slate-900 p-2.5 rounded border border-slate-800">
+                <span class="text-rose-300 font-bold block">1. Developer Document</span>
+                <p class="text-[10.5px] text-slate-400 font-sans mt-0.5">Unchecked web code & content written in Word/Markdown files.</p>
+              </div>
+              <div class="text-center text-rose-400 font-bold">↓ (Manual Copy & Paste)</div>
+              <div class="bg-slate-900 p-2.5 rounded border border-slate-800">
+                <span class="text-rose-300 font-bold block">2. AEM Admin Console</span>
+                <p class="text-[10.5px] text-slate-400 font-sans mt-0.5">Human analyst copy-pastes HTML into AEM without automated checks.</p>
+              </div>
+              <div class="text-center text-rose-400 font-bold">↓ (Unverified Publish Attempt)</div>
+              <div class="bg-slate-900 p-2.5 rounded border border-rose-800/80">
+                <span class="text-rose-400 font-bold block">3. Broken Webpages & API Failures</span>
+                <p class="text-[10.5px] text-slate-400 font-sans mt-0.5">Missing ARIA tags cause WCAG audit faults; mobile/portal API payloads time out.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Optimized Architecture Box -->
+          <div class="bg-slate-950 p-4 rounded-xl border border-emerald-900/60 bg-emerald-950/10 space-y-3">
+            <div class="text-emerald-400 font-bold uppercase text-[11px] border-b border-emerald-900/50 pb-2">
+              ✅ Optimized AI AST & Webhook Pipeline (<1.5 Hours & 100% Compliant)
+            </div>
+
+            <div class="space-y-2 text-[11px] text-slate-300">
+              <div class="bg-slate-900 p-2.5 rounded border border-slate-800">
+                <span class="text-cyan-300 font-bold block">1. AEM Edge Delivery Services (EDS)</span>
+                <p class="text-[10.5px] text-slate-400 font-sans mt-0.5">Developer pushes HTML/JSX content block into Git repository.</p>
+              </div>
+              <div class="text-center text-cyan-400 font-bold">↓ (Instant <20ms Code Audit)</div>
+              <div class="bg-slate-900 p-2.5 rounded border border-slate-800">
+                <span class="text-emerald-300 font-bold block">2. AI Agentic AST Code Auditor</span>
+                <p class="text-[10.5px] text-slate-400 font-sans mt-0.5">Parses code nodes, calculates contrast (≥4.5:1), and auto-inserts ARIA landmark tags.</p>
+              </div>
+              <div class="text-center text-emerald-400 font-bold">↓ (Event Webhook Multi-Cast)</div>
+              <div class="bg-slate-900 p-2.5 rounded border border-emerald-800/80">
+                <span class="text-emerald-400 font-bold block">3. Modo Labs & OneCampus APIs (200 OK)</span>
+                <p class="text-[10.5px] text-slate-400 font-sans mt-0.5">Event Gateway broadcasts JSON payloads to mobile app & student portal instantly.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
     ` : ''}
 
-    ${isSection2 || isSection3 ? `
-    <!-- SECTION 2 & 3 OUTER MAIN WINDOW -->
+    ${isSection3 || isSection4 ? `
+    <!-- SECTION 3 & 4 OUTER MAIN WINDOW -->
     <section id="workspace-container" class="space-y-4 py-2">
-      <!-- TOP-LEFT SECTION LABEL & STANDARD OUTER HEADER -->
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
         <div>
           <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">
-            ${isSection2 ? 'SECTION 2 OF 5 | LEGACY WORKFLOW' : 'SECTION 3 OF 5 | OPTIMIZED WORKFLOW'}
+            ${isSection3 ? 'SECTION 3 OF 5 | LEGACY WORKFLOW' : 'SECTION 4 OF 5 | OPTIMIZED WORKFLOW'}
           </div>
           <h1 class="text-base font-extrabold text-white mt-0.5">
-            ${isSection2 ? 'Legacy Baseline: Manual Supplier Quote Processing' : 'System Optimization: AI Quote Extraction Engine + SAP Deterministic Rules Engine'}
+            ${isSection3 ? 'Legacy Baseline: Manual Analyst Upload & Unverified Web Publishing' : 'System Optimization: AI Agentic AST Code Auditor + Event-Driven Webhook Integration Gateway'}
           </h1>
         </div>
       </div>
 
-      ${isSection3 ? `
-      <!-- ARCHITECTURE JUSTIFICATION PANEL (PROCESS OF ELIMINATION) -->
+      ${isSection4 ? `
+      <!-- ARCHITECTURAL JUSTIFICATION (PROCESS OF ELIMINATION) -->
       <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3.5 text-xs font-sans space-y-2">
         <div class="text-cyan-400 font-mono font-bold text-[11px] uppercase">Architectural Justification (Process of Elimination):</div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px] text-slate-300">
-          <div>• <strong>Unstructured Quote Parsing:</strong> Hybrid RAG (Qdrant Vector DB + BM25 Lexical Search) selected over Naive RAG & Fine-Tuning to combine semantic legal risk detection with 100% exact part number matching.</div>
-          <div>• <strong>Financial Order Execution:</strong> SAP Deterministic Rules Engine selected over AI/Ontology to guarantee 100% zero-variance arithmetic and compliance during 3-Way Invoice Matching.</div>
+          <div>• <strong>AI Code Audit & Fixing:</strong> AI Agentic AST Parser selected over LLM Fine-Tuning to auto-fix code while evaluating WCAG contrast mathematically in <20ms.</div>
+          <div>• <strong>Multi-Platform Payload Sync:</strong> Event-Driven Webhooks selected over AI Agent loops for zero-error deterministic state shifts to Modo Labs & OneCampus.</div>
         </div>
       </div>
       ` : ''}
@@ -144,101 +268,101 @@ function generateHtml(mode) {
       <!-- TOP DISPLAY BANNER FOR LIVE SYSTEM EXPLANATIONS -->
       <div id="status-banner" class="hidden p-3.5 rounded-xl border text-xs font-sans leading-relaxed shadow-lg transition-all"></div>
 
-      <!-- INNER SAP ARIBA MOCKUP WINDOW (SCOPED STRICTLY TO SOFTWARE UI) -->
+      <!-- INNER AEM MOCKUP WINDOW -->
       <div class="bg-slate-900 border border-slate-700/80 rounded-2xl p-4 space-y-4 shadow-2xl relative">
 
-        <!-- SAP Shell Bar Header Mockup -->
-        <div class="bg-[#0A6ED1] text-white rounded-xl p-3 flex justify-between items-center text-xs font-sans shadow-md">
+        <!-- AEM Header Bar Mockup -->
+        <div class="bg-[#2C2C2C] text-white rounded-xl p-3 flex justify-between items-center text-xs font-sans shadow-md border border-slate-700">
           <div class="flex items-center gap-3">
-            <span class="bg-[#F0AB00] text-slate-950 font-extrabold px-2 py-0.5 rounded text-[11px] tracking-wide">SAP Ariba</span>
-            <span class="font-semibold text-white/90">Sourcing & Procurement Workspace | Site 496 - Mexicali Plant</span>
+            <span class="bg-[#FF0000] text-white font-extrabold px-2 py-0.5 rounded text-[11px] tracking-wide">Adobe AEM</span>
+            <span class="font-semibold text-white/90">Cloud Service | Villanova UTS Web Console (villanova.edu)</span>
           </div>
           <div class="flex items-center gap-3 text-[11px] font-mono text-white/80">
-            <span>User: Sr Analyst Procurement</span>
+            <span>User: Associate Developer</span>
             <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span>
           </div>
         </div>
 
-        <!-- SAP Module Navigation Tabs -->
+        <!-- Navigation Tabs -->
         <div class="flex border-b border-slate-700/80 text-xs font-medium text-slate-300 gap-6 px-2">
-          <div class="border-b-2 border-cyan-400 text-cyan-300 font-bold pb-2 cursor-pointer">1. Sourcing Events</div>
-          <div class="text-slate-400 hover:text-slate-200 pb-2 cursor-pointer">2. Procure-to-Pay (P2P)</div>
-          <div class="text-slate-400 hover:text-slate-200 pb-2 cursor-pointer">3. Master Contracts (LTA)</div>
+          <div class="border-b-2 border-cyan-400 text-cyan-300 font-bold pb-2 cursor-pointer">1. Edge Delivery Services (EDS)</div>
+          <div class="text-slate-400 hover:text-slate-200 pb-2 cursor-pointer">2. Modo Labs Mobile App Sync</div>
+          <div class="text-slate-400 hover:text-slate-200 pb-2 cursor-pointer">3. OneCampus Web Portal Sync</div>
         </div>
 
         <!-- INNER MOCKUP PANELS GRID -->
-        <div class="grid grid-cols-1 ${isSection2 ? 'grid-cols-1' : 'md:grid-cols-2'} gap-4">
+        <div class="grid grid-cols-1 ${isSection3 ? 'grid-cols-1' : 'md:grid-cols-2'} gap-4">
 
-          <!-- LEFT INNER PANEL: SAP ARIBA SOURCING WORKSPACE -->
+          <!-- LEFT INNER PANEL: AEM PUBLISHING & AST AUDITOR -->
           <div class="bg-slate-950 border border-slate-800 rounded-xl p-3.5 space-y-3">
             <div class="flex justify-between items-start border-b border-slate-800 pb-2">
               <div>
                 <h2 class="text-xs font-bold text-white flex items-center gap-2 font-mono">
-                  <span class="w-2 h-2 rounded-full ${isSection2 ? 'bg-rose-400' : 'bg-cyan-400'}"></span>
-                  ${isSection2 ? 'Manual Supplier Quote Analysis' : 'AI Supplier Quote & T&C Extraction Engine'}
+                  <span class="w-2 h-2 rounded-full ${isSection3 ? 'bg-rose-400' : 'bg-cyan-400'}"></span>
+                  ${isSection3 ? 'Analyst Manual Upload & Publishing' : 'AI Agentic AST Code Auditor'}
                 </h2>
-                <p class="text-[10px] text-slate-400 mt-0.5">Requisition #PR-496-082 | CNC Carbide Inserts (Qty: 5,000 Units)</p>
+                <p class="text-[10px] text-slate-400 mt-0.5">Requisition #PR-2026-0343 | Page: villanova.edu/arts-sciences</p>
               </div>
             </div>
 
-            <!-- Sourcing Controls -->
+            <!-- Controls -->
             <div class="space-y-1.5">
               <div class="flex gap-2">
-                ${isSection2 ? `<button id="btn-regular-sourcing" onclick="runManualSourcing()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono px-3.5 py-2 rounded-xl border border-slate-700 font-bold">Run Manual Quote Analysis</button>` : ''}
-                ${isSection3 ? `<button id="btn-ai-sourcing" onclick="runAISourcing()" class="w-full bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold text-xs font-mono px-3.5 py-2 rounded-xl transition">Run AI Quote & Terms Extraction</button>` : ''}
+                ${isSection3 ? `<button id="btn-manual-upload" onclick="runManualUpload()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono px-3.5 py-2 rounded-xl border border-slate-700 font-bold">Run Analyst Manual Upload</button>` : ''}
+                ${isSection4 ? `<button id="btn-ai-ast-audit" onclick="runAIASTAudit()" class="w-full bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold text-xs font-mono px-3.5 py-2 rounded-xl transition">Run AI Agentic AST Audit & Auto-Fix</button>` : ''}
               </div>
             </div>
 
-            <!-- Sourcing Results Container -->
-            <div id="sourcing-search-results" class="min-h-[110px] bg-slate-900/60 border border-slate-800 rounded-xl p-3 font-mono text-xs flex flex-col justify-center">
-              <div class="text-slate-500 text-center text-[11px]">[Select sourcing mode above to evaluate supplier quotes]</div>
+            <!-- Results Container -->
+            <div id="publishing-results" class="min-h-[110px] bg-slate-900/60 border border-slate-800 rounded-xl p-3 font-mono text-xs flex flex-col justify-center">
+              <div class="text-slate-500 text-center text-[11px]">[Click button above to evaluate web code publishing]</div>
             </div>
 
-            <!-- Live Terminal Stream Box (Strict Non-Clipping Height) -->
+            <!-- Terminal Stream Box -->
             <div class="bg-black/90 border border-slate-800 rounded-xl p-2.5 font-mono text-[10.5px] text-cyan-400 max-h-[130px] overflow-y-auto">
               <div class="text-slate-500 text-[9.5px] uppercase border-b border-slate-800 pb-1 mb-1.5 flex justify-between">
                 <span>Terminal Stream</span>
-                <span id="sourcing-terminal-status" class="text-slate-600">IDLE</span>
+                <span id="publishing-terminal-status" class="text-slate-600">IDLE</span>
               </div>
-              <div id="sourcing-terminal-body" class="space-y-1 text-slate-300 pb-2">
-                <span class="text-slate-600">> Ready for quote evaluation execution...</span>
+              <div id="publishing-terminal-body" class="space-y-1 text-slate-300 pb-2">
+                <span class="text-slate-600">> Ready for web publishing execution...</span>
               </div>
             </div>
           </div>
 
-          ${isSection3 ? `
-          <!-- RIGHT INNER PANEL: DETERMINISTIC SAP ARIBA P2P RULE ENGINE -->
+          ${isSection4 ? `
+          <!-- RIGHT INNER PANEL: EVENT-DRIVEN WEBHOOK INTEGRATION GATEWAY -->
           <div class="bg-slate-950 border border-slate-800 rounded-xl p-3.5 space-y-3">
             <div class="flex justify-between items-start border-b border-slate-800 pb-2">
               <div>
                 <h2 class="text-xs font-bold text-white flex items-center gap-2 font-mono">
                   <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                  Deterministic SAP P2P Rule Engine
+                  Event-Driven Webhook Gateway
                 </h2>
-                <p class="text-[10px] text-slate-400 mt-0.5">Automated Purchase Order Creation & 3-Way Invoice Matching</p>
+                <p class="text-[10px] text-slate-400 mt-0.5">Automated Modo Labs Mobile & OneCampus Portal Multi-Cast</p>
               </div>
             </div>
 
-            <!-- P2P Action Controls -->
+            <!-- Action Controls -->
             <div class="space-y-1.5">
               <div class="flex gap-2">
-                <button id="btn-p2p-execution" onclick="runP2PExecution()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold text-xs font-mono px-3.5 py-2 rounded-xl transition">Run SAP P2P Auto-Execution</button>
+                <button id="btn-webhook-execution" onclick="runWebhookExecution()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold text-xs font-mono px-3.5 py-2 rounded-xl transition">Run Event Webhook Multi-Cast Sync</button>
               </div>
             </div>
 
-            <!-- P2P Execution Results Container -->
-            <div id="p2p-results" class="min-h-[110px] bg-slate-900/60 border border-slate-800 rounded-xl p-3 font-mono text-xs flex flex-col justify-center">
-              <div class="text-slate-500 text-center text-[11px]">[Click button above to execute automated SAP order placement]</div>
+            <!-- Execution Results Container -->
+            <div id="webhook-results" class="min-h-[110px] bg-slate-900/60 border border-slate-800 rounded-xl p-3 font-mono text-xs flex flex-col justify-center">
+              <div class="text-slate-500 text-center text-[11px]">[Click button above to execute automated API payload broadcast]</div>
             </div>
 
-            <!-- Live Terminal Stream Box (Strict Non-Clipping Height) -->
+            <!-- Terminal Stream Box -->
             <div class="bg-black/90 border border-slate-800 rounded-xl p-2.5 font-mono text-[10.5px] text-emerald-400 max-h-[130px] overflow-y-auto">
               <div class="text-slate-500 text-[9.5px] uppercase border-b border-slate-800 pb-1 mb-1.5 flex justify-between">
                 <span>Terminal Stream</span>
-                <span id="p2p-terminal-status" class="text-slate-600">IDLE</span>
+                <span id="webhook-terminal-status" class="text-slate-600">IDLE</span>
               </div>
-              <div id="p2p-terminal-body" class="space-y-1 text-slate-300 pb-2">
-                <span class="text-slate-600">> Ready for automated order placement...</span>
+              <div id="webhook-terminal-body" class="space-y-1 text-slate-300 pb-2">
+                <span class="text-slate-600">> Ready for automated payload broadcast...</span>
               </div>
             </div>
           </div>
@@ -249,145 +373,156 @@ function generateHtml(mode) {
     </section>
     ` : ''}
 
-    ${isSection4 ? `
-    <!-- SECTION 4 CONTAINER: EXECUTIVE BRIEF -->
-    <section id="section-4-container" class="py-2 space-y-3">
-      <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">SECTION 4 OF 5 | EXECUTIVE BRIEF</div>
-
-      <div id="executive-brief-card" class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-2xl relative">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-3 gap-2">
-          <div>
-            <h2 class="text-base font-extrabold text-white tracking-tight">Executive Procurement Brief & Operational Risk Assessment</h2>
-            <p class="text-xs text-slate-400 mt-0.5">Collins Aerospace - Indirect Procurement (Mexicali Site 496)</p>
-          </div>
-        </div>
-
-        <!-- Risk Analysis Matrix -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 font-mono text-xs">
-          <div class="bg-slate-950 p-3 rounded-xl border border-rose-900/50 bg-rose-950/10">
-            <span class="text-[10px] text-rose-400 font-bold block uppercase tracking-wider">Specific Risk Identified</span>
-            <p class="text-slate-200 font-sans text-xs mt-1 leading-snug">
-              Unstructured supplier quote T&Cs contain hidden lead-time delays (<strong class="text-rose-400 font-mono">14 Weeks delivery</strong>) and 15% freight penalty clauses.
-            </p>
-          </div>
-
-          <div class="bg-slate-950 p-3 rounded-xl border border-amber-900/50 bg-amber-950/10">
-            <span class="text-[10px] text-amber-400 font-bold block uppercase tracking-wider">Why It Matters</span>
-            <p class="text-slate-200 font-sans text-xs mt-1 leading-snug">
-              Triggers factory assembly line downtime at Mexicali Site 496 and causes <strong class="text-amber-400 font-mono">$3.1 Million</strong> in unbudgeted off-contract maverick spend.
-            </p>
-          </div>
-
-          <div class="bg-slate-950 p-3 rounded-xl border border-emerald-900/50 bg-emerald-950/10">
-            <span class="text-[10px] text-emerald-400 font-bold block uppercase tracking-wider">How To Eliminate Risk</span>
-            <p class="text-slate-200 font-sans text-xs mt-1 leading-snug">
-              Deploy AI LLM Quote Extraction to parse T&Cs in seconds, select contracted Vendor A (2-week lead time), and enforce 100% agreement leverage.
-            </p>
-          </div>
-        </div>
-
-        <!-- Benchmark Chart Comparison -->
-        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-          <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800/80 pb-2">
-            <span class="text-slate-300 font-bold">Delivery Lead Time Benchmark Comparison (Weeks)</span>
-            <span class="text-slate-500 text-[10px]">Source: SAP Ariba Analytics</span>
-          </div>
-
-          <div class="space-y-2.5 font-mono text-xs pt-1">
-            <!-- Optimal Contracted Vendor -->
-            <div>
-              <div class="flex justify-between text-[11px] mb-1">
-                <span class="text-slate-400">AI Recommended Vendor A (Contracted LTA Rate):</span>
-                <span class="text-emerald-400 font-bold">2 Weeks Delivery (Optimal Total Cost)</span>
-              </div>
-              <div class="w-full bg-slate-900 h-3.5 rounded-full overflow-hidden border border-slate-800">
-                <div class="bg-emerald-500 h-full rounded-full" style="width: 14%"></div>
-              </div>
-            </div>
-
-            <!-- Manual Evaluation Vendor B -->
-            <div>
-              <div class="flex justify-between text-[11px] mb-1">
-                <span class="text-slate-400">Manual Evaluation Vendor B (Hidden Delay Clause):</span>
-                <span class="text-rose-400 font-bold">14 Weeks Delivery (12-Wk Delay Risk)</span>
-              </div>
-              <div class="w-full bg-slate-900 h-3.5 rounded-full overflow-hidden border border-slate-800">
-                <div class="bg-rose-500 h-full rounded-full" style="width: 100%"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Action Banner -->
-        <div class="p-3 bg-cyan-950/30 border border-cyan-500/30 text-cyan-200 rounded-xl text-xs font-sans leading-relaxed">
-          <strong>✅ Executive Recommendation:</strong> Deploy SAP Ariba AI Quote & T&C Extraction Engine to reduce purchasing turn times from 72 hours down to 1.5 hours and capture $9.3 Million in net annual indirect savings.
-        </div>
-      </div>
-    </section>
-    ` : ''}
-
-    ${isAppendix || (!isSection1 && !isSection2 && !isSection3 && !isSection4) ? `
+    ${isSection5 ? `
     <!-- SECTION 5 CONTAINER: STANDALONE KEY TERMS APPENDIX -->
     <section id="section-5-container" class="py-2 space-y-3">
       <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">SECTION 5 OF 5 | APPENDIX & KEY TERMS GUIDE</div>
 
       <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-4 shadow-2xl">
         <div class="border-b border-slate-800 pb-3">
-          <h2 class="text-base font-extrabold text-white tracking-tight">Procurement & System Terminology Glossary</h2>
-          <p class="text-xs text-slate-400 mt-0.5">Plain English definitions for job-role acronyms and software workflow concepts</p>
+          <h2 class="text-base font-extrabold text-white tracking-tight">Villanova UTS Web Services — Terminology & Solution Choice Rationale</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Plain English definitions with real-world civilian examples for software terms and architecture choices</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs font-sans">
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1">
-            <span class="text-cyan-400 font-mono font-bold block">• Requisition (PR):</span>
-            <p class="text-slate-300 text-[11.5px] leading-relaxed">An internal request submitted by factory engineers asking to purchase specific tools or manufacturing supplies.</p>
+            <span class="text-cyan-400 font-mono font-bold block">• Analyst Manual Upload ("Copy-Pasting by Hand"):</span>
+            <p class="text-slate-300 text-[11.5px] leading-relaxed">A human developer manually copying web code into a website admin screen without automated checks, like typing a long address by hand instead of scanning a barcode.</p>
           </div>
 
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1">
-            <span class="text-cyan-400 font-mono font-bold block">• Purchase Order (PO):</span>
-            <p class="text-slate-300 text-[11.5px] leading-relaxed">An official, legally binding contract issued to a supplier authorizing the purchase at agreed prices and delivery dates.</p>
+            <span class="text-cyan-400 font-mono font-bold block">• Payload Sync ("Instant Broadcasting"):</span>
+            <p class="text-slate-300 text-[11.5px] leading-relaxed">Sending updated campus news automatically over the internet to instantly update both the university phone app and student website at the exact same time without human copy-pasting.</p>
           </div>
 
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1">
-            <span class="text-cyan-400 font-mono font-bold block">• Goods Receipt Note (GRN):</span>
-            <p class="text-slate-300 text-[11.5px] leading-relaxed">A document signed at the factory loading dock confirming physical delivery, item count, and quality inspection.</p>
+            <span class="text-cyan-400 font-mono font-bold block">• WCAG Accessibility ("Wheelchair Ramps for Websites"):</span>
+            <p class="text-slate-300 text-[11.5px] leading-relaxed">Federal rules ensuring blind, visually impaired, or disabled students can use university web pages easily using screen-reading audio software.</p>
           </div>
 
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1">
-            <span class="text-cyan-400 font-mono font-bold block">• Vendor Invoice & Invoice Payment:</span>
-            <p class="text-slate-300 text-[11.5px] leading-relaxed">The bill sent by the supplier requesting payment, and the final cash transfer issued after order validation.</p>
+            <span class="text-cyan-400 font-mono font-bold block">• ARIA Landmarks ("Braille Signs for Screen Readers"):</span>
+            <p class="text-slate-300 text-[11.5px] leading-relaxed">Invisible web tags that tell screen-reader audio software where the navigation menu, main article, and search bar are located on a web page.</p>
           </div>
 
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1">
-            <span class="text-cyan-400 font-mono font-bold block">• SAP 3-Way Match Rule:</span>
-            <p class="text-slate-300 text-[11.5px] leading-relaxed">Reconciling Purchase Order ($) == Goods Receipt (qty) == Vendor Invoice ($) before authorizing payment.</p>
+            <span class="text-cyan-400 font-mono font-bold block">• AEM EDS (Adobe Experience Manager Edge Delivery Services):</span>
+            <p class="text-slate-300 text-[11.5px] leading-relaxed">A high-speed website publishing engine that loads university web pages almost instantaneously across the globe.</p>
           </div>
 
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1">
-            <span class="text-cyan-400 font-mono font-bold block">• Procure-to-Pay (P2P):</span>
-            <p class="text-slate-300 text-[11.5px] leading-relaxed">The end-to-end purchasing lifecycle starting from requisition submission down to final invoice payment.</p>
-          </div>
-
-          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1">
-            <span class="text-cyan-400 font-mono font-bold block">• Indirect Materials:</span>
-            <p class="text-slate-300 text-[11.5px] leading-relaxed">Everyday factory operating supplies (cutting tools, safety gear, coolant) not built directly into the jet aircraft.</p>
-          </div>
-
-          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1">
-            <span class="text-cyan-400 font-mono font-bold block">• Long-Term Agreement (LTA) & Contract Table:</span>
-            <p class="text-slate-300 text-[11.5px] leading-relaxed">A multi-year master contract locking in discounted pricing ($92/unit) stored in SAP master price tables.</p>
-          </div>
-
-          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1">
-            <span class="text-cyan-400 font-mono font-bold block">• Buyer & SLA Threshold:</span>
-            <p class="text-slate-300 text-[11.5px] leading-relaxed">The authorized Procurement Sr. Analyst executing the purchase within their delegated $100,000 release authority.</p>
-          </div>
-
-          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-1">
-            <span class="text-cyan-400 font-mono font-bold block">• Total Cost of Ownership (TCO):</span>
-            <p class="text-slate-300 text-[11.5px] leading-relaxed">The complete financial cost of a purchase, factoring in unit price, shipping surcharges, delivery lead times, and factory downtime risks.</p>
+            <span class="text-cyan-400 font-mono font-bold block">• Modo Labs & OneCampus:</span>
+            <p class="text-slate-300 text-[11.5px] leading-relaxed">Modo Labs is the official Villanova Mobile Student Phone App; OneCampus is the Villanova Student Portal website for grades and registration.</p>
           </div>
         </div>
+
+        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-xs font-sans">
+          <div class="text-cyan-400 font-mono font-bold uppercase text-[11px] border-b border-slate-800 pb-1">
+            OPTIMAL SOLUTION CHOICE RATIONALE (PROCESS OF ELIMINATION):
+          </div>
+          <div class="space-y-1.5 text-slate-300 text-[11.5px]">
+            <p><strong>1. Smart AI Auto-Fixing + Exact Math:</strong> The AI Agent automatically rewrites web code to fix accessibility errors, while using an exact AST math tool to guarantee zero AI hallucinations on color contrast ratios.</p>
+            <p><strong>2. Ultra-Fast Execution (<20ms):</strong> Local AST code inspection runs in milliseconds on the server, avoiding slow network lag and keeping publishing turn times under 1.5 hours.</p>
+            <p><strong>3. Zero Over-Engineering:</strong> Automatic web signals (webhooks) update the mobile app and portal instantly without needing complex multi-agent server clusters.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    ` : ''}
+
+    ${isSection6 ? `
+    <!-- SECTION 6 CONTAINER: DETAILED INNER SOFTWARE WORKINGS -->
+    <section id="section-6-container" class="py-2 space-y-3">
+      <div class="flex justify-between items-center">
+        <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">
+          ${techPart2 ? 'SECTION 6 OF 6 | SOFTWARE INNER WORKINGS (PART 2 OF 2)' : 'SECTION 6 OF 6 | SOFTWARE INNER WORKINGS (PART 1 OF 2)'}
+        </div>
+        <div class="flex gap-2">
+          <a href="?mode=techdetails1" class="px-2.5 py-1 text-[11px] font-mono rounded-lg border ${!techPart2 ? 'bg-cyan-950 text-cyan-300 border-cyan-500 font-bold' : 'bg-slate-900 text-slate-400 border-slate-800'}">Part 1: Engine</a>
+          <a href="?mode=techdetails2" class="px-2.5 py-1 text-[11px] font-mono rounded-lg border ${techPart2 ? 'bg-cyan-950 text-cyan-300 border-cyan-500 font-bold' : 'bg-slate-900 text-slate-400 border-slate-800'}">Part 2: Webhooks</a>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-5 shadow-2xl">
+        <div class="border-b border-slate-800 pb-3">
+          <h2 class="text-base font-extrabold text-white tracking-tight">
+            ${techPart2 ? 'Event Webhook Integration Gateway & Production Resilience' : 'System Construction, Frameworks & AST Parser Mechanics'}
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">Villanova UTS Web Services — Exhaustive Inner Software Architecture in Plain English</p>
+        </div>
+
+        ${!techPart2 ? `
+        <!-- PART 1: STACK CONSTRUCTION & AST PARSER -->
+        <div class="space-y-4 text-xs font-sans">
+          <!-- Stack Construction -->
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+            <span class="text-cyan-400 font-mono font-bold block text-[11px] uppercase">• Software Stack Construction & Component Wiring:</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11.5px] text-slate-300 font-mono">
+              <div class="bg-slate-900/80 p-2.5 rounded border border-slate-800">
+                <span class="text-cyan-300 block font-bold">Core Backend Framework:</span>
+                Node.js & Fastify async REST server.
+              </div>
+              <div class="bg-slate-900/80 p-2.5 rounded border border-slate-800">
+                <span class="text-cyan-300 block font-bold">Code Parsing Library:</span>
+                Babel AST Compiler & HTML DOM Parser.
+              </div>
+              <div class="bg-slate-900/80 p-2.5 rounded border border-slate-800">
+                <span class="text-cyan-300 block font-bold">Database & Caching:</span>
+                PostgreSQL (Audit history) & Redis (AST cache).
+              </div>
+              <div class="bg-slate-900/80 p-2.5 rounded border border-slate-800">
+                <span class="text-cyan-300 block font-bold">Production Readiness:</span>
+                Pydantic validation, Pino logging, Docker container.
+              </div>
+            </div>
+          </div>
+
+          <!-- AST Mechanics Diagrammatic Layout -->
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+            <span class="text-emerald-400 font-mono font-bold block text-[11px] uppercase">• AST Code Inspector & Rule Engine Inner Workings:</span>
+            <div class="space-y-2 text-[11.5px] text-slate-300">
+              <div class="p-2.5 bg-slate-900 rounded border border-slate-800">
+                <strong class="text-white">Step 1: HTML Code Ingestion:</strong> Developer submits raw HTML page/component code to Fastify endpoint.
+              </div>
+              <div class="p-2.5 bg-slate-900 rounded border border-slate-800">
+                <strong class="text-white">Step 2: In-Memory AST Tree Construction:</strong> Parser converts HTML string into an in-memory tree of nodes representing headings, links, and images.
+              </div>
+              <div class="p-2.5 bg-slate-900 rounded border border-slate-800">
+                <strong class="text-white">Step 3: Mathematical Contrast & ARIA Validation:</strong> Evaluates RGB contrast formulas (must be ≥4.5:1) and verifies ARIA landmark nodes (<nav>, <main>, <header>) in <20ms.
+              </div>
+            </div>
+          </div>
+        </div>
+        ` : `
+        <!-- PART 2: AI TOOL-BINDING & WEBHOOK RESILIENCE -->
+        <div class="space-y-4 text-xs font-sans">
+          <!-- AI Tool Binding -->
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+            <span class="text-cyan-400 font-mono font-bold block text-[11px] uppercase">• AI Agentic Tool-Binding & Auto-Fix Loop:</span>
+            <div class="p-3 bg-slate-900 rounded border border-slate-800 space-y-2 text-[11.5px] text-slate-300">
+              <p>1. <strong>Error Location Handoff:</strong> AST Inspector passes exact failing node coordinates to the AI Agent.</p>
+              <p>2. <strong>Automated Code Auto-Fix:</strong> AI Agent modifies DOM hex color codes to compliant high-contrast values and inserts missing ARIA landmark attributes.</p>
+              <p>3. <strong>Mathematical Re-Validation:</strong> AI Agent re-runs the AST Inspector tool to ensure 100% mathematical compliance before saving to PostgreSQL.</p>
+            </div>
+          </div>
+
+          <!-- Webhook Engine Diagrammatic Layout -->
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+            <span class="text-emerald-400 font-mono font-bold block text-[11px] uppercase">• Event Webhook Integration Gateway & Production Resilience:</span>
+            <div class="space-y-2 text-[11.5px] text-slate-300">
+              <div class="p-2.5 bg-slate-900 rounded border border-slate-800">
+                <strong class="text-white">Event Multi-Cast Payload Construction:</strong> Formats JSON payloads specifically for Modo Labs Mobile REST API and OneCampus Portal REST API.
+              </div>
+              <div class="p-2.5 bg-slate-900 rounded border border-slate-800">
+                <strong class="text-white">Encrypted HTTPS POST Transmission:</strong> Executes parallel API network calls with TLS encryption and bearer token authorization.
+              </div>
+              <div class="p-2.5 bg-slate-900 rounded border border-slate-800">
+                <strong class="text-white">Production Fault Tolerance:</strong> Implements exponential backoff retries (3 attempts) and circuit breaker pattern to prevent data loss during network hiccups.
+              </div>
+            </div>
+          </div>
+        </div>
+        `}
       </div>
     </section>
     ` : ''}
@@ -445,90 +580,93 @@ function generateHtml(mode) {
       banner.innerHTML = htmlContent;
     }
 
-    function runManualSourcing() {
-      const results = document.getElementById('sourcing-search-results');
+    function runManualUpload() {
+      const results = document.getElementById('publishing-results');
       if (!results) return;
 
       results.innerHTML = \`
         <div class="space-y-1.5">
-          <div class="text-rose-400 font-bold text-xs">Manual Evaluation: Requisition #PR-496-082</div>
+          <div class="text-rose-400 font-bold text-xs">Manual Upload: Requisition #PR-2026-0343</div>
           <div class="text-rose-300 font-extrabold text-xs border-l-2 border-rose-500 pl-2.5 py-1 bg-rose-950/20">
-            ⚠️ Vendor B Selected ($88/unit), but hidden 14-week delivery clause was missed!
+            ⚠️ Manual Publishing Failed: WCAG contrast rules violated & mobile portal API timed out!
           </div>
           <div class="text-slate-400 text-[10.5px]">
-            Manual evaluation missed fine print on Page 12 of Vendor B quote. Contracted Vendor A ($92/unit, 2-week delivery, Net 60) was bypassed.
+            Text contrast ratio (2.1:1) failed WCAG 2.1 AA minimums (4.5:1). Missing ARIA landmarks broke screen readers. Modo Labs / OneCampus payload sync timed out.
           </div>
         </div>\`;
 
-      typeTerminalLines('sourcing-terminal-body', 'sourcing-terminal-status', [
-        "Reading 3 supplier PDF quotes manually for Requisition #PR-496-082...",
-        "Analyst copy-pasting quote numbers into Excel spreadsheet...",
-        "Human error: Missed fine-print 14-week lead-time clause on Page 12 of Vendor B quote.",
-        "Process halted. Non-compliant vendor selected, triggering plant assembly line downtime."
+      typeTerminalLines('publishing-terminal-body', 'publishing-terminal-status', [
+        "Reading developer upload for villanova.edu/arts-sciences...",
+        "Analyst manual upload completed without automated accessibility checks.",
+        "WCAG Audit Error: Text contrast ratio 2.1:1 fails required 4.5:1 threshold.",
+        "A11y Error: Missing ARIA landmark tags breaks screen-reader navigation.",
+        "Modo Labs Mobile App API: Connection Timeout (504 Gateway Error).",
+        "Process halted. 72+ hour publishing backlog created; compliance risk flagged."
       ]);
 
       showBanner(
-        "<strong>⚠️ Manual process failed:</strong> Human quote evaluation missed fine-print lead-time penalties in PDF quotes, causing long plant downtime and $3.1M in maverick spend.",
+        "<strong>⚠️ Manual upload failed:</strong> Human copy-pasting missed invisible WCAG accessibility tags and caused mobile portal sync timeouts, risking federal compliance audits.",
         "border-rose-800 bg-rose-950/60 text-rose-200"
       );
     }
 
-    function runAISourcing() {
-      const results = document.getElementById('sourcing-search-results');
+    function runAIASTAudit() {
+      const results = document.getElementById('publishing-results');
       if (!results) return;
 
       results.innerHTML = \`
         <div class="space-y-1.5">
-          <div class="text-cyan-400 font-bold text-xs">AI Extraction: Requisition #PR-496-082</div>
+          <div class="text-cyan-400 font-bold text-xs">AI Agentic AST Auditor: Requisition #PR-2026-0343</div>
           <div class="text-emerald-400 font-extrabold text-xs border-l-2 border-emerald-500 pl-2.5 py-1 bg-emerald-950/20">
-            RECOMMENDED: Vendor A (LTA Contracted) - $92/unit | 2-Week Delivery | Net 60 Terms
+            SUCCESS: 100% WCAG 2.1 AA Accessibility Compliant in <20ms
           </div>
           <div class="text-slate-300 text-[10.5px] flex gap-3 font-mono">
-            <span>• Vendor B Rejected: <strong class="text-rose-400">14-Wk Lead Time Flagged</strong></span>
-            <span>• TCO Evaluation: <strong class="text-emerald-300">Vendor A Optimal</strong></span>
+            <span>• Contrast Ratio: <strong class="text-emerald-300">Auto-Fixed to 7.1:1</strong></span>
+            <span>• ARIA Landmarks: <strong class="text-emerald-300">Inserted</strong></span>
           </div>
         </div>\`;
 
-      typeTerminalLines('sourcing-terminal-body', 'sourcing-terminal-status', [
-        "Executing Hybrid RAG (Qdrant Vector DB + BM25 Lexical Search)...",
-        "Sparse Lexical Match: Exact Requisition #PR-496-082 & CNC Insert part specs.",
-        "Dense Vector Search: Vendor A ($92/unit, 2-wk lead time, Net 60 terms).",
-        "Dense Vector Search: Vendor B ($88/unit, 14-wk lead time, 15% freight penalty).",
-        "AI Risk Alert: Vendor B rejected due to 14-week delivery delay on Page 12.",
-        "Recommendation: Vendor A selected for optimal total cost of ownership (TCO)."
+      typeTerminalLines('publishing-terminal-body', 'publishing-terminal-status', [
+        "Executing AI Agentic AST Code Auditor (<20ms)...",
+        "AST Parsing: In-memory DOM tree constructed for AEM EDS component.",
+        "Mathematical Rule Check: Contrast ratio calculated at 2.1:1 (failing).",
+        "AI Agent Tool Action: Adjusted text hex color to high-contrast #0F172A (7.1:1 ratio).",
+        "AI Agent Tool Action: Inserted invisible ARIA landmark tags (<nav>, <main>).",
+        "AST Re-Validation: 100% WCAG 2.1 AA compliance mathematically verified."
       ]);
 
       showBanner(
-        "<strong>✅ AI Quote & T&C Extraction succeeded:</strong> Automatically extracted hidden lead-time risk clauses in seconds, recommending contracted Vendor A to ensure on-time delivery.",
+        "<strong>✅ AI Agentic AST Audit succeeded:</strong> Automatically inspected and fixed WCAG accessibility code in <20ms, ensuring 100% digital compliance.",
         "border-cyan-800 bg-cyan-950/60 text-cyan-200"
       );
     }
 
-    function runP2PExecution() {
-      const results = document.getElementById('p2p-results');
+    function runWebhookExecution() {
+      const results = document.getElementById('webhook-results');
       if (!results) return;
 
       results.innerHTML = \`
         <div class="space-y-1.5">
-          <div class="text-emerald-400 font-bold text-xs">SAP Ariba Engine: Procure-to-Pay Auto-Execution</div>
+          <div class="text-emerald-400 font-bold text-xs">Event Webhook Integration Gateway</div>
           <div class="text-emerald-300 font-extrabold text-xs border-l-2 border-emerald-500 pl-2.5 py-1 bg-emerald-950/20">
-            SUCCESS: Purchase Order #PO-MX496-882 Created in <1.5 Hours
+            SUCCESS: Multi-Platform Sync Complete in <1.5 Hours
           </div>
           <div class="text-slate-300 text-[10.5px] font-mono">
-            5,000 Units Carbide Inserts @ $92/unit | 3-Way Match Verified (PO = Goods Receipt = Invoice)
+            Modo Labs Mobile API: 200 OK | OneCampus Portal API: 200 OK | Net Savings: $1,130,000/yr
           </div>
         </div>\`;
 
-      typeTerminalLines('p2p-terminal-body', 'p2p-terminal-status', [
-        "Executing SAP Ariba Deterministic Rules Engine...",
-        "Rule 1 Check: LTA Master Contract Table #CA-496 rate verified ($92/unit matches).",
-        "Rule 2 Check: Buyer Spending Authority SLA verified ($92,000 release < $100,000 limit).",
-        "Rule 3 Check: SAP 3-Way Invoice Match verified (PO $460,000 == Receipt == Invoice).",
-        "SUCCESS: SAP Purchase Order #PO-MX496-882 issued in 1.5 hours (vs 72h SLA)."
+      typeTerminalLines('webhook-terminal-body', 'webhook-terminal-status', [
+        "Executing Event Webhook Integration Gateway...",
+        "Catching AEM 'PagePublished' event signal...",
+        "Payload Construction: Formatted JSON packages for Modo Labs & OneCampus APIs.",
+        "Executing HTTPS POST: Modo Labs Mobile REST API (200 OK - Payload Synced).",
+        "Executing HTTPS POST: OneCampus Web Portal REST API (200 OK - Payload Synced).",
+        "SUCCESS: Multi-platform deployment completed in 1.5 hours with zero errors."
       ]);
 
       showBanner(
-        "<strong>✅ Deterministic SAP P2P Execution succeeded:</strong> Automated order placement and 3-way invoice matching in 1.5 hours, capturing $9.3M in net annual indirect savings.",
+        "<strong>✅ Event Webhook Multi-Cast succeeded:</strong> Automatically updated both the Modo Labs student mobile app and OneCampus web portal in <1.5 hours, capturing $1.13M in annual savings.",
         "border-emerald-800 bg-emerald-950/60 text-emerald-200"
       );
     }
