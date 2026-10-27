@@ -1,5 +1,22 @@
 [
   {
+    "companyName": "Villanova University",
+    "sector": "Higher Education & Digital Web Ecosystems",
+    "jobTitle": "Associate Full Stack Developer",
+    "reqId": "20260343S",
+    "department": "723-UTS-Web Services and Technologies",
+    "location": "Villanova, PA",
+    "painPoint": "Manual AEM (Adobe Experience Manager) content publishing, WCAG 2.1 AA accessibility checking, and multi-platform API payload sync bottlenecks causing 72+ hour publishing delays, broken mobile/portal content, and federal compliance audit risks.",
+    "solution": "An AI Agentic AST Code Auditor & Event-Driven Webhook Gateway that automatically parses AEM Edge Delivery Services (EDS) HTML components for WCAG 2.1 AA accessibility compliance in <20ms, and broadcasts event-driven JSON payloads to Modo Labs Mobile App and OneCampus Web Portal.",
+    "beforeCost": 1450000,
+    "afterCosts": 320000,
+    "investmentCost": 280000,
+    "cpi": 1.12,
+    "spi": 1.06,
+    "piPredictability": 95,
+    "gifAsset": "docs/assets/20260343s.gif"
+  },
+  {
     "companyName": "Collins Aerospace",
     "sector": "Aerospace & Defense Indirect Procurement",
     "jobTitle": "Sr Analyst, Procurement (Remote)",

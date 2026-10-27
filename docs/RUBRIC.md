@@ -1,4 +1,4 @@
-# System Portfolio & Walkthrough Standardization Rubric (v1.5)
+# System Portfolio & Walkthrough Standardization Rubric (v2.1)
 
 This document establishes the official design, presentation, UI, terminology, architectural justification, and governance standards for all portfolio web assets (`public/index.html`), demonstration applications (`server.js`), and generated media walkthroughs (`scripts/generate-walkthrough-gif.js`).
 
@@ -57,8 +57,9 @@ This document establishes the official design, presentation, UI, terminology, ar
 - Meta-phrases such as `"Explained in Simple English"` or `"Civilian Accessible"` **MUST NEVER** appear as text in the UI or walkthroughs. Content must simply be written cleanly without self-referential meta-labels.
 
 ### **2.2 Domain Acronym Definitions & Standalone Section 5 Appendix**
-- Whenever industry or domain-specific acronyms are used (e.g., `P2P` Procure-to-Pay, `PO` Purchase Order, `PR` Purchase Requisition, `T&C` Terms & Conditions, `SLA` Service Level Agreement, `GRN` Goods Receipt Note, `LTA` Long-Term Agreement), they **MUST** be defined in a dedicated, standalone **Section 5 Appendix** view at the end of the walkthrough.
+- Whenever industry or domain-specific acronyms, software terms, or technical phrases are used (e.g., `WCAG`, `AEM EDS`, `Modo Labs`, `OneCampus`, `ARIA Landmarks`, `Qdrant`, `BM25`, `P2P`, `PO`, `PR`, `SLA`), they **MUST** be defined in a dedicated, standalone **Section 5 Appendix** view at the end of the walkthrough.
 - **Standalone Appendix Rule**: The Appendix view MUST render on its own clean screen display (Section 5 of 5) without overlapping or cluttering application content from previous sections.
+- **Civilian Accessibility & Real-World Example Rule**: All definitions in the Section 5 Appendix **MUST** be written in simple, plain English without technical jargon, using concrete real-world civilian examples (e.g., explaining WCAG as "wheelchair ramps for websites" or ARIA landmarks as "Braille signs for screen readers") so that non-technical managers and civilians can understand all terms instantly.
 
 ### **2.3 Outer Standardized Main Window vs. Inner Software UI Mockup Window**
 - **Outer Main Window**: The outer main window frame MUST be 100% generic, standardized, and consistent across ALL job cards. It contains only standard title headers, top-left section labels (`SECTION X OF Y`), and high-level section explanations. It MUST NOT contain job-specific text (such as company names or requisition IDs in the outer frame).
@@ -74,6 +75,16 @@ This document establishes the official design, presentation, UI, terminology, ar
 
 ### **2.6 Zero Commingling of Previous Demo Content & Terminology**
 - Content or terminology from previous job role demos (e.g., "Target Entity", "M&A", "Deal Target", "Deal Brief", or "Subordinated Notes" from Lockheed) **MUST NEVER** appear in new job role demos (such as Procurement or Engineering). Each demo must be 100% cleanly scoped to its specific target job role domain.
+- **Strict Single-Job Focus Rule**: The walkthrough demo, terminal streams, and Section 5 Appendix for a job card MUST ONLY contain content and data directly related to that specific job. Referencing previous job cards or comparisons to other portfolio cards in the demo output is strictly prohibited.
+
+### **2.11 Mandatory Executive Brief Sub-Components**
+- **Executive Brief Requirements**: The Executive Brief section (`SECTION 1 OF 5 | EXECUTIVE BRIEF`) **MUST** always contain three mandatory sub-components:
+  1. *Risk Analysis Matrix*: Highlighting Specific Risk Identified, Why It Matters, and How To Eliminate Risk.
+  2. *Benchmark Comparison Chart*: Visualizing legacy vs optimized SLA/turn times.
+  3. *Executive Recommendation*: A clear, actionable executive conclusion.
+
+### **2.12 Technical Stack Deep Dive Appendix Section**
+- **Detailed Solution Architecture Section**: Following the Appendix, an additional technical details section **MUST** be included detailing the inner software workings and technical architecture of the optimized solution stack in plain, clear English (without relying on analogies), so non-technical stakeholders can understand exactly how the software components operate under the hood.
 
 ### **2.7 Standardized Reusable UI Titles vs. Job-Specific Demo Mockups**
 - Webpage job cards on Git pages MUST feature standardized, job-independent outer card containers and standard section titles (`SECTION 1 OF 5 | AUDIT BRIEF`, `SECTION 2 OF 5 | LEGACY WORKFLOW`, `SECTION 3 OF 5 | OPTIMIZED WORKFLOW`, `SECTION 4 OF 5 | EXECUTIVE BRIEF`, `SECTION 5 OF 5 | APPENDIX & KEY TERMS GUIDE`).
