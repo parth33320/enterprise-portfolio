@@ -33,3 +33,13 @@ This file serves as the canonical record of architectural decisions, visual layo
 - **Date**: October 27, 2026
 - **Decision**: Increment `docs/RUBRIC.md` to version `v2.2`, codifying the permanent removal of terminal stream rules, dynamic text scaling rules, and zero-cutoff viewport guarantees.
 - **Rationale**: Keeps governance rules synchronized with codebase presentation outputs, ensuring automated CI/CD pipelines and future agent sessions remain compliant.
+
+### **Decision 5: Consolidated Single-Panel Layout & Strict Terminology Rules (Rubric v2.3)**
+- **Date**: March 30, 2026
+- **Decision**: Update `docs/RUBRIC.md` to v2.3 to codify:
+  1. **Single Consolidated Workflow Panel**: Inner software mockups use a single panel with a 3-step labeled progress bar instead of split side-by-side execution boxes.
+  2. **KPI Chips Single-Location Enforcement**: 6-KPI Chips Grid renders exclusively in Section 1 Executive Brief view (`mode=section1`) and is removed from Section 1 Title Cards.
+  3. **Architectural Justification Title Card Enforcement**: Process of Elimination Architectural Justification renders exclusively on Section 4 Title Cards in `scripts/generate-walkthrough-gif.js`.
+  4. **Inner Mockup Space Preservation**: Tab navigation headers are eliminated to preserve vertical viewport height.
+  5. **Strict Micro-Solution & Legacy Pain Terminology**: Results containers format each entry as `Micro-Solution X: [Title]`, explain what it does in simple English, and frame legacy failures strictly as `Legacy Pain:` without `"Without this,"`.
+- **Rationale**: Eliminates duplication, maximizes vertical screen real estate within 1280x720 video recordings, enforces strict ubiquitous terminology, and provides clear civilian accessibility.

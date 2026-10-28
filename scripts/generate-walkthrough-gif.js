@@ -27,8 +27,8 @@ async function runRecordingPipeline() {
   const targetReqId = jobData.reqId.toLowerCase();
   const targetGifName = `${targetReqId}.gif`;
 
-  const beforeCost = jobData.beforeCost || 1450000;
-  const afterCosts = jobData.afterCosts || 320000;
+  const beforeCost = jobData.beforeCost || 2100000;
+  const afterCosts = jobData.afterCosts || 420000;
   const netSavings = beforeCost - afterCosts;
   const roi = (((netSavings) / jobData.investmentCost) * 100).toFixed(2);
 
@@ -89,52 +89,22 @@ async function runRecordingPipeline() {
   const section1Summary = `
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; padding-bottom: 14px; margin-bottom: 20px;">
       <div>
-        <div style="font-size: 12px; font-weight: bold; color: #38bdf8; font-family: monospace; text-transform: uppercase;">Villanova UTS Web Services Optimization</div>
-        <div style="font-size: 16px; font-weight: 800; color: #ffffff;">AEM Digital Ecosystem & Portal Sync Automation</div>
+        <div style="font-size: 12px; font-weight: bold; color: #38bdf8; font-family: monospace; text-transform: uppercase;">WonderBotz Client Automation Portfolio Optimization</div>
+        <div style="font-size: 16px; font-weight: 800; color: #ffffff;">UiPath REFramework, Document Understanding, and Action Center Platform</div>
       </div>
       <div style="background-color: #052e16; border: 1px solid #166534; color: #4ade80; font-family: monospace; font-size: 12px; font-weight: bold; padding: 6px 14px; border-radius: 9999px;">
         +${roi}% ROI
       </div>
     </div>
-
-    <!-- Standardized 6-KPI Chips Grid -->
-    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; font-family: monospace;">
-      <div style="background-color: #020617; border: 1px solid #1e293b; padding: 14px; border-radius: 12px;">
-        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px; font-weight: bold; uppercase;">LEGACY OPERATING COST</span>
-        <span style="font-size: 15px; font-weight: 800; color: #f87171;">$${beforeCost.toLocaleString()} / yr</span>
-        <span style="font-size: 9px; color: #64748b; display: block; margin-top: 2px;">(Pre-optimization manual cost)</span>
-      </div>
-      <div style="background-color: #020617; border: 1px solid #1e293b; padding: 14px; border-radius: 12px;">
-        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px; font-weight: bold; uppercase;">OPTIMIZED OPERATING COST</span>
-        <span style="font-size: 15px; font-weight: 800; color: #4ade80;">$${afterCosts.toLocaleString()} / yr</span>
-        <span style="font-size: 9px; color: #64748b; display: block; margin-top: 2px;">(Post-optimization automated cost)</span>
-      </div>
-      <div style="background-color: #020617; border: 1px solid #1e293b; padding: 14px; border-radius: 12px;">
-        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px; font-weight: bold; uppercase;">NET ANNUAL SAVINGS</span>
-        <span style="font-size: 15px; font-weight: 800; color: #38bdf8;">$${netSavings.toLocaleString()} / yr</span>
-        <span style="font-size: 9px; color: #64748b; display: block; margin-top: 2px;">(Legacy minus Optimized)</span>
-      </div>
-      <div style="background-color: #020617; border: 1px solid #1e293b; padding: 14px; border-radius: 12px;">
-        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px; font-weight: bold; uppercase;">SOLUTION INVESTMENT</span>
-        <span style="font-size: 15px; font-weight: 800; color: #f8fafc;">$${jobData.investmentCost.toLocaleString()} USD</span>
-        <span style="font-size: 9px; color: #64748b; display: block; margin-top: 2px;">(Platform build & deploy cost)</span>
-      </div>
-      <div style="background-color: #020617; border: 1px solid #1e293b; padding: 14px; border-radius: 12px;">
-        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px; font-weight: bold; uppercase;">RETURN ON INVESTMENT</span>
-        <span style="font-size: 15px; font-weight: 800; color: #4ade80;">+${roi}% ROI</span>
-        <span style="font-size: 9px; color: #64748b; display: block; margin-top: 2px;">(Savings / Investment)</span>
-      </div>
-      <div style="background-color: #020617; border: 1px solid #1e293b; padding: 14px; border-radius: 12px;">
-        <span style="font-size: 9px; color: #94a3b8; display: block; margin-bottom: 4px; font-weight: bold; uppercase;">EVM DELIVERABILITY</span>
-        <span style="font-size: 13px; font-weight: 800; color: #38bdf8;">CPI ${jobData.cpi} | SPI ${jobData.spi}</span>
-        <span style="font-size: 9px; color: #64748b; display: block; margin-top: 2px;">(${jobData.piPredictability}% Delivery Reliability)</span>
-      </div>
+    <div style="font-size: 13px; color: #94a3b8; line-height: 1.6;">
+      Automating unattended bot exception recovery, vendor PDF invoice parsing, and manager 1-click approvals across client automation portfolios.
     </div>`;
   
-  await page.setContent(renderTitleCard("SECTION 1 OF 5 | EXECUTIVE BRIEF", "Executive Web Services Brief & System Target Metrics", section1Summary));
+  // Section 1 Title Card (Clean title card - NO KPI CHIPS rendered here)
+  await page.setContent(renderTitleCard("SECTION 1 OF 5 | EXECUTIVE BRIEF", "WonderBotz Technical Account Manager (UiPath) Executive Brief", section1Summary));
   await captureFrames(8, 600);
 
-  // Reload application workspace Section 1 view
+  // Reload application workspace Section 1 view (KPI Chips Grid renders exclusively inside this view)
   await page.goto('http://localhost:3000/demo?mode=section1');
   await captureFrames(10, 650);
 
@@ -143,8 +113,8 @@ async function runRecordingPipeline() {
   // =========================================================================
   const section2Explanation = `
     <strong>Comparative System Architecture & Information Flow:</strong><br><br>
-    • <strong>Legacy Architecture:</strong> Manual document copy-pasting into AEM without automated WCAG checks, causing 72h backlogs, accessibility audit faults, and mobile portal API timeouts.<br>
-    • <strong>Optimized Architecture:</strong> AI Agentic AST Code Auditor validates code in <strong><20ms</strong>, paired with an Event Webhook Multi-Cast Gateway to update Modo Labs (mobile) and OneCampus (portal) instantly.`;
+    • <strong>Legacy Architecture:</strong> Unattended bot crashes force manual text log searching; unparsed vendor PDF invoices require manual typing, causing 48+ hour SLA delays.<br>
+    • <strong>Optimized Architecture:</strong> UiPath REFramework handles bot health & error recovery in <strong><20ms</strong>, Document AI parses PDF invoices, and Action Center dispatches 1-click approvals.`;
 
   await page.setContent(renderTitleCard("SECTION 2 OF 5 | SYSTEM ARCHITECTURE & DEEP DIVE", "Comparative System Architecture & Information Flow", section2Explanation));
   await captureFrames(8, 600);
@@ -154,84 +124,43 @@ async function runRecordingPipeline() {
   await captureFrames(10, 650);
 
   // =========================================================================
-  // --- SECTION 3 OF 5: LEGACY WORKFLOW BASELINE SIMULATION ---
+  // --- SECTION 3 OF 5: CONSOLIDATED OPTIMIZED WORKFLOW SIMULATION ---
   // =========================================================================
   const section3Explanation = `
-    <strong>Legacy Baseline Workflow Friction:</strong><br><br>
-    • <strong>Manual Web Upload:</strong> Analyst copy-pastes HTML into AEM Console for villanova.edu without automated checks.<br>
-    • <strong>Process Breakdown:</strong> Low text contrast (2.1:1) and missing ARIA landmarks cause WCAG audit faults; mobile/portal API payloads time out, creating a 72+ hour publishing backlog.`;
+    <strong>Consolidated UiPath Platform & Architectural Justification (Process of Elimination):</strong><br><br>
+    • <strong>UiPath REFramework + Document AI + Action Center Selected:</strong> Combines automated bot health checks, machine learning PDF invoice parsing, and 1-click human approvals.<br>
+    • <strong>Elimination Reason vs Custom Scripts:</strong> Custom Python scripts lack centralized Orchestrator cloud dashboards, automated retries, enterprise audit logs, and SLA tracking.<br>
+    • <strong>Elimination Reason vs Pure LLMs:</strong> Standard LLMs can make mathematical errors on financial numbers. REFramework guarantees 100% deterministic execution.`;
 
-  await page.setContent(renderTitleCard("SECTION 3 OF 5 | LEGACY WORKFLOW", "Manual Upload & Accessibility Audit Failure", section3Explanation));
+  // Section 3 Title Card (Contains Process of Elimination Architectural Justification)
+  await page.setContent(renderTitleCard("SECTION 3 OF 5 | OPTIMIZED WORKFLOW", "Consolidated UiPath Platform & Architectural Justification", section3Explanation));
   await captureFrames(8, 600);
 
-  // Navigate to local application workspace Section 3 Legacy Workflow view
+  // Navigate to application workspace Section 3 Consolidated View
   await page.goto('http://localhost:3000/demo?mode=section3');
   await captureFrames(3, 500);
 
-  // Demonstrate Step 1: Click Manual Upload button
-  await simulateClickWithRipple('#btn-manual-upload');
-  await captureFrames(10, 600);
-
-  // Demonstrate Step 2: Injected Manual Process Failure Crash
-  await page.evaluate(() => {
-    document.body.innerHTML = `
-      <div style="background-color: #020617; color: #ef4444; font-family: monospace; padding: 40px; height: 100vh; box-sizing: border-box; font-size: 13px; display: flex; flex-direction: column; justify-content: center; overflow: hidden;">
-        <div style="max-width: 850px; margin: 0 auto; border: 2px solid #dc2626; padding: 30px; border-radius: 16px; background-color: #450a0a; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);">
-          <div style="color: #22d3ee; font-size: 12px; font-weight: bold; text-transform: uppercase; margin-bottom: 8px;">SECTION 3 OF 5 | LEGACY WORKFLOW</div>
-          <h1 style="font-size: 18px; text-transform: uppercase; margin-bottom: 16px; font-weight: bold; color: #ffffff;">🚨 MANUAL PROCESS FAILURE: AEM_PUBLISHING_ACCESSIBILITY_CRASH</h1>
-          <p style="color: #fca5a5; font-size: 13px; margin-bottom: 20px; font-family: sans-serif; line-height: 1.6;">
-            Manual web page upload missed low contrast text rules (2.1:1 vs required 4.5:1) and omitted ARIA landmark tags. Modo Labs mobile app and OneCampus portal API payload sync timed out.
-          </p>
-          <div style="color: #94a3b8; line-height: 1.6; font-size: 11px;">
-            > Error: Page villanova.edu/arts-sciences publishing failed.<br>
-            > 72+ hour publishing backlog created with federal digital compliance audit risk.
-          </div>
-          <div style="color: #ef4444; margin-top: 20px; font-weight: bold; font-size: 13px;">[ Annual Operating Waste Impact: $1,130,000 USD ]</div>
-        </div>
-      </div>`;
-  });
-  await captureFrames(10, 600);
+  // Run Consolidated UiPath Workflow Execution
+  await simulateClickWithRipple('#btn-run-uipath-workflow');
+  await captureFrames(14, 650);
 
   // =========================================================================
-  // --- SECTION 4 OF 5: AI AST CODE AUDITOR & EVENT WEBHOOK ENGINE ---
+  // --- SECTION 4 OF 5: STANDALONE APPENDIX & KEY TERMS GUIDE ---
   // =========================================================================
   const section4Explanation = `
-    <strong>System Optimization Breakdown:</strong><br><br>
-    • <strong>AI Agentic AST Code Auditor:</strong> Inspects and auto-fixes AEM Edge Delivery Services (EDS) code for 100% WCAG 2.1 AA compliance in <strong><20ms</strong>.<br>
-    • <strong>Event-Driven Webhook Gateway:</strong> Automatically broadcasts JSON payloads to Modo Labs Mobile App and OneCampus Web Portal in <strong><1.5 hours</strong>.`;
-
-  await page.setContent(renderTitleCard("SECTION 4 OF 5 | OPTIMIZED WORKFLOW", "AI Agentic AST Code Auditor + Event-Driven Webhook Engine", section4Explanation));
-  await captureFrames(8, 600);
-
-  // Reload clean application environment for Section 4 Optimized Workflow view
-  await page.goto('http://localhost:3000/demo?mode=section4');
-  await captureFrames(3, 500);
-
-  // Run AI Agentic AST Audit with click ripple
-  await simulateClickWithRipple('#btn-ai-ast-audit');
-  await captureFrames(12, 600);
-
-  // Run Webhook Multi-Cast Execution with click ripple
-  await simulateClickWithRipple('#btn-webhook-execution');
-  await captureFrames(12, 600);
-
-  // =========================================================================
-  // --- SECTION 5 OF 5: STANDALONE APPENDIX & KEY TERMS GUIDE ---
-  // =========================================================================
-  const section5Explanation = `
     <strong>Web Services Glossary & Solution Choice Rationale:</strong><br><br>
-    • Dedicated standalone reference screen defining technical terms (WCAG, ARIA Landmarks, AEM EDS, Modo Labs, OneCampus, Payload Sync).<br>
+    • Dedicated standalone reference screen defining technical terms (REFramework, Document Understanding, Action Center, Orchestrator).<br>
     • Provides clear civilian accessibility for non-technical stakeholders and hiring managers.`;
 
-  await page.setContent(renderTitleCard("SECTION 5 OF 5 | APPENDIX & KEY TERMS GUIDE", "Web Services Terminology & Solution Choice Rationale Appendix", section5Explanation));
+  await page.setContent(renderTitleCard("SECTION 4 OF 5 | APPENDIX & KEY TERMS GUIDE", "UiPath Automation Terminology & Solution Choice Rationale Appendix", section4Explanation));
   await captureFrames(8, 600);
 
-  // Reload application workspace Section 5 Appendix view
+  // Reload application workspace Section 4 Appendix view
   await page.goto('http://localhost:3000/demo?mode=appendix');
   await captureFrames(12, 650);
 
   // =========================================================================
-  // --- SECTION 6 OF 6: DETAILED INNER SOFTWARE WORKINGS (PART 1 & PART 2) ---
+  // --- SECTION 5 OF 5: DETAILED INNER SOFTWARE WORKINGS (PART 1 & PART 2) ---
   // =========================================================================
   await page.goto('http://localhost:3000/demo?mode=techdetails1');
   await captureFrames(10, 650);
