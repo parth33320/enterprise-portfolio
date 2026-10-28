@@ -1,5 +1,22 @@
 [
   {
+    "companyName": "WonderBotz",
+    "sector": "RPA & Intelligent Automation Services",
+    "jobTitle": "Technical Account Manager (UiPath)",
+    "reqId": "WB-UIPATH-2026",
+    "department": "Client Services & Enterprise Automation",
+    "location": "Princeton, NJ · Remote",
+    "painPoint": "Unattended client RPA bot crashes, manual log searching, unstructured PDF invoice data entry failures, and manual approval bottlenecks causing 48+ hour SLA delays and $2.1M in annual operating waste.",
+    "solution": "A consolidated UiPath automation platform featuring UiPath REFramework for automated bot health checks & error recovery, UiPath Document Understanding for intelligent PDF invoice parsing, and UiPath Action Center for 1-click human-in-the-loop approvals.",
+    "beforeCost": 2100000,
+    "afterCosts": 420000,
+    "investmentCost": 350000,
+    "cpi": 1.14,
+    "spi": 1.08,
+    "piPredictability": 96,
+    "gifAsset": "docs/assets/wb-uipath-2026.gif"
+  },
+  {
     "companyName": "Villanova University",
     "sector": "Higher Education & Digital Web Ecosystems",
     "jobTitle": "Associate Full Stack Developer",

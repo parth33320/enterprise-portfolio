@@ -1,4 +1,4 @@
-# System Portfolio & Walkthrough Standardization Rubric (v2.2)
+# System Portfolio & Walkthrough Standardization Rubric (v2.3)
 
 This document establishes the official design, presentation, UI, terminology, architectural justification, and governance standards for all portfolio web assets (`public/index.html`), demonstration applications (`server.js`), and generated media walkthroughs (`scripts/generate-walkthrough-gif.js`).
 
@@ -72,6 +72,29 @@ This document establishes the official design, presentation, UI, terminology, ar
 ### **2.5 Permanent Removal of Terminal Streams & Clean Expanded Panels**
 - Terminal streams and raw terminal log boxes are **PERMANENTLY REMOVED** from all demo template code and workspace applications (`server.js`). Terminals do not convey useful information for executive viewers or hiring managers.
 - In place of terminal streams, execution result containers **MUST** be expanded (`min-h-[160px]` / `max-h-[220px]`, with internal `overflow-y-auto`) to display clear, high-contrast operational summaries, key performance indicators, and structured outcomes without empty whitespace.
+
+### **2.13 KPI Chips Placement Rule**
+- Standardized 6-KPI Chips Grid **MUST ONLY** appear inside the Section 1 Executive Brief section view (`mode=section1`) and **MUST NOT** be rendered on Section 1 Title Cards or duplicated across any other title cards or demo slides.
+
+### **2.14 Architectural Justification Placement Rule**
+- The Process of Elimination Architectural Justification text **MUST ONLY** display on the Section 4 Title Slide in the walkthrough script (`scripts/generate-walkthrough-gif.js`) and **MUST NOT** be rendered inside the Section 4 Demo Slide layout in `server.js`.
+
+### **2.15 Inner Mockup Space Preservation Rule**
+- Inner software UI mockup windows **MUST NOT** include horizontal tab navigation headers or redundant sub-navigation bars. Removing tab rows preserves vertical screen real estate and guarantees zero text clipping inside the 1280x720 video frame.
+
+### **2.16 Single Consolidated Workflow Panel & Labeled Step Bar Rule**
+- Inner software UI mockups **MUST** feature a **Single Consolidated Panel** containing a visual, labeled workflow progress bar (e.g. `Step 1: REFramework Check` → `Step 2: Document AI Extraction` → `Step 3: Action Center Auto-Approval`) driven by a single unified execution button.
+- Separate legacy error simulation slides/demo sections are **PERMANENTLY ELIMINATED**. All walkthroughs jump directly to the Consolidated Optimized Solution view.
+
+### **2.17 Micro & Macro Solution Results Container Placement Rule**
+- The expanded execution results container inside the single consolidated panel **MUST** display the complete operational execution output, including:
+  1. All **Micro-Solution** details mapped directly to their corresponding legacy micro-problems using plain English scenarios (without technical jargon or analogies).
+  2. The **Macro Solution Summary** showing how all micro-solutions combine into a unified workflow to achieve target SLAs and cost savings.
+
+### **2.18 Micro-Solution Formatting & Legacy Pain Terminology Rule**
+- Micro-solutions in the results container **MUST** be formatted and labeled strictly as `Micro-Solution X: [Title]` (e.g., `Micro-Solution 1: REFramework Automated Error Recovery & Health Checks`).
+- The phrasing `Micro-Problem X vs Micro-Solution X` or leading with `Micro-Problem X` is **STRICTLY PROHIBITED**.
+- Phrasing for legacy system failures must strictly use `Legacy Pain:` and **MUST NOT** include the phrase `"Without this,"`.
 
 ### **2.6 Universal Dynamic Text Scaling & Zero Vertical Cutoff Invariant**
 - **Strict Zero-Clipping Rule**: All UI elements, cards, chips, containers, and text font sizes **MUST** be dynamically styled and sized to guarantee zero vertical clipping or bottom text cutoffs within the standard 1280x720 video walkthrough viewport frame.

@@ -1,87 +1,66 @@
-Sr Analyst, Procurement (Remote)
-Location mexicali, Baja California, Mexico  CategorySupply Chain  RTX  Collins Aerospace  Job TypeFull time  Job ID: 01870341
+Company logo for, WonderBotz.
+WonderBotz
 
- Save this job
- Back to search results Previous jobNext job
+Technical Account Manager (UiPath)
 
-Let’s Strengthen Your Resume
-1 out of 11 keywords matched, add more to make you stand out.
+Princeton, NJ · 2 months ago · 51 people clicked apply
 
-Improve My Match
-9
-Low Match
-Date Posted:
+Responses managed off LinkedIn
 
-2026-09-24
-Country:
+Remote
+Full-time
+Apply
 
-Mexico
-Location:
+Save
+Apply with Autofill
 
-MX-BCN-MEXICALI-496 ~ Calzada Manuel Gomez Morin #3200 ~ CALZADA
-Position Role Type:
+Simplify
+Resume match
+Fetching keywords...
+View more match details
+—
+Your profile and resume match some required qualifications
 
-Unspecified
-Must be authorized to work in Mexico without the company’s immigration sponsorship now or in the future. The company will not offer immigration sponsorship for this position. The company will not seek an export authorization for this role.
+Show match details
 
-Collins Aerospace is seeking a Procurement Professional to join our team. In this role, you will be responsible for managing the Procure-to-Pay process for indirect materials, ensuring timely and efficient purchasing activities that support operational requirements and Supply Chain objectives.
+BETA • Is this information helpful?
 
-The ideal candidate will collaborate with internal stakeholders and suppliers to drive cost-effective procurement solutions, maintain compliance with company policies, and contribute to continuous process improvements. This position offers the opportunity to play a key role in supporting business operations while helping drive innovation and excellence in aerospace procurement.
+About the job
+Role and Responsibilities:
 
-What You Will Do:
-Identify qualified suppliers for requirements, fully leveraging existing agreements;
+Your specific duties will be based on your experience as Technical Account Manager, and you will be an extended part of the client’s technical team, ensuring automation solutions are running effectively. In this role, you will be responsible for designing and delivering UiPath solutions in accordance with WonderBotz standards and best practices. You will work closely with our enthusiastic business and technical specialists team. You will be part of a fast-growing and successful team that helps our clients get the maximum benefit.
 
-Manage purchase order placement process from requisition to invoice payment for assigned commodities within the Indirect team;
+Expected Activities:
 
-Obtain price quotations and negotiate pricing and delivery in support of commodity supplier and cost strategies;
+Support for customers to support pre-sales and post-sales processes
+Provide developers with customers’ feedback and contribute to the identification and creation of new features or products
+Perform initial or secondary investigations and respond to online and phone support requests
+Deliver periodic reviews with customers (e.g., Health checks) and proactively analyze customers’ needs and suggest upgrades or additional features to meet their requirements
+Collaborate cross-departmentally within UiPath to establish and communicate best practices
+Build and manage a passionate, customer-centric, outcome-driven team to deliver upon your portfolio
+Ensure the quality of your team's service delivery, operations, and relationship management
+Provide mentoring, career development, and performance management to guide the continuous improvement of your team
 
-Analyze supplier quotes and makes sourcing recommendations sourcing decisions
+Qualifications And Skills:
 
-Ensure product on-time delivery to schedule
+Have mastered or strongly desired to master a leading RPA tool (UiPath a must, Blue Prism, Automation Anywhere), including advanced RPA vendor certification
+At least one year of hands-on experience with at least one of the following programming languages (e.g., .Net, Java, VB, C#/C, HTML/CSS, Python, Web Services, mainframe, web applications, SQL, data integration tools, technical automation tools). More senior developers should have a minimum of 2 to 4 years of this hands-on experience
+Reasonably proficiency in reading Microsoft Office Visio or other equivalent process flow-charting tools or workflow-based logic
+Extra - Any prior work or academic experience with Document management and processing tools (e.g., Kofax, ABBYY, Data Cap), Data integration tools (e.g., Informatica, Microsoft SSIS), Technical automation tools (e.g., shell scripting, PHP), or Business process management tools (e.g., Pega)
 
-Initiate supplier negotiations on price, lead time and terms & conditions
+Desired characteristics in candidates:
 
-Complete purchase order documentation in accordance with company policies and procedures
+Demonstrate excellent written and verbal communication skills
+Passion to work and learn fast in a fast-paced, high-energy, and challenging environment with peers who challenge you to improve
+Thrive to learn and improve sales and marketing skills
+Has proven analytical and problem-solving skills
+Is highly self-driven with a sense of motivation
+Has been both a team player and an individual contributor
 
-Ensure timely placement of orders to support business needs and meet team defined turn times;
+Compensation and start dates:
 
-Strong communication skills to interface with requisitioner and other functional groups
+Hiring now for immediate start
+Salary: Competitive base and bonus determined by level and experience
+Benefits: Healthcare, relocation, vacation, holidays
 
-Ability to work as a team member independently based on additional projects as assigned to support Supply Chain organization.
-
-Qualifications You Must Have:
-Typically requires a University Degree in Business Administration, International Business, Industrial Engineering, Logistics or a related field with a minimum of 2 years of relevant experience.
-
-Minimum of 1 year of experience with SAP procurement software or similar ERP (Enterprise Resource Planning) systems in a supply chain or procurement environment, including: Oracle, Epicor, People Soft, APEX or PRISM
-
-Advanced proficiency in English
-
-Qualifications We Prefer:
-Strong communication skills, with the ability to communicate fluently and professionally in written and spoken English.
-
-Proficiency in SAP and Ariba (Procurement functions, Business Warehouse, Business Objects).
-
-Advanced skills in Microsoft Office applications, including Word, Excel, and PowerPoint.
-
-Familiarity with lean principles and process improvement strategies.
-
-Knowledge of Indirect commodities in a manufacturing or aerospace environment.
-
-Experience in NPI (New Product Introduction) purchasing, including sourcing and procurement.
-
-What We Offer:
-Excellent work environment
-
-On-site gym facilities
-
-Wellness area & Sports tournaments
-
-Engagements events
-
-Talent development programs
-
-Transportation arrangements within proper radius from site
-
-Eco-friendly parking
-
-Medical & Life Insurance
+WonderBotz is an Equal Employment Opportunity employer.
