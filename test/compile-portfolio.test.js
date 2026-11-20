@@ -63,21 +63,7 @@ test('generated client-side script has no syntax errors', () => {
   assert.ok(scriptMatch, 'Should have inline script block');
   
   const scriptBody = scriptMatch[1];
-  // The script body contains HTML template strings with quotes that cause SyntaxError
-  // when parsed as JavaScript. These are valid HTML templates used via innerHTML.
-  // We check for SyntaxError but allow known issues with HTML template strings.
-  try {
-    new Function(scriptBody);
-  } catch (e) {
-    if (e instanceof SyntaxError && e.message.includes('Unexpected string')) {
-      // Known issue: HTML template strings in renderPinnedCard/renderRegularCard
-      // contain unescaped quotes that break JavaScript string parsing.
-      // These are valid HTML templates used via innerHTML, not executed as JS.
-      console.log('Known SyntaxError in HTML template strings (acceptable)');
-    } else {
-      throw e;
-    }
-  }
+  new Function(scriptBody); // strictly throws on any SyntaxError
   
   assert.ok(scriptBody.includes('function renderPortfolio'), 'Should contain renderPortfolio');
   assert.ok(scriptBody.includes('function extractYouTubeId'), 'Should contain extractYouTubeId');
