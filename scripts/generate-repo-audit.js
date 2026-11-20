@@ -21,7 +21,7 @@ const files = execSync('git ls-files', { encoding: 'utf8' })
   .filter(f => f)
   .filter(f => {
     const ext = path.extname(f).toLowerCase();
-    return !EXCLUDED_EXTS.has(ext) && !EXCLUDED_FILES.has(f) && !path.basename(f).startsWith('screenshot');
+    return !EXCLUDED_EXTS.has(ext) && !EXCLUDED_FILES.has(f) && !path.basename(f).startsWith('screenshot') && !f.startsWith('.kilo/');
   })
   .sort();
 

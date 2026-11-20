@@ -10,7 +10,9 @@ function utf8ToBase64(str) {
 }
 
 function base64ToUtf8(b64) {
-    const binary = atob(b64.replace(/\s/g, ''));
+    let clean = (b64 || '').replace(/\s/g, '').replace(/-/g, '+').replace(/_/g, '/');
+    while (clean.length % 4 !== 0) clean += '=';
+    const binary = atob(clean);
     const bytes = new Uint8Array(binary.length);
     for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
     return new TextDecoder().decode(bytes);
@@ -75,6 +77,7 @@ const emailIcon = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" s
 const expandIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>`;
 const closeIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
 const uploadIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>`;
+const pinnedIcon = `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 3a1 1 0 0 1 .117 1.993L16 5v4.764l1.894 3.789a1 1 0 0 1 .1.331L18 14v2a1 1 0 0 1-.883.993L17 17h-4v4a1 1 0 0 1-1.993.117L11 21v-4H7a1 1 0 0 1-.993-.883L6 16v-2a1 1 0 0 1 .06-.34l.046-.107L8 9.763V5a1 1 0 0 1-.117-1.993L8 3h8z"/></svg>`;
 // Assemble frontend surface markup with clean, job-centric walkthrough cards
 const htmlContent = `<!DOCTYPE html>
 <html lang="en">
@@ -116,7 +119,7 @@ const htmlContent = `<!DOCTYPE html>
             <div class="w-full md:w-96 shrink-0 space-y-1">
                 <div class="relative">
                     <input type="text" id="archive-search" oninput="executeFilter(false)" onkeydown="handleSearchKeydown(event)" placeholder="Search Company, Job Title, Requisition ID..." class="w-full bg-slate-950 border border-slate-800 text-xs px-4 py-3 rounded-xl focus:outline-none focus:border-cyan-500 text-slate-200 font-mono shadow-inner transition-colors pr-24">
-                    <button onclick="executeFilter(true)" class="absolute right-2 top-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-mono px-2.5 py-1.5 rounded-lg border border-slate-700 transition">Jump ↵</button>
+                    <button onclick="executeFilter(true)" class="absolute right-2 top-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-mono px-2.5 py-1.5 rounded-lg border border-slate-700 transition">Jump \u23ce</button>
                 </div>
                 <div class="text-[10px] text-slate-400 font-mono text-right">Press Enter to Jump to Top Result</div>
             </div>
@@ -169,7 +172,7 @@ const htmlContent = `<!DOCTYPE html>
 
             <!-- YouTube URL Section -->
             <div class="mb-6 p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-3">
-                <label class="block text-xs font-mono text-slate-400">YouTube Video URL (Optional — skips file upload if provided)</label>
+                <label class="block text-xs font-mono text-slate-400">YouTube Video URL (Optional \u2014 skips file upload if provided)</label>
                 <input type="url" id="youtube-url-input" placeholder="https://youtu.be/... or https://youtube.com/..." class="w-full bg-slate-950 border border-slate-800 text-xs px-4 py-3 rounded-xl focus:outline-none focus:border-cyan-500 text-slate-200 font-mono shadow-inner transition-colors" aria-label="YouTube URL">
             </div>
 
@@ -216,7 +219,7 @@ const htmlContent = `<!DOCTYPE html>
     <script>
         let PORTFOLIO_DATA = ${JSON.stringify(historicalCases)};
 
-        // UTF-8 safe base64 helpers for GitHub API (handles Unicode like · in history_registry.json)
+        // UTF-8 safe base64 helpers for GitHub API (handles Unicode like \u00b7 in history_registry.json)
         function utf8ToBase64(str) {
             const bytes = new TextEncoder().encode(str);
             let binary = '';
@@ -224,7 +227,9 @@ const htmlContent = `<!DOCTYPE html>
             return btoa(binary);
         }
         function base64ToUtf8(b64) {
-            const binary = atob(b64.replace(/\s/g, ''));
+            let clean = (b64 || '').replace(/\\s/g, '').replace(/-/g, '+').replace(/_/g, '/');
+            while (clean.length % 4 !== 0) clean += '=';
+            const binary = atob(clean);
             const bytes = new Uint8Array(binary.length);
             for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
             return new TextDecoder().decode(bytes);
@@ -247,7 +252,7 @@ const htmlContent = `<!DOCTYPE html>
             if (!url) return null;
             try {
                 const parsed = new URL(url.trim());
-                const host = parsed.hostname.replace(/^www\./, '');
+                const host = parsed.hostname.replace(/^www\\./, '');
                 let id = null;
                 if (host === 'youtu.be') {
                     id = parsed.pathname.split('/').filter(Boolean)[0] || null;
@@ -288,42 +293,19 @@ const htmlContent = `<!DOCTYPE html>
             }, 4000);
         }
 
-        // Large file to Base64 helper (chunked to avoid call-stack limits on 45-70 MB videos)
-        async function fileToBase64(file) {
-            const buffer = await file.arrayBuffer();
-            const bytes = new Uint8Array(buffer);
-            const chunkSize = 0x8000; // 32 KB chunks
-            let binary = '';
-            for (let i = 0; i < bytes.length; i += chunkSize) {
-                binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+        // Robust registry fetch: handles both inline content and blob fallback for large files
+        async function fetchRegistryJson() {
+            const registryData = await githubApiRequest('/repos/parth33320/enterprise-portfolio/contents/_job_queue/history_registry.json');
+            let rawText;
+            if (registryData.content && registryData.content.trim()) {
+                rawText = base64ToUtf8(registryData.content);
+            } else if (registryData.sha) {
+                const blobData = await githubApiRequest('/repos/parth33320/enterprise-portfolio/git/blobs/' + registryData.sha);
+                rawText = base64ToUtf8(blobData.content);
+            } else {
+                throw new Error('Registry response missing content and sha');
             }
-            return btoa(binary);
-        }
-
-        // YouTube URL helpers
-        function extractYouTubeId(url) {
-            if (!url) return null;
-            try {
-                const parsed = new URL(url.trim());
-                const host = parsed.hostname.replace(/^www\./, '');
-                let id = null;
-                if (host === 'youtu.be') {
-                    id = parsed.pathname.split('/').filter(Boolean)[0] || null;
-                } else if (host === 'youtube.com' || host === 'youtube-nocookie.com') {
-                    if (parsed.pathname === '/watch') {
-                        id = parsed.searchParams.get('v');
-                    } else if (parsed.pathname.startsWith('/embed/') || parsed.pathname.startsWith('/shorts/')) {
-                        id = parsed.pathname.split('/')[2] || null;
-                    }
-                }
-                return id && /^[a-zA-Z0-9_-]{11}$/.test(id) ? id : null;
-            } catch (e) {
-                return null;
-            }
-        }
-
-        function isYouTubeUrl(url) {
-            return extractYouTubeId(url) !== null;
+            return { sha: registryData.sha, items: JSON.parse(rawText) };
         }
 
         // =========================================================================
@@ -347,7 +329,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
 
             if (isYouTube) {
                 const iframe = document.createElement('iframe');
-                iframe.src = \`https://www.youtube-nocookie.com/embed/\${ytId}?autoplay=1&rel=0\`;
+                iframe.src = 'https://www.youtube-nocookie.com/embed/' + ytId + '?autoplay=1&rel=0';
                 iframe.className = 'w-[90vw] max-w-5xl aspect-video rounded-xl border border-slate-700';
                 iframe.allow = 'autoplay; fullscreen; picture-in-picture';
                 iframe.allowFullscreen = true;
@@ -431,7 +413,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
         function addStatusLog(message, isError = false) {
             const div = document.createElement('div');
             div.className = isError ? 'text-rose-400' : 'text-slate-300';
-            div.textContent = \`[\${new Date().toLocaleTimeString()}] \${message}\`;
+            div.textContent = '[' + new Date().toLocaleTimeString() + '] ' + message;
             statusLog.appendChild(div);
             statusLog.scrollTop = statusLog.scrollHeight;
         }
@@ -443,7 +425,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
         function validateToken(token) {
             if (token && (token.startsWith('github_pat_') || token.startsWith('ghp_') || token.length >= 20)) {
                 publishBtn.disabled = false;
-                addStatusLog('Token loaded ✓');
+                addStatusLog('Token loaded \u2713');
             } else {
                 publishBtn.disabled = true;
             }
@@ -484,7 +466,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                     const thumbnailDataUrl = await generateSmartThumbnail(file);
                     thumbnailImg.src = thumbnailDataUrl;
                     thumbnailPreview.classList.remove('hidden');
-                    addStatusLog('Smart thumbnail generated ✓');
+                    addStatusLog('Smart thumbnail generated \u2713');
                     setStatusStep('Ready to publish');
                 } catch (err) {
                     addStatusLog('Thumbnail generation failed: ' + err.message, true);
@@ -508,7 +490,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                         thumbnailImg.src = canvas.toDataURL('image/jpeg', 0.85);
                         thumbnailPreview.classList.remove('hidden');
                         URL.revokeObjectURL(url);
-                        addStatusLog('GIF thumbnail generated ✓');
+                        addStatusLog('GIF thumbnail generated \u2713');
                         setStatusStep('Ready to publish');
                         resolve();
                     };
@@ -625,27 +607,27 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
             if (!token) throw new Error('No GitHub token provided');
 
             const headers = {
-                'Authorization': \`Bearer \${token}\`,
+                'Authorization': 'Bearer ' + token,
                 'Accept': 'application/vnd.github+json',
                 'X-GitHub-Api-Version': '2022-11-28',
                 ...options.headers
             };
 
-            const response = await fetch(\`https://api.github.com\${endpoint}\`, {
+            const response = await fetch('https://api.github.com' + endpoint, {
                 ...options,
                 headers
             });
 
             if (!response.ok) {
                 const errorText = await response.text();
-                throw new Error(\`GitHub API error (\${response.status}): \${errorText}\`);
+                throw new Error('GitHub API error (' + response.status + '): ' + errorText);
             }
 
             return response.json();
         }
 
         async function uploadToGitHubContents(filePath, content, message, sha = null, isAlreadyBase64 = false) {
-            const endpoint = \`/repos/parth33320/enterprise-portfolio/contents/\${filePath}\`;
+            const endpoint = '/repos/parth33320/enterprise-portfolio/contents/' + filePath;
             const body = {
                 message,
                 content: isAlreadyBase64 ? content : utf8ToBase64(content),
@@ -660,7 +642,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
 
         async function getFileSha(filePath) {
             try {
-                const data = await githubApiRequest(\`/repos/parth33320/enterprise-portfolio/contents/\${filePath}\`);
+                const data = await githubApiRequest('/repos/parth33320/enterprise-portfolio/contents/' + filePath);
                 return data.sha;
             } catch (e) {
                 return null; // File doesn't exist
@@ -712,8 +694,8 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                     setStatusStep('1/2 Updating registry (YouTube)...');
                     addStatusLog('Publishing YouTube video...');
 
-                    const registryData = await githubApiRequest('/repos/parth33320/enterprise-portfolio/contents/_job_queue/history_registry.json');
-                    const currentRegistry = JSON.parse(base64ToUtf8(registryData.content));
+                    const registry = await fetchRegistryJson();
+                    const currentRegistry = registry.items;
 
                     const newEntry = {
                         companyName: title,
@@ -738,10 +720,10 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                     await uploadToGitHubContents(
                         '_job_queue/history_registry.json',
                         JSON.stringify(updatedRegistry, null, 2),
-                        \`Add demo entry: \${title}\`,
-                        registryData.sha
+                        'Add demo entry: ' + title,
+                        registry.sha
                     );
-                    addStatusLog('Registry updated ✓');
+                    addStatusLog('Registry updated \u2713');
 
                     setStatusStep('2/2 Done!');
                     addStatusLog('Success! GitHub Actions is deploying your live site (~60s).');
@@ -764,33 +746,33 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
 
                     const slug = generateSlug(reqId || title);
                     const ext = getFileExtension(file.name);
-                    const mediaFileName = \`\${slug}.\${ext}\`;
-                    const posterFileName = \`\${slug}-poster.jpg\`;
+                    const mediaFileName = slug + '.' + ext;
+                    const posterFileName = slug + '-poster.jpg';
                     let mediaPath, posterPath;
 
-                    // Step 2: Upload media (always via Contents API; 70 MB raw ≈ 93 MB Base64, under 100 MB limit)
+                    // Step 2: Upload media (always via Contents API; 70 MB raw \u2248 93 MB Base64, under 100 MB limit)
                     const MAX_CONTENTS_API_SIZE = 70 * 1024 * 1024; // 70 MB raw = ~93 MB Base64 payload
                     const isTooLarge = file.size >= MAX_CONTENTS_API_SIZE;
 
                     if (isTooLarge) {
                         const mb = (file.size / 1024 / 1024).toFixed(1);
-                        throw new Error(\`File is \${mb} MB — GitHub Contents API limit is 100 MB (Base64 expands ~33%). Please compress your MP4 below 70 MB raw or upload via GitHub Releases UI manually.\`);
+                        throw new Error('File is ' + mb + ' MB \u2014 GitHub Contents API limit is 100 MB (Base64 expands ~33%). Please compress your MP4 below 70 MB raw or upload via GitHub Releases UI manually.');
                     }
 
                     setStatusStep('2/4 Uploading media...');
-                    addStatusLog(\`Uploading \${mediaFileName} (\${(file.size / 1024 / 1024).toFixed(2)} MB)...\`);
+                    addStatusLog('Uploading ' + mediaFileName + ' (' + (file.size / 1024 / 1024).toFixed(2) + ' MB)...');
 
                     const base64Content = await fileToBase64(file);
-                    const sha = await getFileSha(\`docs/assets/\${mediaFileName}\`);
+                    const sha = await getFileSha('docs/assets/' + mediaFileName);
                     await uploadToGitHubContents(
-                        \`docs/assets/\${mediaFileName}\`,
+                        'docs/assets/' + mediaFileName,
                         base64Content,
-                        \`Add demo media: \${title}\`,
+                        'Add demo media: ' + title,
                         sha,
                         true
                     );
-                    mediaPath = \`docs/assets/\${mediaFileName}\`;
-                    addStatusLog('Repo upload complete ✓');
+                    mediaPath = 'docs/assets/' + mediaFileName;
+                    addStatusLog('Repo upload complete \u2713');
 
                     // Step 3: Upload poster
                     setStatusStep('3/4 Uploading thumbnail...');
@@ -802,23 +784,23 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                         throw new Error('No thumbnail generated');
                     }
 
-                    const posterSha = await getFileSha(\`docs/assets/\${posterFileName}\`);
+                    const posterSha = await getFileSha('docs/assets/' + posterFileName);
                     await uploadToGitHubContents(
-                        \`docs/assets/\${posterFileName}\`,
+                        'docs/assets/' + posterFileName,
                         posterBase64,
-                        \`Add demo poster: \${title}\`,
+                        'Add demo poster: ' + title,
                         posterSha,
                         true
                     );
-                    posterPath = \`docs/assets/\${posterFileName}\`;
-                    addStatusLog('Poster upload complete ✓');
+                    posterPath = 'docs/assets/' + posterFileName;
+                    addStatusLog('Poster upload complete \u2713');
 
                     // Step 4: Update registry
                     setStatusStep('4/4 Updating registry...');
                     addStatusLog('Updating history_registry.json...');
 
-                    const registryData = await githubApiRequest('/repos/parth33320/enterprise-portfolio/contents/_job_queue/history_registry.json');
-                    const currentRegistry = JSON.parse(base64ToUtf8(registryData.content));
+                    const registry = await fetchRegistryJson();
+                    const currentRegistry = registry.items;
                     
                     const newEntry = {
                         companyName: title,
@@ -843,10 +825,10 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                     await uploadToGitHubContents(
                         '_job_queue/history_registry.json',
                         JSON.stringify(updatedRegistry, null, 2),
-                        \`Add demo entry: \${title}\`,
-                        registryData.sha
+                        'Add demo entry: ' + title,
+                        registry.sha
                     );
-                    addStatusLog('Registry updated ✓');
+                    addStatusLog('Registry updated \u2713');
 
                     setStatusStep('4/4 Done!');
                     addStatusLog('Success! GitHub Actions is deploying your live site (~60s).');
@@ -927,8 +909,8 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
         // =========================================================================
         async function togglePinProject(originalIndex) {
             try {
-                const registryData = await githubApiRequest('/repos/parth33320/enterprise-portfolio/contents/_job_queue/history_registry.json');
-                const currentRegistry = JSON.parse(base64ToUtf8(registryData.content));
+                const registry = await fetchRegistryJson();
+                const currentRegistry = registry.items;
                 
                 if (originalIndex < 0 || originalIndex >= currentRegistry.length) {
                     throw new Error('Invalid project index');
@@ -939,14 +921,14 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                 await uploadToGitHubContents(
                     '_job_queue/history_registry.json',
                     JSON.stringify(currentRegistry, null, 2),
-                    \`Toggle pin for \${currentRegistry[originalIndex].companyName}\`,
-                    registryData.sha
+                    'Toggle pin for ' + currentRegistry[originalIndex].companyName,
+                    registry.sha
                 );
                 
                 PORTFOLIO_DATA = currentRegistry;
                 renderPortfolio();
                 updateAdminButtonsVisibility();
-                showToast(\`\${currentRegistry[originalIndex].pinned ? 'Pinned' : 'Unpinned'} \${currentRegistry[originalIndex].companyName} — GitHub Pages deploying (~60s)\`);
+                showToast((currentRegistry[originalIndex].pinned ? 'Pinned' : 'Unpinned') + ' ' + currentRegistry[originalIndex].companyName + ' \u2014 GitHub Pages deploying (~60s)');
             } catch (err) {
                 showToast('Error: ' + err.message, true);
                 console.error(err);
@@ -963,8 +945,8 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                 const answer = prompt('Type DELETE to permanently remove "' + item.companyName + '" from your portfolio:');
                 if (answer !== 'DELETE') return;
                 
-                const registryData = await githubApiRequest('/repos/parth33320/enterprise-portfolio/contents/_job_queue/history_registry.json');
-                const currentRegistry = JSON.parse(base64ToUtf8(registryData.content));
+                const registry = await fetchRegistryJson();
+                const currentRegistry = registry.items;
                 
                 if (originalIndex < 0 || originalIndex >= currentRegistry.length) {
                     throw new Error('Invalid project index');
@@ -976,7 +958,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                     '_job_queue/history_registry.json',
                     JSON.stringify(currentRegistry, null, 2),
                     'Remove project: ' + removed.companyName,
-                    registryData.sha
+                    registry.sha
                 );
                 
                 // Clean up unreferenced assets
@@ -994,10 +976,10 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                         if (sha) {
                             try {
                                 const token = ghTokenInput.value.trim();
-                                await fetch(\`https://api.github.com/repos/parth33320/enterprise-portfolio/contents/\${assetPath}\`, {
+                                await fetch('https://api.github.com/repos/parth33320/enterprise-portfolio/contents/' + assetPath, {
                                     method: 'DELETE',
                                     headers: {
-                                        'Authorization': \`Bearer \${token}\`,
+                                        'Authorization': 'Bearer ' + token,
                                         'Accept': 'application/vnd.github+json',
                                         'X-GitHub-Api-Version': '2022-11-28',
                                         'Content-Type': 'application/json'
@@ -1014,7 +996,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                 PORTFOLIO_DATA = currentRegistry;
                 renderPortfolio();
                 updateAdminButtonsVisibility();
-                showToast('Deleted \${removed.companyName} — GitHub Pages updating (~60s)');
+                showToast('Deleted ' + removed.companyName + ' \u2014 GitHub Pages updating (~60s)');
             } catch (err) {
                 showToast('Error: ' + err.message, true);
                 console.error(err);
@@ -1040,8 +1022,8 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
         }
 
         function renderPinnedCard(item, originalIndex) {
-            const reqBadge = item.reqId ? \`<span class="text-slate-400 font-mono text-xs">REQ ID: <span class="text-slate-200 font-bold">\${item.reqId}</span></span>\` : '';
-            const pinnedBadge = item.pinned ? \`<span class="px-2 py-0.5 text-[10px] font-mono bg-amber-900/50 text-amber-300 border border-amber-800/50 rounded">PINNED</span>\` : '';
+            const reqBadge = item.reqId ? '<span class="text-slate-400 font-mono text-xs">REQ ID: <span class="text-slate-200 font-bold">' + item.reqId + '</span></span>' : '';
+            const pinnedBadge = item.pinned ? '<span class="inline-flex items-center justify-center text-amber-400/90 hover:text-amber-300 transition-colors shrink-0" title="Pinned Project" aria-label="Pinned Project">' + pinnedIcon + '</span>' : '';
             const hasJobTitle = item.jobTitle && item.jobTitle.trim() !== '';
             const mediaSrc = getMediaSource(item);
             const ytId = getYouTubeId(item);
@@ -1050,45 +1032,20 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
             const posterSrc = item.posterAsset || '';
 
             const mediaHtml = isYouTube
-                ? \`<iframe src="https://www.youtube-nocookie.com/embed/\${ytId}?rel=0" title="\${item.companyName}" class="w-full h-full border-0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen data-theater-youtube="\${ytId}"></iframe>\`
+                ? '<iframe src="https://www.youtube-nocookie.com/embed/' + ytId + '?rel=0" title="' + item.companyName + '" class="w-full h-full border-0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen data-theater-youtube="' + ytId + '"></iframe>'
                 : isVideo
-                    ? \`<video src="\${mediaSrc}" poster="\${posterSrc}" controls playsinline preload="none" class="w-full h-full object-contain bg-black" data-theater-video="true"></video>\`
-                    : \`<img src="\${mediaSrc}" loading="lazy" decoding="async" class="w-full h-full object-cover cursor-zoom-in" alt="\${item.companyName} Walkthrough" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" data-theater-image="true">\`;
+                    ? '<video src="' + mediaSrc + '" poster="' + posterSrc + '" controls playsinline preload="none" class="w-full h-full object-contain bg-black" data-theater-video="true"></video>'
+                    : '<img src="' + mediaSrc + '" loading="lazy" decoding="async" class="w-full h-full object-cover cursor-zoom-in" alt="' + item.companyName + ' Walkthrough" onerror="this.style.display=\\"none\\"; this.nextElementSibling.style.display=\\"flex\\";" data-theater-image="true">';
 
-            const adminPinBtn = \`<button type="button" onclick="togglePinProject(\${originalIndex})" class="admin-pin-btn hidden px-2 py-0.5 rounded text-[11px] font-mono bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700 transition-colors" title="Toggle pin">\${item.pinned ? 'Unpin' : 'Pin'}</button>\`;
-            const adminDeleteBtn = \`<button type="button" onclick="deleteProject(\${originalIndex})" class="admin-delete-btn hidden px-2 py-0.5 rounded text-[11px] font-mono bg-red-950/80 hover:bg-red-800 text-red-300 border border-red-800/60 transition-colors" title="Delete project & asset">Delete</button>\`;
+            const adminPinBtn = '<button type="button" onclick="togglePinProject(' + originalIndex + ')" class="admin-pin-btn hidden px-2 py-0.5 rounded text-[11px] font-mono bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700 transition-colors" title="Toggle pin">' + (item.pinned ? 'Unpin' : 'Pin') + '</button>';
+            const adminDeleteBtn = '<button type="button" onclick="deleteProject(' + originalIndex + ')" class="admin-delete-btn hidden px-2 py-0.5 rounded text-[11px] font-mono bg-red-950/80 hover:bg-red-800 text-red-300 border border-red-800/60 transition-colors" title="Delete project & asset">Delete</button>';
 
-            return \`
-                <div class="case-card bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 p-6 rounded-2xl shadow-2xl transition-all flex flex-col justify-between" data-search="\${item.companyName} \${item.jobTitle || ''} \${item.reqId || ''}">
-
-                    <!-- Header with badges & admin buttons -->
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800/80 pb-4 gap-2 mb-4">
-                        <div class="flex flex-col gap-1">
-                            <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">\${item.companyName}</div>
-                            \${hasJobTitle ? \`<h2 class="text-lg font-extrabold text-white font-sans mt-0.5 tracking-tight line-clamp-2" title="\${item.jobTitle}">\${item.jobTitle}</h2>\` : ''}
-                        </div>
-                        <div class="flex items-center gap-2 flex-wrap">
-                            \${pinnedBadge}\${reqBadge}\${adminPinBtn}\${adminDeleteBtn}
-                        </div>
-                    </div>
-
-                    <!-- Walkthrough Media Container with mt-auto for alignment -->
-                    <div class="bg-slate-950 border border-slate-800/80 rounded-xl overflow-hidden aspect-video w-full flex items-center justify-center shadow-inner relative group mt-auto">
-                        \${mediaHtml}
-                        <div class="hidden absolute inset-0 flex items-center justify-center text-xs text-slate-500 bg-slate-950 font-mono">
-                            [Walkthrough media generating in build pipeline]
-                        </div>
-                        <!-- Expand Button -->
-                        <button class="absolute top-3 right-3 bg-slate-900/80 hover:bg-slate-800/90 text-slate-300 hover:text-white p-2 rounded-lg border border-slate-700/50 opacity-0 group-hover:opacity-100 transition-opacity z-10" aria-label="Theater Mode" onclick="openTheaterModal('\${item.companyName}\${hasJobTitle ? ' - ' + item.jobTitle : ''}', this.closest('.aspect-video').querySelector('video, img, iframe'), \${!ytId && isVideoUrl(mediaSrc)}, \${!!ytId}, '\${ytId || ''}')">
-                            ${expandIcon}
-                        </button>
-                    </div>
-                </div>\`;
+            return '<div class="case-card bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 p-6 rounded-2xl shadow-2xl transition-all flex flex-col justify-between" data-search="' + item.companyName + ' ' + (item.jobTitle || '') + ' ' + (item.reqId || '') + '"><!-- Header with badges & admin buttons --><div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800/80 pb-4 gap-2 mb-4"><div class="flex flex-col gap-1"><div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">' + item.companyName + '</div>' + (hasJobTitle ? '<h2 class="text-lg font-extrabold text-white font-sans mt-0.5 tracking-tight line-clamp-2" title="' + item.jobTitle + '">' + item.jobTitle + '</h2>' : '') + '</div><div class="flex items-center gap-2 flex-wrap">' + pinnedBadge + reqBadge + adminPinBtn + adminDeleteBtn + '</div></div><!-- Walkthrough Media Container with mt-auto for alignment --><div class="bg-slate-950 border border-slate-800/80 rounded-xl overflow-hidden aspect-video w-full flex items-center justify-center shadow-inner relative group mt-auto">' + mediaHtml + '<div class="hidden absolute inset-0 flex items-center justify-center text-xs text-slate-500 bg-slate-950 font-mono">[Walkthrough media generating in build pipeline]</div><!-- Expand Button --><button class="absolute top-3 right-3 bg-slate-900/80 hover:bg-slate-800/90 text-slate-300 hover:text-white p-2 rounded-lg border border-slate-700/50 opacity-0 group-hover:opacity-100 transition-opacity z-10" aria-label="Theater Mode" onclick="openTheaterModal(\'" + item.companyName + (hasJobTitle ? ' - ' + item.jobTitle : '') + '\', this.closest('.aspect-video').querySelector('video, img, iframe'), ' + (!ytId && isVideoUrl(mediaSrc)) + ', ' + (!!ytId) + ', \'" + (ytId || '') + "\')">' + expandIcon + '</button></div></div>';
         }
 
         function renderRegularCard(item, originalIndex) {
-            const reqBadge = item.reqId ? \`<span class="text-slate-400 font-mono text-xs">REQ ID: <span class="text-slate-200 font-bold">\${item.reqId}</span></span>\` : '';
-            const pinnedBadge = item.pinned ? \`<span class="px-2 py-0.5 text-[10px] font-mono bg-amber-900/50 text-amber-300 border border-amber-800/50 rounded">PINNED</span>\` : '';
+            const reqBadge = item.reqId ? '<span class="text-slate-400 font-mono text-xs">REQ ID: <span class="text-slate-200 font-bold">' + item.reqId + '</span></span>' : '';
+            const pinnedBadge = item.pinned ? '<span class="inline-flex items-center justify-center text-amber-400/90 hover:text-amber-300 transition-colors shrink-0" title="Pinned Project" aria-label="Pinned Project">' + pinnedIcon + '</span>' : '';
             const hasJobTitle = item.jobTitle && item.jobTitle.trim() !== '';
             const mediaSrc = getMediaSource(item);
             const ytId = getYouTubeId(item);
@@ -1097,40 +1054,15 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
             const posterSrc = item.posterAsset || '';
 
             const mediaHtml = isYouTube
-                ? \`<iframe src="https://www.youtube-nocookie.com/embed/\${ytId}?rel=0" title="\${item.companyName}" class="w-full h-full border-0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen data-theater-youtube="\${ytId}"></iframe>\`
+                ? '<iframe src="https://www.youtube-nocookie.com/embed/' + ytId + '?rel=0" title="' + item.companyName + '" class="w-full h-full border-0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen data-theater-youtube="' + ytId + '"></iframe>'
                 : isVideo
-                    ? \`<video src="\${mediaSrc}" poster="\${posterSrc}" controls playsinline preload="none" class="w-full h-full object-contain bg-black" data-theater-video="true"></video>\`
-                    : \`<img src="\${mediaSrc}" loading="lazy" decoding="async" class="w-full h-full object-cover cursor-zoom-in" alt="\${item.companyName} Walkthrough" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" data-theater-image="true">\`;
+                    ? '<video src="' + mediaSrc + '" poster="' + posterSrc + '" controls playsinline preload="none" class="w-full h-full object-contain bg-black" data-theater-video="true"></video>'
+                    : '<img src="' + mediaSrc + '" loading="lazy" decoding="async" class="w-full h-full object-cover cursor-zoom-in" alt="' + item.companyName + ' Walkthrough" onerror="this.style.display=\\"none\\"; this.nextElementSibling.style.display=\\"flex\\";" data-theater-image="true">';
 
-            const adminPinBtn = \`<button type="button" onclick="togglePinProject(\${originalIndex})" class="admin-pin-btn hidden px-2 py-0.5 rounded text-[11px] font-mono bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700 transition-colors" title="Toggle pin">\${item.pinned ? 'Unpin' : 'Pin'}</button>\`;
-            const adminDeleteBtn = \`<button type="button" onclick="deleteProject(\${originalIndex})" class="admin-delete-btn hidden px-2 py-0.5 rounded text-[11px] font-mono bg-red-950/80 hover:bg-red-800 text-red-300 border border-red-800/60 transition-colors" title="Delete project & asset">Delete</button>\`;
+            const adminPinBtn = '<button type="button" onclick="togglePinProject(' + originalIndex + ')" class="admin-pin-btn hidden px-2 py-0.5 rounded text-[11px] font-mono bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700 transition-colors" title="Toggle pin">' + (item.pinned ? 'Unpin' : 'Pin') + '</button>';
+            const adminDeleteBtn = '<button type="button" onclick="deleteProject(' + originalIndex + ')" class="admin-delete-btn hidden px-2 py-0.5 rounded text-[11px] font-mono bg-red-950/80 hover:bg-red-800 text-red-300 border border-red-800/60 transition-colors" title="Delete project & asset">Delete</button>';
 
-            return \`
-                <div class="case-card bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 p-6 rounded-2xl space-y-5 shadow-2xl transition-all" data-search="\${item.companyName} \${item.jobTitle || ''} \${item.reqId || ''}">
-
-                    <!-- Clean Job Posting Header Strip -->
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800/80 pb-4 gap-2">
-                        <div>
-                            <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">\${item.companyName}</div>
-                            \${hasJobTitle ? \`<h2 class="text-lg font-extrabold text-white font-sans mt-0.5 tracking-tight">\${item.jobTitle}</h2>\` : ''}
-                        </div>
-                        <div>
-                            \${pinnedBadge}\${reqBadge}\${adminPinBtn}\${adminDeleteBtn}
-                        </div>
-                    </div>
-
-                    <!-- Walkthrough Media Container -->
-                    <div class="bg-slate-950 border border-slate-800/80 rounded-xl overflow-hidden aspect-video w-full flex items-center justify-center shadow-inner relative group">
-                        \${mediaHtml}
-                        <div class="hidden absolute inset-0 flex items-center justify-center text-xs text-slate-500 bg-slate-950 font-mono">
-                            [Walkthrough media generating in build pipeline]
-                        </div>
-                        <!-- Expand Button -->
-                        <button class="absolute top-3 right-3 bg-slate-900/80 hover:bg-slate-800/90 text-slate-300 hover:text-white p-2 rounded-lg border border-slate-700/50 opacity-0 group-hover:opacity-100 transition-opacity z-10" aria-label="Theater Mode" onclick="openTheaterModal('\${item.companyName}\${hasJobTitle ? ' - ' + item.jobTitle : ''}', this.closest('.aspect-video').querySelector('video, img, iframe'), \${!ytId && isVideoUrl(mediaSrc)}, \${!!ytId}, '\${ytId || ''}')">
-                            ${expandIcon}
-                        </button>
-                    </div>
-                </div>\`;
+            return '<div class="case-card bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 p-6 rounded-2xl space-y-5 shadow-2xl transition-all" data-search="' + item.companyName + ' ' + (item.jobTitle || '') + ' ' + (item.reqId || '') + '"><!-- Clean Job Posting Header Strip --><div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800/80 pb-4 gap-2"><div><div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">' + item.companyName + '</div>' + (hasJobTitle ? '<h2 class="text-lg font-extrabold text-white font-sans mt-0.5 tracking-tight">' + item.jobTitle + '</h2>' : '') + '</div><div>' + pinnedBadge + reqBadge + adminPinBtn + adminDeleteBtn + '</div></div><!-- Walkthrough Media Container --><div class="bg-slate-950 border border-slate-800/80 rounded-xl overflow-hidden aspect-video w-full flex items-center justify-center shadow-inner relative group">' + mediaHtml + '<div class="hidden absolute inset-0 flex items-center justify-center text-xs text-slate-500 bg-slate-950 font-mono">[Walkthrough media generating in build pipeline]</div><!-- Expand Button --><button class="absolute top-3 right-3 bg-slate-900/80 hover:bg-slate-800/90 text-slate-300 hover:text-white p-2 rounded-lg border border-slate-700/50 opacity-0 group-hover:opacity-100 transition-opacity z-10" aria-label="Theater Mode" onclick="openTheaterModal(\'" + item.companyName + (hasJobTitle ? ' - ' + item.jobTitle : '') + '\', this.closest('.aspect-video').querySelector('video, img, iframe'), ' + (!ytId && isVideoUrl(mediaSrc)) + ', ' + (!!ytId) + ', \'" + (ytId || '') + "\')">' + expandIcon + '</button></div></div>';
         }
 
         function renderPortfolio() {
@@ -1142,7 +1074,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
 
             const term = document.getElementById('archive-search').value.toLowerCase().trim();
             const filteredItems = PORTFOLIO_DATA.filter(item => {
-                const haystack = \`\${item.companyName} \${item.jobTitle || ''} \${item.reqId || ''}\`.toLowerCase();
+                const haystack = (item.companyName + ' ' + (item.jobTitle || '') + ' ' + (item.reqId || '')).toLowerCase();
                 return haystack.includes(term);
             });
 
@@ -1159,17 +1091,11 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
 
             // If pinned items exist, render showcase grid first
             if (pinnedItems.length > 0) {
-                html += \`
-                    <div class="mb-10 pb-8 border-b border-slate-800/80">
-                        <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider mb-6">Featured Projects</div>
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            \${pinnedItems.map(({ item, originalIndex }) => renderPinnedCard(item, originalIndex)).join('')}
-                        </div>
-                    </div>\`;
+                html += '<div class="mb-10 pb-8 border-b border-slate-800/80">\n                        <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider mb-6">Featured Projects</div>\n                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">\n                            ' + pinnedItems.map(({ item, originalIndex }) => renderPinnedCard(item, originalIndex)).join('') + '\n                        </div>\n                    </div>';
             }
 
             // Then regular items in standard feed
-            html += \`<div class="space-y-8">\${regularItems.map(({ item, originalIndex }) => renderRegularCard(item, originalIndex)).join('')}</div>\`;
+            html += '<div class="space-y-8">' + regularItems.map(({ item, originalIndex }) => renderRegularCard(item, originalIndex)).join('') + '</div>';
 
             grid.innerHTML = html;
 
@@ -1225,11 +1151,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                     emptyStateEl.className = 'bg-slate-900/40 border border-dashed border-slate-800 p-12 rounded-2xl text-center space-y-3';
                     document.getElementById('portfolio-grid').appendChild(emptyStateEl);
                 }
-                emptyStateEl.innerHTML = \`
-                    <div class="text-cyan-400 font-mono text-2xl font-bold">🔍</div>
-                    <div class="text-sm font-bold text-slate-200">No Business Solutions Found</div>
-                    <div class="text-xs text-slate-400 font-mono">No matching walkthrough entries found for "<span class="text-cyan-400">\${term}</span>". Try searching company name, job title, or REQ ID.</div>
-                \`;
+                emptyStateEl.innerHTML = '<div class="text-cyan-400 font-mono text-2xl font-bold">\u{1f50d}</div>\n                    <div class="text-sm font-bold text-slate-200">No Business Solutions Found</div>\n                    <div class="text-xs text-slate-400 font-mono">No matching walkthrough entries found for "<span class="text-cyan-400">' + term + '</span>". Try searching company name, job title, or REQ ID.</div>';
                 emptyStateEl.style.display = 'block';
             } else if (emptyStateEl) {
                 emptyStateEl.style.display = 'none';
