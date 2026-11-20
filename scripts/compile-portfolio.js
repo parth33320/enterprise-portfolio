@@ -57,7 +57,7 @@ const htmlContent = `<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Solutions Index</title>
+    <title>Projects Index</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -71,7 +71,7 @@ const htmlContent = `<!DOCTYPE html>
         <!-- Top Header & Search Control Bar -->
         <div class="bg-slate-900/80 border border-slate-800 p-6 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-2xl backdrop-blur-sm">
             <div>
-                <h1 class="text-xl font-extrabold text-white tracking-tight">Business Solutions Index</h1>
+                <h1 class="text-xl font-extrabold text-white tracking-tight">Projects Index</h1>
             </div>
             <div class="w-full md:w-96 shrink-0 space-y-1">
                 <div class="relative">
