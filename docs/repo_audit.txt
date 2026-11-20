@@ -5813,7 +5813,8 @@ This file serves as the canonical record of architectural decisions, visual layo
     "cpi": 1.14,
     "spi": 1.08,
     "piPredictability": 96,
-    "gifAsset": "docs/assets/wb-uipath-2026.gif"
+    "gifAsset": "docs/assets/wb-uipath-2026.gif",
+    "pinned": true
   },
   {
     "companyName": "Villanova University",
@@ -5830,7 +5831,8 @@ This file serves as the canonical record of architectural decisions, visual layo
     "cpi": 1.12,
     "spi": 1.06,
     "piPredictability": 95,
-    "gifAsset": "docs/assets/20260343s.gif"
+    "gifAsset": "docs/assets/20260343s.gif",
+    "pinned": false
   },
   {
     "companyName": "Collins Aerospace",
