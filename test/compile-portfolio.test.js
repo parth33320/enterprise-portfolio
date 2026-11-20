@@ -36,4 +36,8 @@ test('compile-portfolio script compiles portfolio and generates index.html witho
   assert.ok(content.includes('xjupload'), 'index.html should contain xjupload trigger');
   assert.ok(content.includes('stdDev'), 'index.html should contain thumbnail generation logic');
   assert.ok(content.includes('uploads.github.com'), 'index.html should use correct GitHub upload endpoint');
+  // YouTube embed support
+  assert.ok(content.includes('youtube-nocookie.com'), 'index.html should contain YouTube embed support');
+  assert.ok(content.includes('extractYouTubeId'), 'index.html should contain YouTube ID extractor');
+  assert.ok(content.includes('youtube-url-input'), 'index.html should contain YouTube URL input in admin modal');
 });

@@ -89,6 +89,12 @@
                 </div>
             </div>
 
+            <!-- YouTube URL Section -->
+            <div class="mb-6 p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-3">
+                <label class="block text-xs font-mono text-slate-400">YouTube Video URL (Optional — skips file upload if provided)</label>
+                <input type="url" id="youtube-url-input" placeholder="https://youtu.be/... or https://youtube.com/..." class="w-full bg-slate-950 border border-slate-800 text-xs px-4 py-3 rounded-xl focus:outline-none focus:border-cyan-500 text-slate-200 font-mono shadow-inner transition-colors" aria-label="YouTube URL">
+            </div>
+
             <!-- Project Metadata Section -->
             <div class="mb-6 p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-4">
                 <div>
@@ -154,6 +160,24 @@
             return btoa(binary);
         }
 
+        // YouTube URL helpers
+        function extractYouTubeId(url) {
+            if (!url) return null;
+            const patterns = [
+                /(?:youtube.com/watch?v=|youtu.be/|youtube.com/embed/|youtube.com/shorts/)([a-zA-Z0-9_-]{11})/,
+                /youtube.com/.*[?&]v=([a-zA-Z0-9_-]{11})/
+            ];
+            for (const pattern of patterns) {
+                const match = url.match(pattern);
+                if (match && match[1]) return match[1];
+            }
+            return null;
+        }
+
+        function isYouTubeUrl(url) {
+            return extractYouTubeId(url) !== null;
+        }
+
         // =========================================================================
         // THEATER MODE MODAL LOGIC
         // =========================================================================
@@ -163,17 +187,25 @@
         const modalClose = document.getElementById('modal-close');
         let pausedInlineVideo = null;
 
-        function openTheaterModal(title, mediaElement, isVideo) {
+function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
             modalTitle.textContent = title;
             modalMedia.innerHTML = '';
-            
+
             // Pause any playing inline video in the card
             if (isVideo && mediaElement.tagName === 'VIDEO' && !mediaElement.paused) {
                 pausedInlineVideo = mediaElement;
                 mediaElement.pause();
             }
-            
-            if (isVideo) {
+
+            if (isYouTube) {
+                const iframe = document.createElement('iframe');
+                iframe.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0`;
+                iframe.className = 'w-[90vw] max-w-5xl aspect-video rounded-xl border border-slate-700';
+                iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+                iframe.allowFullscreen = true;
+                iframe.title = title;
+                modalMedia.appendChild(iframe);
+            } else if (isVideo) {
                 const video = document.createElement('video');
                 video.src = mediaElement.src;
                 if (mediaElement.poster) video.poster = mediaElement.poster;
@@ -189,7 +221,7 @@
                 img.className = 'max-h-[85vh] max-w-[92vw] object-contain rounded-xl border border-slate-700';
                 modalMedia.appendChild(img);
             }
-            
+
             theaterModal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
@@ -533,14 +565,29 @@
             const title = projectTitleInput.value.trim();
             const subtitle = projectSubtitleInput.value.trim();
             const reqId = projectReqIdInput.value.trim();
+            const ytUrl = youtubeUrlInput.value.trim();
 
             if (!token) {
                 addStatusLog('Error: GitHub token required', true);
                 return;
             }
-            if (!file) {
-                addStatusLog('Error: No media file selected', true);
+            const hasFile = !!file;
+            const hasYouTube = !!ytUrl && isYouTubeUrl(ytUrl);
+            
+            if (!hasFile && !hasYouTube) {
+                addStatusLog('Error: Provide either a file or a YouTube URL', true);
                 return;
+            }
+            if (hasFile && hasYouTube) {
+                addStatusLog('Error: Provide either a file OR a YouTube URL, not both', true);
+                return;
+            }
+            if (hasYouTube) {
+                const ytId = extractYouTubeId(ytUrl);
+                if (!ytId) {
+                    addStatusLog('Error: Invalid YouTube URL format', true);
+                    return;
+                }
             }
             if (!title) {
                 addStatusLog('Error: Project title required', true);
@@ -549,106 +596,159 @@
 
             publishBtn.disabled = true;
             statusLog.innerHTML = '';
-            setStatusStep('1/4 Generating smart thumbnail...');
-            addStatusLog('Starting publish pipeline...');
 
             try {
-                const slug = generateSlug(reqId || title);
-                const ext = getFileExtension(file.name);
-                const mediaFileName = `${slug}.${ext}`;
-                const posterFileName = `${slug}-poster.jpg`;
-                let mediaPath, posterPath;
+                if (hasYouTube) {
+                    // YouTube-only publish path
+                    setStatusStep('1/2 Updating registry (YouTube)...');
+                    addStatusLog('Publishing YouTube video...');
 
-                // Step 2: Upload media (always via Contents API; 70 MB raw ≈ 93 MB Base64, under 100 MB limit)
-                const MAX_CONTENTS_API_SIZE = 70 * 1024 * 1024; // 70 MB raw = ~93 MB Base64 payload
-                const isTooLarge = file.size >= MAX_CONTENTS_API_SIZE;
+                    const registryData = await githubApiRequest('/repos/parth33320/enterprise-portfolio/contents/_job_queue/history_registry.json');
+                    const currentRegistry = JSON.parse(base64ToUtf8(registryData.content));
 
-                if (isTooLarge) {
-                    const mb = (file.size / 1024 / 1024).toFixed(1);
-                    throw new Error(`File is ${mb} MB — GitHub Contents API limit is 100 MB (Base64 expands ~33%). Please compress your MP4 below 70 MB raw or upload via GitHub Releases UI manually.`);
+                    const newEntry = {
+                        companyName: title,
+                        sector: 'Custom Upload',
+                        jobTitle: subtitle || '',
+                        reqId: reqId || '',
+                        painPoint: 'Custom uploaded demonstration.',
+                        solution: 'Published via portfolio admin modal (YouTube).',
+                        beforeCost: 0,
+                        afterCosts: 0,
+                        investmentCost: 0,
+                        cpi: 1.0,
+                        spi: 1.0,
+                        piPredictability: 100,
+                        gifAsset: ytUrl,  // Store raw YouTube URL
+                        // No posterAsset for YouTube
+                        implementationSchedule: 'N/A'
+                    };
+
+                    const updatedRegistry = [newEntry, ...currentRegistry];
+                    await uploadToGitHubContents(
+                        '_job_queue/history_registry.json',
+                        JSON.stringify(updatedRegistry, null, 2),
+                        `Add demo entry: ${title}`,
+                        registryData.sha
+                    );
+                    addStatusLog('Registry updated ✓');
+
+                    setStatusStep('2/2 Done!');
+                    addStatusLog('Success! GitHub Actions is deploying your live site (~60s).');
+                    addStatusLog('Refresh this page in a minute to see your new demo at the top.');
+
+                    // Reset form
+                    mediaFileInput.value = '';
+                    youtubeUrlInput.value = '';
+                    projectTitleInput.value = '';
+                    projectSubtitleInput.value = '';
+                    projectReqIdInput.value = '';
+                    thumbnailPreview.classList.add('hidden');
+                    thumbnailImg.src = '';
+
+                } else {
+                    // File upload pipeline
+                    setStatusStep('1/4 Generating smart thumbnail...');
+                    addStatusLog('Starting publish pipeline...');
+
+                    const slug = generateSlug(reqId || title);
+                    const ext = getFileExtension(file.name);
+                    const mediaFileName = `${slug}.${ext}`;
+                    const posterFileName = `${slug}-poster.jpg`;
+                    let mediaPath, posterPath;
+
+                    // Step 2: Upload media (always via Contents API; 70 MB raw ≈ 93 MB Base64, under 100 MB limit)
+                    const MAX_CONTENTS_API_SIZE = 70 * 1024 * 1024; // 70 MB raw = ~93 MB Base64 payload
+                    const isTooLarge = file.size >= MAX_CONTENTS_API_SIZE;
+
+                    if (isTooLarge) {
+                        const mb = (file.size / 1024 / 1024).toFixed(1);
+                        throw new Error(`File is ${mb} MB — GitHub Contents API limit is 100 MB (Base64 expands ~33%). Please compress your MP4 below 70 MB raw or upload via GitHub Releases UI manually.`);
+                    }
+
+                    setStatusStep('2/4 Uploading media...');
+                    addStatusLog(`Uploading ${mediaFileName} (${(file.size / 1024 / 1024).toFixed(2)} MB)...`);
+
+                    const base64Content = await fileToBase64(file);
+                    const sha = await getFileSha(`docs/assets/${mediaFileName}`);
+                    await uploadToGitHubContents(
+                        `docs/assets/${mediaFileName}`,
+                        base64Content,
+                        `Add demo media: ${title}`,
+                        sha,
+                        true
+                    );
+                    mediaPath = `docs/assets/${mediaFileName}`;
+                    addStatusLog('Repo upload complete ✓');
+
+                    // Step 3: Upload poster
+                    setStatusStep('3/4 Uploading thumbnail...');
+                    addStatusLog('Uploading poster thumbnail...');
+
+                    // Convert thumbnail data URL to base64
+                    const posterBase64 = thumbnailImg.src.split(',')[1];
+                    if (!posterBase64) {
+                        throw new Error('No thumbnail generated');
+                    }
+
+                    const posterSha = await getFileSha(`docs/assets/${posterFileName}`);
+                    await uploadToGitHubContents(
+                        `docs/assets/${posterFileName}`,
+                        posterBase64,
+                        `Add demo poster: ${title}`,
+                        posterSha,
+                        true
+                    );
+                    posterPath = `docs/assets/${posterFileName}`;
+                    addStatusLog('Poster upload complete ✓');
+
+                    // Step 4: Update registry
+                    setStatusStep('4/4 Updating registry...');
+                    addStatusLog('Updating history_registry.json...');
+
+                    const registryData = await githubApiRequest('/repos/parth33320/enterprise-portfolio/contents/_job_queue/history_registry.json');
+                    const currentRegistry = JSON.parse(base64ToUtf8(registryData.content));
+                    
+                    const newEntry = {
+                        companyName: title,
+                        sector: 'Custom Upload',
+                        jobTitle: subtitle || '',
+                        reqId: reqId || '',
+                        painPoint: 'Custom uploaded demonstration.',
+                        solution: 'Published via portfolio admin modal.',
+                        beforeCost: 0,
+                        afterCosts: 0,
+                        investmentCost: 0,
+                        cpi: 1.0,
+                        spi: 1.0,
+                        piPredictability: 100,
+                        gifAsset: mediaPath,
+                        posterAsset: posterPath,
+                        implementationSchedule: 'N/A'
+                    };
+
+                    const updatedRegistry = [newEntry, ...currentRegistry];
+                    await uploadToGitHubContents(
+                        '_job_queue/history_registry.json',
+                        JSON.stringify(updatedRegistry, null, 2),
+                        `Add demo entry: ${title}`,
+                        registryData.sha
+                    );
+                    addStatusLog('Registry updated ✓');
+
+                    setStatusStep('4/4 Done!');
+                    addStatusLog('Success! GitHub Actions is deploying your live site (~60s).');
+                    addStatusLog('Refresh this page in a minute to see your new demo at the top.');
+
+                    // Reset form
+                    mediaFileInput.value = '';
+                    youtubeUrlInput.value = '';
+                    projectTitleInput.value = '';
+                    projectSubtitleInput.value = '';
+                    projectReqIdInput.value = '';
+                    thumbnailPreview.classList.add('hidden');
+                    thumbnailImg.src = '';
                 }
-
-                setStatusStep('2/4 Uploading media...');
-                addStatusLog(`Uploading ${mediaFileName} (${(file.size / 1024 / 1024).toFixed(2)} MB)...`);
-
-                const base64Content = await fileToBase64(file);
-                const sha = await getFileSha(`docs/assets/${mediaFileName}`);
-                await uploadToGitHubContents(
-                    `docs/assets/${mediaFileName}`,
-                    base64Content,
-                    `Add demo media: ${title}`,
-                    sha,
-                    true
-                );
-                mediaPath = `docs/assets/${mediaFileName}`;
-                addStatusLog('Repo upload complete ✓');
-
-                // Step 3: Upload poster
-                setStatusStep('3/4 Uploading thumbnail...');
-                addStatusLog('Uploading poster thumbnail...');
-
-                // Convert thumbnail data URL to base64
-                const posterBase64 = thumbnailImg.src.split(',')[1];
-                if (!posterBase64) {
-                    throw new Error('No thumbnail generated');
-                }
-
-                const posterSha = await getFileSha(`docs/assets/${posterFileName}`);
-                await uploadToGitHubContents(
-                    `docs/assets/${posterFileName}`,
-                    posterBase64,
-                    `Add demo poster: ${title}`,
-                    posterSha,
-                    true
-                );
-                posterPath = `docs/assets/${posterFileName}`;
-                addStatusLog('Poster upload complete ✓');
-
-                // Step 4: Update registry
-                setStatusStep('4/4 Updating registry...');
-                addStatusLog('Updating history_registry.json...');
-
-                const registryData = await githubApiRequest('/repos/parth33320/enterprise-portfolio/contents/_job_queue/history_registry.json');
-                const currentRegistry = JSON.parse(base64ToUtf8(registryData.content));
-                
-                const newEntry = {
-                    companyName: title,
-                    sector: 'Custom Upload',
-                    jobTitle: subtitle || '',
-                    reqId: reqId || '',
-                    painPoint: 'Custom uploaded demonstration.',
-                    solution: 'Published via portfolio admin modal.',
-                    beforeCost: 0,
-                    afterCosts: 0,
-                    investmentCost: 0,
-                    cpi: 1.0,
-                    spi: 1.0,
-                    piPredictability: 100,
-                    gifAsset: mediaPath,
-                    posterAsset: posterPath,
-                    implementationSchedule: 'N/A'
-                };
-
-                const updatedRegistry = [newEntry, ...currentRegistry];
-                await uploadToGitHubContents(
-                    '_job_queue/history_registry.json',
-                    JSON.stringify(updatedRegistry, null, 2),
-                    `Add demo entry: ${title}`,
-                    registryData.sha
-                );
-                addStatusLog('Registry updated ✓');
-
-                setStatusStep('4/4 Done!');
-                addStatusLog('Success! GitHub Actions is deploying your live site (~60s).');
-                addStatusLog('Refresh this page in a minute to see your new demo at the top.');
-
-                // Reset form
-                mediaFileInput.value = '';
-                projectTitleInput.value = '';
-                projectSubtitleInput.value = '';
-                projectReqIdInput.value = '';
-                thumbnailPreview.classList.add('hidden');
-                thumbnailImg.src = '';
 
             } catch (err) {
                 addStatusLog('Error: ' + err.message, true);
@@ -722,6 +822,11 @@
             return item.mediaAsset || item.gifAsset || '';
         }
 
+        function getYouTubeId(item) {
+            const src = getMediaSource(item);
+            return extractYouTubeId(src);
+        }
+
         function renderPortfolio() {
             const grid = document.getElementById('portfolio-grid');
             if (!registry || registry.length === 0) {
@@ -733,12 +838,16 @@
                 const reqBadge = item.reqId ? `<span class="text-slate-400 font-mono text-xs">REQ ID: <span class="text-slate-200 font-bold">${item.reqId}</span></span>` : '';
                 const hasJobTitle = item.jobTitle && item.jobTitle.trim() !== '';
                 const mediaSrc = getMediaSource(item);
-                const isVideo = isVideoUrl(mediaSrc);
+                const ytId = getYouTubeId(item);
+                const isVideo = !ytId && isVideoUrl(mediaSrc);
+                const isYouTube = !!ytId;
                 const posterSrc = item.posterAsset || '';
 
-                const mediaHtml = isVideo
-                    ? `<video src="${mediaSrc}" poster="${posterSrc}" controls playsinline preload="none" class="w-full h-full object-contain bg-black" data-theater-video="true"></video>`
-                    : `<img src="${mediaSrc}" loading="lazy" decoding="async" class="w-full h-full object-cover cursor-zoom-in" alt="${item.companyName} Walkthrough" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" data-theater-image="true">`;
+                const mediaHtml = isYouTube
+                    ? `<iframe src="https://www.youtube-nocookie.com/embed/${ytId}?rel=0" title="${item.companyName}" class="w-full h-full border-0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen data-theater-youtube="${ytId}"></iframe>`
+                    : isVideo
+                        ? `<video src="${mediaSrc}" poster="${posterSrc}" controls playsinline preload="none" class="w-full h-full object-contain bg-black" data-theater-video="true"></video>`
+                        : `<img src="${mediaSrc}" loading="lazy" decoding="async" class="w-full h-full object-cover cursor-zoom-in" alt="${item.companyName} Walkthrough" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" data-theater-image="true">`;
 
                 return `
                     <div class="case-card bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 p-6 rounded-2xl space-y-5 shadow-2xl transition-all" data-search="${item.companyName} ${item.jobTitle || ''} ${item.reqId || ''}">
@@ -761,7 +870,7 @@
                                 [Walkthrough media generating in build pipeline]
                             </div>
                             <!-- Expand Button -->
-                            <button class="absolute top-3 right-3 bg-slate-900/80 hover:bg-slate-800/90 text-slate-300 hover:text-white p-2 rounded-lg border border-slate-700/50 opacity-0 group-hover:opacity-100 transition-opacity z-10" aria-label="Theater Mode" onclick="openTheaterModal('${item.companyName}${hasJobTitle ? ' - ' + item.jobTitle : ''}', this.closest('.aspect-video').querySelector('video, img'), ${isVideo})">
+                            <button class="absolute top-3 right-3 bg-slate-900/80 hover:bg-slate-800/90 text-slate-300 hover:text-white p-2 rounded-lg border border-slate-700/50 opacity-0 group-hover:opacity-100 transition-opacity z-10" aria-label="Theater Mode" onclick="openTheaterModal('${item.companyName}${hasJobTitle ? ' - ' + item.jobTitle : ''}', this.closest('.aspect-video').querySelector('video, img, iframe'), ${isVideo}, ${isYouTube}, '${ytId || ''}')">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
                             </button>
                         </div>
@@ -775,6 +884,17 @@
                     const card = e.target.closest('.case-card');
                     const title = card.querySelector('.text-cyan-400').textContent + (card.querySelector('h2') ? ' - ' + card.querySelector('h2').textContent : '');
                     openTheaterModal(title, e.target, false);
+                });
+            });
+
+            // Add click handlers for theater mode on YouTube iframes (direct click)
+            document.querySelectorAll('[data-theater-youtube]').forEach(iframe => {
+                iframe.style.cursor = 'zoom-in';
+                iframe.addEventListener('click', (e) => {
+                    const card = e.target.closest('.case-card');
+                    const title = card.querySelector('.text-cyan-400').textContent + (card.querySelector('h2') ? ' - ' + card.querySelector('h2').textContent : '');
+                    const ytId = e.target.dataset.theaterYoutube;
+                    openTheaterModal(title, e.target, false, true, ytId);
                 });
             });
         }
