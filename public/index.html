@@ -142,6 +142,18 @@
             return new TextDecoder().decode(bytes);
         }
 
+        // Large file to Base64 helper (chunked to avoid call-stack limits on 45-70 MB videos)
+        async function fileToBase64(file) {
+            const buffer = await file.arrayBuffer();
+            const bytes = new Uint8Array(buffer);
+            const chunkSize = 0x8000; // 32 KB chunks
+            let binary = '';
+            for (let i = 0; i < bytes.length; i += chunkSize) {
+                binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+            }
+            return btoa(binary);
+        }
+
         // =========================================================================
         // THEATER MODE MODAL LOGIC
         // =========================================================================
@@ -547,38 +559,29 @@
                 const posterFileName = `${slug}-poster.jpg`;
                 let mediaPath, posterPath;
 
-                // Step 2: Upload media
+                // Step 2: Upload media (always via Contents API; 70 MB raw ≈ 93 MB Base64, under 100 MB limit)
+                const MAX_CONTENTS_API_SIZE = 70 * 1024 * 1024; // 70 MB raw = ~93 MB Base64 payload
+                const isTooLarge = file.size >= MAX_CONTENTS_API_SIZE;
+
+                if (isTooLarge) {
+                    const mb = (file.size / 1024 / 1024).toFixed(1);
+                    throw new Error(`File is ${mb} MB — GitHub Contents API limit is 100 MB (Base64 expands ~33%). Please compress your MP4 below 70 MB raw or upload via GitHub Releases UI manually.`);
+                }
+
                 setStatusStep('2/4 Uploading media...');
                 addStatusLog(`Uploading ${mediaFileName} (${(file.size / 1024 / 1024).toFixed(2)} MB)...`);
 
-                const isLargeFile = file.size >= 25 * 1024 * 1024; // 25 MB
-
-                if (isLargeFile) {
-                    // Large file -> GitHub Release
-                    addStatusLog('File >= 25 MB, using GitHub Release...');
-                    const release = await getOrCreateRelease();
-                    const uploadResult = await uploadReleaseAsset(release.id, file, mediaFileName);
-                    mediaPath = uploadResult.browser_download_url;
-                    addStatusLog('Release upload complete ✓');
-                } else {
-                    // Small file -> repo contents
-                    const base64Content = await new Promise((resolve, reject) => {
-                        const reader = new FileReader();
-                        reader.onload = () => resolve(reader.result.split(',')[1]);
-                        reader.onerror = reject;
-                        reader.readAsDataURL(file);
-                    });
-                    const sha = await getFileSha(`docs/assets/${mediaFileName}`);
-                    await uploadToGitHubContents(
-                        `docs/assets/${mediaFileName}`,
-                        base64Content,
-                        `Add demo media: ${title}`,
-                        sha,
-                        true
-                    );
-                    mediaPath = `docs/assets/${mediaFileName}`;
-                    addStatusLog('Repo upload complete ✓');
-                }
+                const base64Content = await fileToBase64(file);
+                const sha = await getFileSha(`docs/assets/${mediaFileName}`);
+                await uploadToGitHubContents(
+                    `docs/assets/${mediaFileName}`,
+                    base64Content,
+                    `Add demo media: ${title}`,
+                    sha,
+                    true
+                );
+                mediaPath = `docs/assets/${mediaFileName}`;
+                addStatusLog('Repo upload complete ✓');
 
                 // Step 3: Upload poster
                 setStatusStep('3/4 Uploading thumbnail...');
