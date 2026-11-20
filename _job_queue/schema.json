@@ -18,7 +18,8 @@
     "implementationSchedule": { "type": "string" },
     "mediaAsset": { "type": "string" },
     "gifAsset": { "type": "string" },
-    "posterAsset": { "type": "string" }
+    "posterAsset": { "type": "string" },
+    "pinned": { "type": "boolean", "default": false }
   },
   "required": ["companyName", "sector", "painPoint", "solution", "beforeCost", "afterCosts", "investmentCost", "cpi", "spi", "piPredictability", "implementationSchedule"]
 }

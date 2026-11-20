@@ -12,7 +12,8 @@
     "cpi": 1.15,
     "spi": 1.1,
     "piPredictability": 96,
-    "gifAsset": "https://youtu.be/HIYQntcQqAY"
+    "gifAsset": "https://youtu.be/HIYQntcQqAY",
+    "pinned": true
   },
   {
     "companyName": "WonderBotz",

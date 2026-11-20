@@ -40,6 +40,19 @@ test('compile-portfolio script compiles portfolio and generates index.html witho
   assert.ok(content.includes('youtube-nocookie.com'), 'index.html should contain YouTube embed support');
   assert.ok(content.includes('extractYouTubeId'), 'index.html should contain YouTube ID extractor');
   assert.ok(content.includes('youtube-url-input'), 'index.html should contain YouTube URL input in admin modal');
+  // Pin/Delete/Showcase features
+  assert.ok(content.includes('PINNED'), 'index.html should contain PINNED badge');
+  assert.ok(content.includes('admin-pin-btn'), 'index.html should contain admin pin button');
+  assert.ok(content.includes('admin-delete-btn'), 'index.html should contain admin delete button');
+  assert.ok(content.includes('togglePinProject'), 'index.html should contain togglePinProject function');
+  assert.ok(content.includes('deleteProject'), 'index.html should contain deleteProject function');
+  assert.ok(content.includes('renderPinnedCard'), 'index.html should contain renderPinnedCard function');
+  assert.ok(content.includes('renderRegularCard'), 'index.html should contain renderRegularCard function');
+  assert.ok(content.includes('Featured Projects'), 'index.html should contain Featured Projects section');
+  assert.ok(content.includes('grid-cols-1 lg:grid-cols-2'), 'index.html should contain showcase grid layout');
+  assert.ok(content.includes('pin-project-checkbox'), 'index.html should contain pin checkbox in admin modal');
+  assert.ok(content.includes('updateAdminButtonsVisibility'), 'index.html should contain admin visibility helper');
+  assert.ok(content.includes('PORTFOLIO_DATA'), 'index.html should use PORTFOLIO_DATA variable');
 });
 
 test('generated client-side script has no syntax errors', () => {
@@ -55,4 +68,9 @@ test('generated client-side script has no syntax errors', () => {
   assert.ok(scriptBody.includes('function renderPortfolio'), 'Should contain renderPortfolio');
   assert.ok(scriptBody.includes('function extractYouTubeId'), 'Should contain extractYouTubeId');
   assert.ok(scriptBody.includes('function openTheaterModal'), 'Should contain openTheaterModal');
+  assert.ok(scriptBody.includes('function togglePinProject'), 'Should contain togglePinProject');
+  assert.ok(scriptBody.includes('function deleteProject'), 'Should contain deleteProject');
+  assert.ok(scriptBody.includes('function renderPinnedCard'), 'Should contain renderPinnedCard');
+  assert.ok(scriptBody.includes('function renderRegularCard'), 'Should contain renderRegularCard');
+  assert.ok(scriptBody.includes('function updateAdminButtonsVisibility'), 'Should contain updateAdminButtonsVisibility');
 });

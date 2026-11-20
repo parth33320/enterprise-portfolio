@@ -109,6 +109,10 @@
                     <label class="block text-xs font-mono text-slate-400 mb-1">Requisition ID (Optional - leave blank for standalone)</label>
                     <input type="text" id="project-reqid-input" placeholder="e.g., WB-UIPATH-2026" class="w-full bg-slate-950 border border-slate-800 text-xs px-4 py-3 rounded-xl focus:outline-none focus:border-cyan-500 text-slate-200 font-mono shadow-inner transition-colors" aria-label="Requisition ID">
                 </div>
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" id="pin-project-checkbox" checked class="w-4 h-4 accent-cyan-500">
+                    <label class="text-xs font-mono text-slate-400">Pin this project to the top</label>
+                </div>
             </div>
 
             <!-- Status Log -->
@@ -132,7 +136,7 @@
     </div>
 
     <script>
-        const registry = [{"companyName":"Sovereign Supply Chain XR Walk","sector":"Warehouse Logistics & Spatial AI","jobTitle":"Hands-First Mixed Reality Inventory Co-Pilot (Meta Quest · WebXR · Meta Muse)","reqId":"","painPoint":"Warehouse operators must walk back to desktop terminals every time a bin runs empty, slowing fulfillment.","solution":"A hands-first WebXR mixed-reality supply chain AI co-pilot on Meta Quest powered by Meta Muse, Three.js, and FastAPI for voice/pinch RFQ negotiation, human-in-the-loop PO approval, and automated 3-way invoice matching.","beforeCost":3200000,"afterCosts":640000,"investmentCost":450000,"cpi":1.15,"spi":1.1,"piPredictability":96,"gifAsset":"https://youtu.be/HIYQntcQqAY"},{"companyName":"WonderBotz","sector":"RPA & Intelligent Automation Services","jobTitle":"Technical Account Manager (UiPath)","reqId":"WB-UIPATH-2026","department":"Client Services & Enterprise Automation","location":"Princeton, NJ · Remote","painPoint":"Unattended client RPA bot crashes, manual log searching, unstructured PDF invoice data entry failures, and manual approval bottlenecks causing 48+ hour SLA delays and $2.1M in annual operating waste.","solution":"A consolidated UiPath automation platform featuring UiPath REFramework for automated bot health checks & error recovery, UiPath Document Understanding for intelligent PDF invoice parsing, and UiPath Action Center for 1-click human-in-the-loop approvals.","beforeCost":2100000,"afterCosts":420000,"investmentCost":350000,"cpi":1.14,"spi":1.08,"piPredictability":96,"gifAsset":"docs/assets/wb-uipath-2026.gif"},{"companyName":"Villanova University","sector":"Higher Education & Digital Web Ecosystems","jobTitle":"Associate Full Stack Developer","reqId":"20260343S","department":"723-UTS-Web Services and Technologies","location":"Villanova, PA","painPoint":"Manual AEM (Adobe Experience Manager) content publishing, WCAG 2.1 AA accessibility checking, and multi-platform API payload sync bottlenecks causing 72+ hour publishing delays, broken mobile/portal content, and federal compliance audit risks.","solution":"An AI Agentic AST Code Auditor & Event-Driven Webhook Gateway that automatically parses AEM Edge Delivery Services (EDS) HTML components for WCAG 2.1 AA accessibility compliance in <20ms, and broadcasts event-driven JSON payloads to Modo Labs Mobile App and OneCampus Web Portal.","beforeCost":1450000,"afterCosts":320000,"investmentCost":280000,"cpi":1.12,"spi":1.06,"piPredictability":95,"gifAsset":"docs/assets/20260343s.gif"},{"companyName":"Collins Aerospace","sector":"Aerospace & Defense Indirect Procurement","jobTitle":"Sr Analyst, Procurement (Remote)","reqId":"01870341","beforeCost":12400000,"afterCosts":3100000,"investmentCost":2800000,"cpi":1.15,"spi":1.08,"piPredictability":96,"gifAsset":"docs/assets/01870341.gif"},{"reqId":"19075","companyName":"Lockheed Martin","jobTitle":"Corporate Development M&A Analyst","sector":"Defense & Aerospace","painPoint":"Manual document reading, regular keyword search limitations (missing 'Subordinated Borrowing Notes'), and manual copy-paste spreadsheet errors causing deal valuation crashes and $4.5M in annual profit leaks under heavy M&A deal volume.","solution":"An M&A Due Diligence & Deal Target Evaluation Workspace featuring AI RAG Smart Search and AI Business Relationship Mapping Ontology to automatically search document meaning, map company relationships, detect hidden liabilities, and render executive deal summaries.","beforeCost":17700000,"afterCosts":4500000,"investmentCost":1800000,"cpi":1.15,"spi":1.1,"piPredictability":92.5,"implementationSchedule":"4 Sprints / 8 Weeks","gifAsset":"docs/assets/19075.gif"}];
+        let PORTFOLIO_DATA = [{"companyName":"Sovereign Supply Chain XR Walk","sector":"Warehouse Logistics & Spatial AI","jobTitle":"Hands-First Mixed Reality Inventory Co-Pilot (Meta Quest · WebXR · Meta Muse)","reqId":"","painPoint":"Warehouse operators must walk back to desktop terminals every time a bin runs empty, slowing fulfillment.","solution":"A hands-first WebXR mixed-reality supply chain AI co-pilot on Meta Quest powered by Meta Muse, Three.js, and FastAPI for voice/pinch RFQ negotiation, human-in-the-loop PO approval, and automated 3-way invoice matching.","beforeCost":3200000,"afterCosts":640000,"investmentCost":450000,"cpi":1.15,"spi":1.1,"piPredictability":96,"gifAsset":"https://youtu.be/HIYQntcQqAY","pinned":true},{"companyName":"WonderBotz","sector":"RPA & Intelligent Automation Services","jobTitle":"Technical Account Manager (UiPath)","reqId":"WB-UIPATH-2026","department":"Client Services & Enterprise Automation","location":"Princeton, NJ · Remote","painPoint":"Unattended client RPA bot crashes, manual log searching, unstructured PDF invoice data entry failures, and manual approval bottlenecks causing 48+ hour SLA delays and $2.1M in annual operating waste.","solution":"A consolidated UiPath automation platform featuring UiPath REFramework for automated bot health checks & error recovery, UiPath Document Understanding for intelligent PDF invoice parsing, and UiPath Action Center for 1-click human-in-the-loop approvals.","beforeCost":2100000,"afterCosts":420000,"investmentCost":350000,"cpi":1.14,"spi":1.08,"piPredictability":96,"gifAsset":"docs/assets/wb-uipath-2026.gif"},{"companyName":"Villanova University","sector":"Higher Education & Digital Web Ecosystems","jobTitle":"Associate Full Stack Developer","reqId":"20260343S","department":"723-UTS-Web Services and Technologies","location":"Villanova, PA","painPoint":"Manual AEM (Adobe Experience Manager) content publishing, WCAG 2.1 AA accessibility checking, and multi-platform API payload sync bottlenecks causing 72+ hour publishing delays, broken mobile/portal content, and federal compliance audit risks.","solution":"An AI Agentic AST Code Auditor & Event-Driven Webhook Gateway that automatically parses AEM Edge Delivery Services (EDS) HTML components for WCAG 2.1 AA accessibility compliance in <20ms, and broadcasts event-driven JSON payloads to Modo Labs Mobile App and OneCampus Web Portal.","beforeCost":1450000,"afterCosts":320000,"investmentCost":280000,"cpi":1.12,"spi":1.06,"piPredictability":95,"gifAsset":"docs/assets/20260343s.gif"},{"companyName":"Collins Aerospace","sector":"Aerospace & Defense Indirect Procurement","jobTitle":"Sr Analyst, Procurement (Remote)","reqId":"01870341","beforeCost":12400000,"afterCosts":3100000,"investmentCost":2800000,"cpi":1.15,"spi":1.08,"piPredictability":96,"gifAsset":"docs/assets/01870341.gif"},{"reqId":"19075","companyName":"Lockheed Martin","jobTitle":"Corporate Development M&A Analyst","sector":"Defense & Aerospace","painPoint":"Manual document reading, regular keyword search limitations (missing 'Subordinated Borrowing Notes'), and manual copy-paste spreadsheet errors causing deal valuation crashes and $4.5M in annual profit leaks under heavy M&A deal volume.","solution":"An M&A Due Diligence & Deal Target Evaluation Workspace featuring AI RAG Smart Search and AI Business Relationship Mapping Ontology to automatically search document meaning, map company relationships, detect hidden liabilities, and render executive deal summaries.","beforeCost":17700000,"afterCosts":4500000,"investmentCost":1800000,"cpi":1.15,"spi":1.1,"piPredictability":92.5,"implementationSchedule":"4 Sprints / 8 Weeks","gifAsset":"docs/assets/19075.gif"}];
 
         // UTF-8 safe base64 helpers for GitHub API (handles Unicode like · in history_registry.json)
         function utf8ToBase64(str) {
@@ -146,6 +150,64 @@
             const bytes = new Uint8Array(binary.length);
             for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
             return new TextDecoder().decode(bytes);
+        }
+
+        // Large file to Base64 helper (chunked to avoid call-stack limits on 45-70 MB videos)
+        async function fileToBase64(file) {
+            const buffer = await file.arrayBuffer();
+            const bytes = new Uint8Array(buffer);
+            const chunkSize = 0x8000; // 32 KB chunks
+            let binary = '';
+            for (let i = 0; i < bytes.length; i += chunkSize) {
+                binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+            }
+            return btoa(binary);
+        }
+
+        // YouTube URL helpers
+        function extractYouTubeId(url) {
+            if (!url) return null;
+            try {
+                const parsed = new URL(url.trim());
+                const host = parsed.hostname.replace(/^www./, '');
+                let id = null;
+                if (host === 'youtu.be') {
+                    id = parsed.pathname.split('/').filter(Boolean)[0] || null;
+                } else if (host === 'youtube.com' || host === 'youtube-nocookie.com') {
+                    if (parsed.pathname === '/watch') {
+                        id = parsed.searchParams.get('v');
+                    } else if (parsed.pathname.startsWith('/embed/') || parsed.pathname.startsWith('/shorts/')) {
+                        id = parsed.pathname.split('/')[2] || null;
+                    }
+                }
+                return id && /^[a-zA-Z0-9_-]{11}$/.test(id) ? id : null;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function isYouTubeUrl(url) {
+            return extractYouTubeId(url) !== null;
+        }
+
+        // Admin UI helpers
+        function updateAdminButtonsVisibility() {
+            const isAdmin = !!localStorage.getItem('gh_portfolio_pat');
+            document.querySelectorAll('.admin-pin-btn, .admin-delete-btn').forEach(btn => {
+                if (isAdmin) btn.classList.remove('hidden');
+                else btn.classList.add('hidden');
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-4 right-4 bg-slate-900/95 border border-slate-700 text-slate-100 text-xs font-mono px-4 py-3 rounded-xl shadow-2xl z-50 animate-slide-up';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
         }
 
         // Large file to Base64 helper (chunked to avoid call-stack limits on 45-70 MB videos)
@@ -317,6 +379,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                 localStorage.removeItem('gh_portfolio_pat');
             }
             validateToken(token);
+            updateAdminButtonsVisibility();
         });
 
         clearTokenBtn.addEventListener('click', () => {
@@ -324,6 +387,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
             localStorage.removeItem('gh_portfolio_pat');
             publishBtn.disabled = true;
             addStatusLog('Token cleared');
+            updateAdminButtonsVisibility();
         });
 
         // Thumbnail generation for video files
@@ -532,6 +596,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
             const subtitle = projectSubtitleInput.value.trim();
             const reqId = projectReqIdInput.value.trim();
             const ytUrl = youtubeUrlInput.value.trim();
+            const pinned = document.getElementById('pin-project-checkbox').checked;
 
             if (!token) {
                 addStatusLog('Error: GitHub token required', true);
@@ -586,6 +651,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                         spi: 1.0,
                         piPredictability: 100,
                         gifAsset: ytUrl,  // Store raw YouTube URL
+                        pinned: pinned,
                         // No posterAsset for YouTube
                         implementationSchedule: 'N/A'
                     };
@@ -609,6 +675,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                     projectTitleInput.value = '';
                     projectSubtitleInput.value = '';
                     projectReqIdInput.value = '';
+                    document.getElementById('pin-project-checkbox').checked = true;
                     thumbnailPreview.classList.add('hidden');
                     thumbnailImg.src = '';
 
@@ -690,6 +757,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                         piPredictability: 100,
                         gifAsset: mediaPath,
                         posterAsset: posterPath,
+                        pinned: pinned,
                         implementationSchedule: 'N/A'
                     };
 
@@ -712,6 +780,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                     projectTitleInput.value = '';
                     projectSubtitleInput.value = '';
                     projectReqIdInput.value = '';
+                    document.getElementById('pin-project-checkbox').checked = true;
                     thumbnailPreview.classList.add('hidden');
                     thumbnailImg.src = '';
                 }
@@ -776,6 +845,105 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
         });
 
         // =========================================================================
+        // ADMIN PROJECT MANAGEMENT
+        // =========================================================================
+        async function togglePinProject(originalIndex) {
+            try {
+                const registryData = await githubApiRequest('/repos/parth33320/enterprise-portfolio/contents/_job_queue/history_registry.json');
+                const currentRegistry = JSON.parse(base64ToUtf8(registryData.content));
+                
+                if (originalIndex < 0 || originalIndex >= currentRegistry.length) {
+                    throw new Error('Invalid project index');
+                }
+                
+                currentRegistry[originalIndex].pinned = !currentRegistry[originalIndex].pinned;
+                
+                await uploadToGitHubContents(
+                    '_job_queue/history_registry.json',
+                    JSON.stringify(currentRegistry, null, 2),
+                    `Toggle pin for ${currentRegistry[originalIndex].companyName}`,
+                    registryData.sha
+                );
+                
+                PORTFOLIO_DATA = currentRegistry;
+                renderPortfolio();
+                updateAdminButtonsVisibility();
+                showToast(`${currentRegistry[originalIndex].pinned ? 'Pinned' : 'Unpinned'} ${currentRegistry[originalIndex].companyName} — GitHub Pages deploying (~60s)`);
+            } catch (err) {
+                showToast('Error: ' + err.message, true);
+                console.error(err);
+            }
+        }
+
+        async function deleteProject(originalIndex) {
+            try {
+                if (originalIndex < 0 || originalIndex >= PORTFOLIO_DATA.length) {
+                    throw new Error('Invalid project index');
+                }
+                
+                const item = PORTFOLIO_DATA[originalIndex];
+                const answer = prompt('Type DELETE to permanently remove "' + item.companyName + '" from your portfolio:');
+                if (answer !== 'DELETE') return;
+                
+                const registryData = await githubApiRequest('/repos/parth33320/enterprise-portfolio/contents/_job_queue/history_registry.json');
+                const currentRegistry = JSON.parse(base64ToUtf8(registryData.content));
+                
+                if (originalIndex < 0 || originalIndex >= currentRegistry.length) {
+                    throw new Error('Invalid project index');
+                }
+                
+                const [removed] = currentRegistry.splice(originalIndex, 1);
+                
+                await uploadToGitHubContents(
+                    '_job_queue/history_registry.json',
+                    JSON.stringify(currentRegistry, null, 2),
+                    'Remove project: ' + removed.companyName,
+                    registryData.sha
+                );
+                
+                // Clean up unreferenced assets
+                const assetPaths = [removed.gifAsset, removed.mediaAsset, removed.posterAsset].filter(Boolean);
+                for (const assetPath of assetPaths) {
+                    if (!assetPath.startsWith('docs/assets/')) continue;
+                    
+                    // Check if any other entry still references this asset
+                    const stillReferenced = currentRegistry.some(entry => 
+                        entry.gifAsset === assetPath || entry.mediaAsset === assetPath || entry.posterAsset === assetPath
+                    );
+                    
+                    if (!stillReferenced) {
+                        const sha = await getFileSha(assetPath);
+                        if (sha) {
+                            try {
+                                const token = ghTokenInput.value.trim();
+                                await fetch(`https://api.github.com/repos/parth33320/enterprise-portfolio/contents/${assetPath}`, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Authorization': `Bearer ${token}`,
+                                        'Accept': 'application/vnd.github+json',
+                                        'X-GitHub-Api-Version': '2022-11-28',
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({ message: 'Delete unused asset: ' + assetPath, sha })
+                                });
+                            } catch (e) {
+                                console.warn('Failed to delete asset:', assetPath, e);
+                            }
+                        }
+                    }
+                }
+                
+                PORTFOLIO_DATA = currentRegistry;
+                renderPortfolio();
+                updateAdminButtonsVisibility();
+                showToast('Deleted ${removed.companyName} — GitHub Pages updating (~60s)');
+            } catch (err) {
+                showToast('Error: ' + err.message, true);
+                console.error(err);
+            }
+        }
+
+        // =========================================================================
         // PORTFOLIO RENDERING
         // =========================================================================
         function isVideoUrl(url) {
@@ -793,55 +961,144 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
             return extractYouTubeId(src);
         }
 
+        function renderPinnedCard(item, originalIndex) {
+            const reqBadge = item.reqId ? `<span class="text-slate-400 font-mono text-xs">REQ ID: <span class="text-slate-200 font-bold">${item.reqId}</span></span>` : '';
+            const pinnedBadge = item.pinned ? `<span class="px-2 py-0.5 text-[10px] font-mono bg-amber-900/50 text-amber-300 border border-amber-800/50 rounded">PINNED</span>` : '';
+            const hasJobTitle = item.jobTitle && item.jobTitle.trim() !== '';
+            const mediaSrc = getMediaSource(item);
+            const ytId = getYouTubeId(item);
+            const isVideo = !ytId && isVideoUrl(mediaSrc);
+            const isYouTube = !!ytId;
+            const posterSrc = item.posterAsset || '';
+
+            const mediaHtml = isYouTube
+                ? `<iframe src="https://www.youtube-nocookie.com/embed/${ytId}?rel=0" title="${item.companyName}" class="w-full h-full border-0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen data-theater-youtube="${ytId}"></iframe>`
+                : isVideo
+                    ? `<video src="${mediaSrc}" poster="${posterSrc}" controls playsinline preload="none" class="w-full h-full object-contain bg-black" data-theater-video="true"></video>`
+                    : `<img src="${mediaSrc}" loading="lazy" decoding="async" class="w-full h-full object-cover cursor-zoom-in" alt="${item.companyName} Walkthrough" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" data-theater-image="true">`;
+
+            const adminPinBtn = `<button type="button" onclick="togglePinProject(${originalIndex})" class="admin-pin-btn hidden px-2 py-0.5 rounded text-[11px] font-mono bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700 transition-colors" title="Toggle pin">${item.pinned ? 'Unpin' : 'Pin'}</button>`;
+            const adminDeleteBtn = `<button type="button" onclick="deleteProject(${originalIndex})" class="admin-delete-btn hidden px-2 py-0.5 rounded text-[11px] font-mono bg-red-950/80 hover:bg-red-800 text-red-300 border border-red-800/60 transition-colors" title="Delete project & asset">Delete</button>`;
+
+            return `
+                <div class="case-card bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 p-6 rounded-2xl shadow-2xl transition-all flex flex-col justify-between" data-search="${item.companyName} ${item.jobTitle || ''} ${item.reqId || ''}">
+
+                    <!-- Header with badges & admin buttons -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800/80 pb-4 gap-2 mb-4">
+                        <div class="flex flex-col gap-1">
+                            <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">${item.companyName}</div>
+                            ${hasJobTitle ? `<h2 class="text-lg font-extrabold text-white font-sans mt-0.5 tracking-tight line-clamp-2" title="${item.jobTitle}">${item.jobTitle}</h2>` : ''}
+                        </div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            ${pinnedBadge}${reqBadge}${adminPinBtn}${adminDeleteBtn}
+                        </div>
+                    </div>
+
+                    <!-- Walkthrough Media Container with mt-auto for alignment -->
+                    <div class="bg-slate-950 border border-slate-800/80 rounded-xl overflow-hidden aspect-video w-full flex items-center justify-center shadow-inner relative group mt-auto">
+                        ${mediaHtml}
+                        <div class="hidden absolute inset-0 flex items-center justify-center text-xs text-slate-500 bg-slate-950 font-mono">
+                            [Walkthrough media generating in build pipeline]
+                        </div>
+                        <!-- Expand Button -->
+                        <button class="absolute top-3 right-3 bg-slate-900/80 hover:bg-slate-800/90 text-slate-300 hover:text-white p-2 rounded-lg border border-slate-700/50 opacity-0 group-hover:opacity-100 transition-opacity z-10" aria-label="Theater Mode" onclick="openTheaterModal('${item.companyName}${hasJobTitle ? ' - ' + item.jobTitle : ''}', this.closest('.aspect-video').querySelector('video, img, iframe'), ${!ytId && isVideoUrl(mediaSrc)}, ${!!ytId}, '${ytId || ''}')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+                        </button>
+                    </div>
+                </div>`;
+        }
+
+        function renderRegularCard(item, originalIndex) {
+            const reqBadge = item.reqId ? `<span class="text-slate-400 font-mono text-xs">REQ ID: <span class="text-slate-200 font-bold">${item.reqId}</span></span>` : '';
+            const pinnedBadge = item.pinned ? `<span class="px-2 py-0.5 text-[10px] font-mono bg-amber-900/50 text-amber-300 border border-amber-800/50 rounded">PINNED</span>` : '';
+            const hasJobTitle = item.jobTitle && item.jobTitle.trim() !== '';
+            const mediaSrc = getMediaSource(item);
+            const ytId = getYouTubeId(item);
+            const isVideo = !ytId && isVideoUrl(mediaSrc);
+            const isYouTube = !!ytId;
+            const posterSrc = item.posterAsset || '';
+
+            const mediaHtml = isYouTube
+                ? `<iframe src="https://www.youtube-nocookie.com/embed/${ytId}?rel=0" title="${item.companyName}" class="w-full h-full border-0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen data-theater-youtube="${ytId}"></iframe>`
+                : isVideo
+                    ? `<video src="${mediaSrc}" poster="${posterSrc}" controls playsinline preload="none" class="w-full h-full object-contain bg-black" data-theater-video="true"></video>`
+                    : `<img src="${mediaSrc}" loading="lazy" decoding="async" class="w-full h-full object-cover cursor-zoom-in" alt="${item.companyName} Walkthrough" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" data-theater-image="true">`;
+
+            const adminPinBtn = `<button type="button" onclick="togglePinProject(${originalIndex})" class="admin-pin-btn hidden px-2 py-0.5 rounded text-[11px] font-mono bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700 transition-colors" title="Toggle pin">${item.pinned ? 'Unpin' : 'Pin'}</button>`;
+            const adminDeleteBtn = `<button type="button" onclick="deleteProject(${originalIndex})" class="admin-delete-btn hidden px-2 py-0.5 rounded text-[11px] font-mono bg-red-950/80 hover:bg-red-800 text-red-300 border border-red-800/60 transition-colors" title="Delete project & asset">Delete</button>`;
+
+            return `
+                <div class="case-card bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 p-6 rounded-2xl space-y-5 shadow-2xl transition-all" data-search="${item.companyName} ${item.jobTitle || ''} ${item.reqId || ''}">
+
+                    <!-- Clean Job Posting Header Strip -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800/80 pb-4 gap-2">
+                        <div>
+                            <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">${item.companyName}</div>
+                            ${hasJobTitle ? `<h2 class="text-lg font-extrabold text-white font-sans mt-0.5 tracking-tight">${item.jobTitle}</h2>` : ''}
+                        </div>
+                        <div>
+                            ${pinnedBadge}${reqBadge}${adminPinBtn}${adminDeleteBtn}
+                        </div>
+                    </div>
+
+                    <!-- Walkthrough Media Container -->
+                    <div class="bg-slate-950 border border-slate-800/80 rounded-xl overflow-hidden aspect-video w-full flex items-center justify-center shadow-inner relative group">
+                        ${mediaHtml}
+                        <div class="hidden absolute inset-0 flex items-center justify-center text-xs text-slate-500 bg-slate-950 font-mono">
+                            [Walkthrough media generating in build pipeline]
+                        </div>
+                        <!-- Expand Button -->
+                        <button class="absolute top-3 right-3 bg-slate-900/80 hover:bg-slate-800/90 text-slate-300 hover:text-white p-2 rounded-lg border border-slate-700/50 opacity-0 group-hover:opacity-100 transition-opacity z-10" aria-label="Theater Mode" onclick="openTheaterModal('${item.companyName}${hasJobTitle ? ' - ' + item.jobTitle : ''}', this.closest('.aspect-video').querySelector('video, img, iframe'), ${!ytId && isVideoUrl(mediaSrc)}, ${!!ytId}, '${ytId || ''}')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+                        </button>
+                    </div>
+                </div>`;
+        }
+
         function renderPortfolio() {
             const grid = document.getElementById('portfolio-grid');
-            if (!registry || registry.length === 0) {
+            if (!PORTFOLIO_DATA || PORTFOLIO_DATA.length === 0) {
                 grid.innerHTML = '<div class="text-xs text-slate-500 font-mono p-8 text-center bg-slate-900/40 rounded-2xl border border-slate-800">No walkthrough entries recorded in system index.</div>';
                 return;
             }
 
-            grid.innerHTML = registry.map(item => {
-                const reqBadge = item.reqId ? `<span class="text-slate-400 font-mono text-xs">REQ ID: <span class="text-slate-200 font-bold">${item.reqId}</span></span>` : '';
-                const hasJobTitle = item.jobTitle && item.jobTitle.trim() !== '';
-                const mediaSrc = getMediaSource(item);
-                const ytId = getYouTubeId(item);
-                const isVideo = !ytId && isVideoUrl(mediaSrc);
-                const isYouTube = !!ytId;
-                const posterSrc = item.posterAsset || '';
+            const term = document.getElementById('archive-search').value.toLowerCase().trim();
+            const filteredItems = PORTFOLIO_DATA.filter(item => {
+                const haystack = `${item.companyName} ${item.jobTitle || ''} ${item.reqId || ''}`.toLowerCase();
+                return haystack.includes(term);
+            });
 
-                const mediaHtml = isYouTube
-                    ? `<iframe src="https://www.youtube-nocookie.com/embed/${ytId}?rel=0" title="${item.companyName}" class="w-full h-full border-0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen data-theater-youtube="${ytId}"></iframe>`
-                    : isVideo
-                        ? `<video src="${mediaSrc}" poster="${posterSrc}" controls playsinline preload="none" class="w-full h-full object-contain bg-black" data-theater-video="true"></video>`
-                        : `<img src="${mediaSrc}" loading="lazy" decoding="async" class="w-full h-full object-cover cursor-zoom-in" alt="${item.companyName} Walkthrough" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" data-theater-image="true">`;
+            // Attach originalIndex before partitioning
+            const indexedItems = filteredItems.map(item => ({
+                item,
+                originalIndex: PORTFOLIO_DATA.indexOf(item)
+            }));
 
-                return `
-                    <div class="case-card bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 p-6 rounded-2xl space-y-5 shadow-2xl transition-all" data-search="${item.companyName} ${item.jobTitle || ''} ${item.reqId || ''}">
+            const pinnedItems = indexedItems.filter(({ item }) => item.pinned === true);
+            const regularItems = indexedItems.filter(({ item }) => !item.pinned);
 
-                        <!-- Clean Job Posting Header Strip -->
-                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800/80 pb-4 gap-2">
-                            <div>
-                                <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">${item.companyName}</div>
-                                ${hasJobTitle ? `<h2 class="text-lg font-extrabold text-white font-sans mt-0.5 tracking-tight">${item.jobTitle}</h2>` : ''}
-                            </div>
-                            <div>
-                                ${reqBadge}
-                            </div>
-                        </div>
+            let html = '';
 
-                        <!-- Walkthrough Media Container -->
-                        <div class="bg-slate-950 border border-slate-800/80 rounded-xl overflow-hidden aspect-video w-full flex items-center justify-center shadow-inner relative group">
-                            ${mediaHtml}
-                            <div class="hidden absolute inset-0 flex items-center justify-center text-xs text-slate-500 bg-slate-950 font-mono">
-                                [Walkthrough media generating in build pipeline]
-                            </div>
-                            <!-- Expand Button -->
-                            <button class="absolute top-3 right-3 bg-slate-900/80 hover:bg-slate-800/90 text-slate-300 hover:text-white p-2 rounded-lg border border-slate-700/50 opacity-0 group-hover:opacity-100 transition-opacity z-10" aria-label="Theater Mode" onclick="openTheaterModal('${item.companyName}${hasJobTitle ? ' - ' + item.jobTitle : ''}', this.closest('.aspect-video').querySelector('video, img, iframe'), ${isVideo}, ${isYouTube}, '${ytId || ''}')">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
-                            </button>
+            // If pinned items exist, render showcase grid first
+            if (pinnedItems.length > 0) {
+                html += `
+                    <div class="mb-10 pb-8 border-b border-slate-800/80">
+                        <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider mb-6">Featured Projects</div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            ${pinnedItems.map(({ item, originalIndex }) => renderPinnedCard(item, originalIndex)).join('')}
                         </div>
                     </div>`;
-            }).join('');
+            }
+
+            // Then regular items in standard feed
+            html += `<div class="space-y-8">${regularItems.map(({ item, originalIndex }) => renderRegularCard(item, originalIndex)).join('')}</div>`;
+
+            grid.innerHTML = html;
+
+            if (pinnedItems.length === 0 && regularItems.length === 0) {
+                grid.innerHTML = '<div class="text-xs text-slate-500 font-mono p-8 text-center bg-slate-900/40 rounded-2xl border border-slate-800">No walkthrough entries recorded in system index.</div>';
+                return;
+            }
 
             // Add click handlers for theater mode on images (direct click)
             document.querySelectorAll('[data-theater-image="true"]').forEach(img => {
@@ -913,6 +1170,7 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
         }
 
         renderPortfolio();
+        updateAdminButtonsVisibility();
     </script>
 </body>
 </html>
