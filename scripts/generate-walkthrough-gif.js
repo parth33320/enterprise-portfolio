@@ -24,6 +24,10 @@ async function runRecordingPipeline() {
     console.log('[Jules Media Engine] No job data found. Exiting media compiler.');
     return;
   }
+  if (!jobData.reqId) {
+    console.log('[Jules Media Engine] Top entry is standalone/YouTube (no reqId). Skipping GIF recording.');
+    return;
+  }
   const targetReqId = jobData.reqId.toLowerCase();
   const targetGifName = `${targetReqId}.gif`;
 

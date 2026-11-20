@@ -122,10 +122,10 @@ function clientAppBootstrap(initialData, expandSvg, pinSvg) {
 
   function escapeAttr(str) {
     return String(str || '')
-      .replace(/&/g, '&')
-      .replace(/"/g, '"')
-      .replace(/</g, '<')
-      .replace(/>/g, '>');
+      .replace(/&/g, '&' + 'amp;')
+      .replace(/"/g, '&' + 'quot;')
+      .replace(/</g, '&' + 'lt;')
+      .replace(/>/g, '&' + 'gt;');
   }
 
   function updateAdminButtonsVisibility() {
@@ -164,7 +164,7 @@ function clientAppBootstrap(initialData, expandSvg, pinSvg) {
 
     if (isYouTube) {
       const iframe = document.createElement('iframe');
-      iframe.src = `https://youtube-nocookie.com${ytId}?autoplay=1&rel=0`;
+      iframe.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0`;
       iframe.className = 'w-[90vw] max-w-5xl aspect-video rounded-xl border border-slate-700';
       iframe.allow = 'autoplay; fullscreen; picture-in-picture';
       iframe.allowFullscreen = true;
@@ -670,16 +670,10 @@ function clientAppBootstrap(initialData, expandSvg, pinSvg) {
           const sha = await getFileSha(assetPath);
           if (sha) {
             try {
-              const token = ghTokenInput.value.trim();
-              await fetch(`https://github.com${assetPath}`, {
+              await githubApiRequest('/repos/parth33320/enterprise-portfolio/contents/' + assetPath, {
                 method: 'DELETE',
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                  Accept: 'application/vnd.github+json',
-                  'X-GitHub-Api-Version': '2022-11-28',
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ message: `Delete unused asset: ${assetPath}`, sha })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: 'Delete unused asset: ' + assetPath, sha })
               });
             } catch (e) {
               console.warn('Failed to delete asset:', assetPath, e);
@@ -714,7 +708,7 @@ function clientAppBootstrap(initialData, expandSvg, pinSvg) {
     const isYouTube = !!ytId;
     const posterSrc = item.posterAsset || '';
     if (isYouTube) {
-      return `<iframe src="https://youtube-nocookie.com${ytId}?rel=0" title="${escapeAttr(item.companyName)}" class="w-full h-full border-0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen data-theater-youtube="${ytId}"></iframe>`;
+      return `<iframe src="https://www.youtube-nocookie.com/embed/${ytId}?rel=0" title="${escapeAttr(item.companyName)}" class="w-full h-full border-0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen data-theater-youtube="${ytId}"></iframe>`;
     }
     if (isVideo) {
       return `<video src="${escapeAttr(mediaSrc)}" poster="${escapeAttr(posterSrc)}" controls playsinline preload="none" class="w-full h-full object-contain bg-black" data-theater-video="true"></video>`;
