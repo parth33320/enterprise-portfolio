@@ -1,0 +1,40 @@
+name: Update Repo Audit
+
+on:
+  push:
+    branches: [ main, 'feat/**' ]
+    paths-ignore:
+      - 'docs/repo_audit.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  update-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate repo audit
+        run: node scripts/generate-repo-audit.js
+
+      - name: Commit and push if changed
+        run: |
+          if [ -z "$(git status --porcelain docs/repo_audit.txt)" ]; then
+            echo "No changes to repo_audit.txt"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add docs/repo_audit.txt
+            git commit -m "chore: update repo_audit.txt [skip ci]"
+            git push
+          fi
