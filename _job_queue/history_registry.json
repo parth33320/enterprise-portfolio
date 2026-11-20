@@ -30,7 +30,8 @@
     "cpi": 1.14,
     "spi": 1.08,
     "piPredictability": 96,
-    "gifAsset": "docs/assets/wb-uipath-2026.gif"
+    "gifAsset": "docs/assets/wb-uipath-2026.gif",
+    "pinned": true
   },
   {
     "companyName": "Villanova University",
