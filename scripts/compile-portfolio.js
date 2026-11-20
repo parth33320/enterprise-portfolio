@@ -1,6 +1,21 @@
 const fs = require('fs');
 const path = require('path');
 
+// UTF-8 safe base64 helpers for GitHub API (handles Unicode like · in history_registry.json)
+function utf8ToBase64(str) {
+    const bytes = new TextEncoder().encode(str);
+    let binary = '';
+    for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+    return btoa(binary);
+}
+
+function base64ToUtf8(b64) {
+    const binary = atob(b64.replace(/\s/g, ''));
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    return new TextDecoder().decode(bytes);
+}
+
 const queueDir = path.join(__dirname, '../_job_queue');
 const publicDir = path.join(__dirname, '../public');
 const historyFilePath = path.join(__dirname, '../_job_queue/history_registry.json');
@@ -138,7 +153,7 @@ const htmlContent = `<!DOCTYPE html>
             <div class="mb-6 p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-3">
                 <label class="block text-xs font-mono text-slate-400">GitHub Fine-Grained PAT (Contents: Read & Write)</label>
                 <div class="flex gap-2">
-                    <input type="password" id="gh-token-input" placeholder="ghp_..." class="flex-1 bg-slate-950 border border-slate-800 text-xs px-4 py-3 rounded-xl focus:outline-none focus:border-cyan-500 text-slate-200 font-mono shadow-inner transition-colors" aria-label="GitHub PAT">
+                    <input type="password" id="gh-token-input" placeholder="github_pat_... or ghp_..." class="flex-1 bg-slate-950 border border-slate-800 text-xs px-4 py-3 rounded-xl focus:outline-none focus:border-cyan-500 text-slate-200 font-mono shadow-inner transition-colors" aria-label="GitHub PAT">
                     <button id="clear-token-btn" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono px-3 py-3 rounded-lg border border-slate-700 transition whitespace-nowrap">Clear</button>
                 </div>
                 <p class="text-[10px] text-slate-500 font-mono">Token saved locally in browser. Never sent anywhere except GitHub API.</p>
@@ -192,6 +207,20 @@ const htmlContent = `<!DOCTYPE html>
 
     <script>
         const registry = ${JSON.stringify(historicalCases)};
+
+        // UTF-8 safe base64 helpers for GitHub API (handles Unicode like · in history_registry.json)
+        function utf8ToBase64(str) {
+            const bytes = new TextEncoder().encode(str);
+            let binary = '';
+            for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+            return btoa(binary);
+        }
+        function base64ToUtf8(b64) {
+            const binary = atob(b64.replace(/\s/g, ''));
+            const bytes = new Uint8Array(binary.length);
+            for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+            return new TextDecoder().decode(bytes);
+        }
 
         // =========================================================================
         // THEATER MODE MODAL LOGIC
@@ -300,7 +329,7 @@ const htmlContent = `<!DOCTYPE html>
         }
 
         function validateToken(token) {
-            if (token && token.startsWith('ghp_')) {
+            if (token && (token.startsWith('github_pat_') || token.startsWith('ghp_') || token.length >= 20)) {
                 publishBtn.disabled = false;
                 addStatusLog('Token loaded ✓');
             } else {
@@ -501,11 +530,11 @@ const htmlContent = `<!DOCTYPE html>
             return response.json();
         }
 
-        async function uploadToGitHubContents(filePath, content, message, sha = null) {
+        async function uploadToGitHubContents(filePath, content, message, sha = null, isAlreadyBase64 = false) {
             const endpoint = \`/repos/parth33320/enterprise-portfolio/contents/\${filePath}\`;
             const body = {
                 message,
-                content: btoa(content),
+                content: isAlreadyBase64 ? content : utf8ToBase64(content),
                 ...(sha && { sha })
             };
             return githubApiRequest(endpoint, {
@@ -624,7 +653,8 @@ const htmlContent = `<!DOCTYPE html>
                         \`docs/assets/\${mediaFileName}\`,
                         base64Content,
                         \`Add demo media: \${title}\`,
-                        sha
+                        sha,
+                        true
                     );
                     mediaPath = \`docs/assets/\${mediaFileName}\`;
                     addStatusLog('Repo upload complete ✓');
@@ -645,7 +675,8 @@ const htmlContent = `<!DOCTYPE html>
                     \`docs/assets/\${posterFileName}\`,
                     posterBase64,
                     \`Add demo poster: \${title}\`,
-                    posterSha
+                    posterSha,
+                    true
                 );
                 posterPath = \`docs/assets/\${posterFileName}\`;
                 addStatusLog('Poster upload complete ✓');
@@ -655,7 +686,7 @@ const htmlContent = `<!DOCTYPE html>
                 addStatusLog('Updating history_registry.json...');
 
                 const registryData = await githubApiRequest('/repos/parth33320/enterprise-portfolio/contents/_job_queue/history_registry.json');
-                const currentRegistry = JSON.parse(atob(registryData.content));
+                const currentRegistry = JSON.parse(base64ToUtf8(registryData.content));
                 
                 const newEntry = {
                     companyName: title,

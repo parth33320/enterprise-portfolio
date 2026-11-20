@@ -26,6 +26,9 @@ jobs:
         with:
           node-version: 22
 
+      - name: Install Dependencies
+        run: npm install
+
       - name: Execute Static Index Assembly Compiler
         run: npm run build
 
