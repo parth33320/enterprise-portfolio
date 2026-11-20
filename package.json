@@ -1,4 +1,13 @@
 {
+  "devDependencies": {
+    "tailwindcss": "^4.0.0",
+    "@tailwindcss/cli": "^4.0.0"
+  },
+  "scripts": {
+    "build:css": "npx @tailwindcss/cli -i ./src/input.css -o ./public/styles.css --minify",
+    "build": "node scripts/compile-portfolio.js && npm run build:css",
+    "test": "node --test"
+  },
   "dependencies": {
     "playwright": "^1.64.1"
   }

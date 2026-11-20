@@ -15,7 +15,10 @@
     "cpi": { "type": "number", "minimum": 0, "maximum": 2 },
     "spi": { "type": "number", "minimum": 0, "maximum": 2 },
     "piPredictability": { "type": "number", "minimum": 0, "maximum": 100 },
-    "implementationSchedule": { "type": "string" }
+    "implementationSchedule": { "type": "string" },
+    "mediaAsset": { "type": "string" },
+    "gifAsset": { "type": "string" },
+    "posterAsset": { "type": "string" }
   },
-  "required": ["reqId", "companyName", "jobTitle", "sector", "painPoint", "solution", "beforeCost", "afterCosts", "investmentCost", "cpi", "spi", "piPredictability", "implementationSchedule"]
+  "required": ["companyName", "sector", "painPoint", "solution", "beforeCost", "afterCosts", "investmentCost", "cpi", "spi", "piPredictability", "implementationSchedule"]
 }

@@ -1,5 +1,20 @@
 [
   {
+    "companyName": "Sovereign Supply Chain XR Walk",
+    "sector": "Warehouse Logistics & Spatial AI",
+    "jobTitle": "Hands-First Mixed Reality Inventory Co-Pilot (Meta Quest · WebXR · Meta Muse)",
+    "reqId": "",
+    "painPoint": "Warehouse operators must walk back to desktop terminals every time a bin runs empty, slowing fulfillment.",
+    "solution": "A hands-first WebXR mixed-reality supply chain AI co-pilot on Meta Quest powered by Meta Muse, Three.js, and FastAPI for voice/pinch RFQ negotiation, human-in-the-loop PO approval, and automated 3-way invoice matching.",
+    "beforeCost": 3200000,
+    "afterCosts": 640000,
+    "investmentCost": 450000,
+    "cpi": 1.15,
+    "spi": 1.1,
+    "piPredictability": 96,
+    "gifAsset": "docs/assets/xr-supply-chain.mp4"
+  },
+  {
     "companyName": "WonderBotz",
     "sector": "RPA & Intelligent Automation Services",
     "jobTitle": "Technical Account Manager (UiPath)",

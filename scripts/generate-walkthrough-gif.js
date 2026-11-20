@@ -38,7 +38,6 @@ async function runRecordingPipeline() {
   }
   fs.mkdirSync(frameStagingDir, { recursive: true });
 
-  const outputGifPublicPath = path.join(__dirname, `../public/docs/assets/${targetGifName}`);
   const outputGifDocsPath = path.join(__dirname, `../docs/assets/${targetGifName}`);
 
   const browser = await chromium.launch({ headless: true });
@@ -172,14 +171,13 @@ async function runRecordingPipeline() {
 
   console.log('[Jules Media Engine] Compiling PNG frames into GIF using Pillow compiler...');
 
-  [path.dirname(outputGifPublicPath), path.dirname(outputGifDocsPath)].forEach(dir => {
+  [path.dirname(outputGifDocsPath)].forEach(dir => {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
   });
 
   try {
-    execSync(`python3 scripts/frame_to_gif.py "${frameStagingDir}" "${outputGifPublicPath}" 600`);
-    fs.copyFileSync(outputGifPublicPath, outputGifDocsPath);
-    console.log(`[Jules Media Engine] Walkthrough GIF loop successfully generated at:\n - ${outputGifPublicPath}\n - ${outputGifDocsPath}`);
+    execSync(`python3 scripts/frame_to_gif.py "${frameStagingDir}" "${outputGifDocsPath}" 600`);
+    console.log(`[Jules Media Engine] Walkthrough GIF loop successfully generated at:\n - ${outputGifDocsPath}`);
   } catch (err) {
     console.error('[Jules Media Engine] Media pipeline compilation error:', err.message);
   }

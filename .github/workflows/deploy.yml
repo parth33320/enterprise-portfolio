@@ -27,7 +27,7 @@ jobs:
           node-version: 22
 
       - name: Execute Static Index Assembly Compiler
-        run: node scripts/compile-portfolio.js
+        run: npm run build
 
       - name: Stage Production Static Bundle
         run: |

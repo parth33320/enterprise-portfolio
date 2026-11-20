@@ -27,7 +27,10 @@ jobFiles.forEach(file => {
   const filePath = path.join(queueDir, file);
   try {
     const fileData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    fileData.gifAsset = `docs/assets/${fileData.reqId.toLowerCase()}.gif`;
+    // Default gifAsset/mediaAsset to docs/assets/{reqId}.gif if not specified and reqId exists
+    if (!fileData.mediaAsset && !fileData.gifAsset && fileData.reqId) {
+      fileData.gifAsset = `docs/assets/${fileData.reqId.toLowerCase()}.gif`;
+    }
     
     if (!historicalCases.some(item => item.reqId === fileData.reqId)) {
       historicalCases.unshift(fileData);
@@ -45,11 +48,19 @@ if (fs.existsSync(templatePath)) {
   const templateContent = fs.readFileSync(templatePath, 'utf8');
   historicalCases.forEach(job => {
     const safeCompName = job.companyName.replace(/[^a-zA-Z0-9]/g, '_');
-    const resumeFileName = `Resume_${safeCompName}_${job.reqId}.md`;
-    const tailoredResume = templateContent.replace(/{{JOB_REQ_ID}}/g, job.reqId);
+    const resumeFileName = `Resume_${safeCompName}_${job.reqId || 'standalone'}.md`;
+    const tailoredResume = templateContent.replace(/{{JOB_REQ_ID}}/g, job.reqId || '');
     fs.writeFileSync(path.join(resumeOutputDir, resumeFileName), tailoredResume);
   });
 }
+
+// SVG Icons
+const githubIcon = `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>`;
+const emailIcon = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>`;
+const expandIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>`;
+const closeIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+const uploadIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>`;
+const imageIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>`;
 
 // Assemble frontend surface markup with clean, job-centric walkthrough cards
 const htmlContent = `<!DOCTYPE html>
@@ -58,7 +69,7 @@ const htmlContent = `<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects Index</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -70,8 +81,24 @@ const htmlContent = `<!DOCTYPE html>
         
         <!-- Top Header & Search Control Bar -->
         <div class="bg-slate-900/80 border border-slate-800 p-6 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-2xl backdrop-blur-sm">
-            <div>
-                <h1 class="text-xl font-extrabold text-white tracking-tight">Projects Index</h1>
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8 w-full md:w-auto">
+                <!-- Identity Strip -->
+                <div class="flex flex-col items-start md:items-center md:flex-row gap-3 md:gap-4">
+                    <div class="text-center md:text-left">
+                        <h1 class="text-xl font-extrabold text-white tracking-tight">Parth Patel</h1>
+                        <p class="text-sm text-cyan-400 font-medium">Enterprise AI & Automation Systems Engineer</p>
+                    </div>
+                    <div class="flex items-center gap-4 pt-2 md:pt-0 border-t md:border-t-0 md:border-l border-slate-800 pl-0 md:pl-4">
+                        <a href="https://github.com/parth33320" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors group" aria-label="GitHub" id="github-link">
+                            ${githubIcon}
+                            <span class="text-xs font-mono hidden sm:inline">GitHub</span>
+                        </a>
+                        <a href="mailto:parth33320@gmail.com" class="flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors group" aria-label="Email">
+                            ${emailIcon}
+                            <span class="text-xs font-mono hidden sm:inline">Email</span>
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="w-full md:w-96 shrink-0 space-y-1">
                 <div class="relative">
@@ -86,8 +113,660 @@ const htmlContent = `<!DOCTYPE html>
         <div id="portfolio-grid" class="space-y-8"></div>
     </main>
 
+    <!-- Theater Mode Modal -->
+    <div id="theater-modal" class="hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4 md:p-8">
+        <div class="relative max-w-[92vw] max-h-[92vh] w-full h-full flex flex-col items-center">
+            <div class="absolute top-4 right-4 z-10 flex items-center gap-2">
+                <span id="modal-title" class="text-white font-mono text-xs bg-slate-900/80 px-3 py-1 rounded"></span>
+                <button id="modal-close" class="bg-slate-800 hover:bg-slate-700 text-white p-2 rounded-lg border border-slate-700" aria-label="Close (Esc)">
+                    ${closeIcon}
+                </button>
+            </div>
+            <div id="modal-media" class="flex-1 flex items-center justify-center"></div>
+        </div>
+    </div>
+
+    <!-- Admin Upload Modal -->
+    <div id="admin-upload-modal" class="hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4 md:p-8">
+        <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-6 md:p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-lg font-extrabold text-white flex items-center gap-2">${uploadIcon} Publish New Demo</h2>
+                <button id="admin-modal-close" class="bg-slate-800 hover:bg-slate-700 text-white p-2 rounded-lg border border-slate-700" aria-label="Close">${closeIcon}</button>
+            </div>
+            
+            <!-- GitHub Token Section -->
+            <div class="mb-6 p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-3">
+                <label class="block text-xs font-mono text-slate-400">GitHub Fine-Grained PAT (Contents: Read & Write)</label>
+                <div class="flex gap-2">
+                    <input type="password" id="gh-token-input" placeholder="ghp_..." class="flex-1 bg-slate-950 border border-slate-800 text-xs px-4 py-3 rounded-xl focus:outline-none focus:border-cyan-500 text-slate-200 font-mono shadow-inner transition-colors" aria-label="GitHub PAT">
+                    <button id="clear-token-btn" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono px-3 py-3 rounded-lg border border-slate-700 transition whitespace-nowrap">Clear</button>
+                </div>
+                <p class="text-[10px] text-slate-500 font-mono">Token saved locally in browser. Never sent anywhere except GitHub API.</p>
+            </div>
+
+            <!-- File Upload Section -->
+            <div class="mb-6 p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-3">
+                <label class="block text-xs font-mono text-slate-400">Demo Video / GIF</label>
+                <input type="file" id="media-file-input" accept="video/mp4,video/webm,image/gif" class="bg-slate-950 border border-slate-800 text-xs px-4 py-3 rounded-xl focus:outline-none focus:border-cyan-500 text-slate-200 font-mono shadow-inner transition-colors w-full" aria-label="Media file">
+                <div id="thumbnail-preview" class="hidden">
+                    <p class="text-xs font-mono text-slate-400 mb-2">Auto-Generated Thumbnail Preview:</p>
+                    <img id="thumbnail-img" src="" alt="Thumbnail preview" class="max-w-full h-auto rounded-lg border border-slate-700">
+                </div>
+            </div>
+
+            <!-- Project Metadata Section -->
+            <div class="mb-6 p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-4">
+                <div>
+                    <label class="block text-xs font-mono text-slate-400 mb-1">Project / Company Title <span class="text-rose-400">*</span></label>
+                    <input type="text" id="project-title-input" placeholder="e.g., Sovereign Supply Chain XR Walk" class="w-full bg-slate-950 border border-slate-800 text-xs px-4 py-3 rounded-xl focus:outline-none focus:border-cyan-500 text-slate-200 font-mono shadow-inner transition-colors" required aria-label="Project title">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-slate-400 mb-1">Subtitle / Role (Optional)</label>
+                    <input type="text" id="project-subtitle-input" placeholder="e.g., Hands-First Mixed Reality Inventory Co-Pilot" class="w-full bg-slate-950 border border-slate-800 text-xs px-4 py-3 rounded-xl focus:outline-none focus:border-cyan-500 text-slate-200 font-mono shadow-inner transition-colors" aria-label="Project subtitle">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-slate-400 mb-1">Requisition ID (Optional - leave blank for standalone)</label>
+                    <input type="text" id="project-reqid-input" placeholder="e.g., WB-UIPATH-2026" class="w-full bg-slate-950 border border-slate-800 text-xs px-4 py-3 rounded-xl focus:outline-none focus:border-cyan-500 text-slate-200 font-mono shadow-inner transition-colors" aria-label="Requisition ID">
+                </div>
+            </div>
+
+            <!-- Status Log -->
+            <div class="mb-6 p-4 bg-slate-950 border border-slate-800 rounded-xl">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-xs font-mono text-slate-400">Publish Progress</span>
+                    <span id="status-step" class="text-[10px] font-mono text-cyan-400">Ready</span>
+                </div>
+                <div id="status-log" class="font-mono text-[10px] text-slate-500 h-24 overflow-y-auto bg-slate-950/50 p-3 rounded-lg border border-slate-800/50">
+                    <div class="text-slate-600">Waiting to start...</div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-3">
+                <button id="publish-btn" class="flex-1 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs font-mono px-4 py-3 rounded-xl transition shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    ${uploadIcon} Auto-Generate Thumbnail & Publish
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const registry = ${JSON.stringify(historicalCases)};
+
+        // =========================================================================
+        // THEATER MODE MODAL LOGIC
+        // =========================================================================
+        const theaterModal = document.getElementById('theater-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalMedia = document.getElementById('modal-media');
+        const modalClose = document.getElementById('modal-close');
+        let pausedInlineVideo = null;
+
+        function openTheaterModal(title, mediaElement, isVideo) {
+            modalTitle.textContent = title;
+            modalMedia.innerHTML = '';
+            
+            // Pause any playing inline video in the card
+            if (isVideo && mediaElement.tagName === 'VIDEO' && !mediaElement.paused) {
+                pausedInlineVideo = mediaElement;
+                mediaElement.pause();
+            }
+            
+            if (isVideo) {
+                const video = document.createElement('video');
+                video.src = mediaElement.src;
+                if (mediaElement.poster) video.poster = mediaElement.poster;
+                video.controls = true;
+                video.autoplay = true;
+                video.playsinline = true;
+                video.className = 'max-h-[85vh] max-w-[92vw] rounded-xl border border-slate-700 bg-black';
+                modalMedia.appendChild(video);
+            } else {
+                const img = document.createElement('img');
+                img.src = mediaElement.src;
+                img.alt = title + ' Walkthrough';
+                img.className = 'max-h-[85vh] max-w-[92vw] object-contain rounded-xl border border-slate-700';
+                modalMedia.appendChild(img);
+            }
+            
+            theaterModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTheaterModal() {
+            // Pause and clear modal video
+            const modalVideo = modalMedia.querySelector('video');
+            if (modalVideo) {
+                modalVideo.pause();
+                modalVideo.src = '';
+            }
+            modalMedia.innerHTML = '';
+            theaterModal.classList.add('hidden');
+            document.body.style.overflow = '';
+            
+            // Resume inline video if it was playing
+            if (pausedInlineVideo) {
+                pausedInlineVideo.play().catch(() => {});
+                pausedInlineVideo = null;
+            }
+        }
+
+        modalClose.addEventListener('click', closeTheaterModal);
+        theaterModal.addEventListener('click', (e) => {
+            if (e.target === theaterModal) closeTheaterModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !theaterModal.classList.contains('hidden')) {
+                closeTheaterModal();
+            }
+        });
+
+        // =========================================================================
+        // ADMIN UPLOAD MODAL LOGIC
+        // =========================================================================
+        const adminModal = document.getElementById('admin-upload-modal');
+        const adminModalClose = document.getElementById('admin-modal-close');
+        const ghTokenInput = document.getElementById('gh-token-input');
+        const clearTokenBtn = document.getElementById('clear-token-btn');
+        const mediaFileInput = document.getElementById('media-file-input');
+        const thumbnailPreview = document.getElementById('thumbnail-preview');
+        const thumbnailImg = document.getElementById('thumbnail-img');
+        const projectTitleInput = document.getElementById('project-title-input');
+        const projectSubtitleInput = document.getElementById('project-subtitle-input');
+        const projectReqIdInput = document.getElementById('project-reqid-input');
+        const publishBtn = document.getElementById('publish-btn');
+        const statusStep = document.getElementById('status-step');
+        const statusLog = document.getElementById('status-log');
+        let headerClickCount = 0;
+        let headerClickTimer = null;
+
+        // Load saved token
+        const savedToken = localStorage.getItem('gh_portfolio_pat');
+        if (savedToken) {
+            ghTokenInput.value = savedToken;
+            validateToken(savedToken);
+        }
+
+        function addStatusLog(message, isError = false) {
+            const div = document.createElement('div');
+            div.className = isError ? 'text-rose-400' : 'text-slate-300';
+            div.textContent = \`[\${new Date().toLocaleTimeString()}] \${message}\`;
+            statusLog.appendChild(div);
+            statusLog.scrollTop = statusLog.scrollHeight;
+        }
+
+        function setStatusStep(step) {
+            statusStep.textContent = step;
+        }
+
+        function validateToken(token) {
+            if (token && token.startsWith('ghp_')) {
+                publishBtn.disabled = false;
+                addStatusLog('Token loaded ✓');
+            } else {
+                publishBtn.disabled = true;
+            }
+        }
+
+        ghTokenInput.addEventListener('input', (e) => {
+            const token = e.target.value.trim();
+            if (token) {
+                localStorage.setItem('gh_portfolio_pat', token);
+            } else {
+                localStorage.removeItem('gh_portfolio_pat');
+            }
+            validateToken(token);
+        });
+
+        clearTokenBtn.addEventListener('click', () => {
+            ghTokenInput.value = '';
+            localStorage.removeItem('gh_portfolio_pat');
+            publishBtn.disabled = true;
+            addStatusLog('Token cleared');
+        });
+
+        // Thumbnail generation for video files
+        mediaFileInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            thumbnailPreview.classList.add('hidden');
+            thumbnailImg.src = '';
+
+            if (file.type.startsWith('video/')) {
+                addStatusLog('Analyzing video for best thumbnail...');
+                setStatusStep('Generating thumbnail...');
+                
+                try {
+                    const thumbnailDataUrl = await generateSmartThumbnail(file);
+                    thumbnailImg.src = thumbnailDataUrl;
+                    thumbnailPreview.classList.remove('hidden');
+                    addStatusLog('Smart thumbnail generated ✓');
+                    setStatusStep('Ready to publish');
+                } catch (err) {
+                    addStatusLog('Thumbnail generation failed: ' + err.message, true);
+                    setStatusStep('Error');
+                }
+            } else if (file.type === 'image/gif') {
+                // For GIFs, use first frame as poster via canvas
+                const url = URL.createObjectURL(file);
+                const video = document.createElement('video');
+                video.src = url;
+                video.muted = true;
+                video.preload = 'metadata';
+                
+                await new Promise((resolve, reject) => {
+                    video.onloadeddata = () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = Math.min(1280, video.videoWidth);
+                        canvas.height = canvas.width * (video.videoHeight / video.videoWidth);
+                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        thumbnailImg.src = canvas.toDataURL('image/jpeg', 0.85);
+                        thumbnailPreview.classList.remove('hidden');
+                        URL.revokeObjectURL(url);
+                        addStatusLog('GIF thumbnail generated ✓');
+                        setStatusStep('Ready to publish');
+                        resolve();
+                    };
+                    video.onerror = () => {
+                        URL.revokeObjectURL(url);
+                        reject(new Error('Failed to load GIF'));
+                    };
+                });
+            }
+        });
+
+        async function generateSmartThumbnail(file) {
+            return new Promise((resolve, reject) => {
+                const url = URL.createObjectURL(file);
+                const video = document.createElement('video');
+                video.src = url;
+                video.muted = true;
+                video.preload = 'metadata';
+                video.crossOrigin = 'anonymous';
+
+                video.onloadedmetadata = async () => {
+                    const duration = video.duration;
+                    if (!duration || duration < 1) {
+                        URL.revokeObjectURL(url);
+                        reject(new Error('Video too short'));
+                        return;
+                    }
+
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const targetWidth = 1280;
+                    
+                    // Sample 5 timestamps: 20%, 35%, 50%, 65%, 80%
+                    const timestamps = [0.2, 0.35, 0.5, 0.65, 0.8].map(t => duration * t);
+                    let bestFrame = null;
+                    let bestScore = -1;
+
+                    for (const ts of timestamps) {
+                        await new Promise((res, rej) => {
+                            video.onseeked = () => res();
+                            video.onerror = () => rej(new Error('Seek failed'));
+                            video.currentTime = ts;
+                        });
+
+                        // Draw frame to canvas
+                        canvas.width = targetWidth;
+                        canvas.height = targetWidth * (video.videoHeight / video.videoWidth);
+                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                        // Compute grayscale standard deviation
+                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        const data = imageData.data;
+                        let sum = 0;
+                        let sumSq = 0;
+                        let pixelCount = 0;
+
+                        for (let i = 0; i < data.length; i += 4) {
+                            const r = data[i];
+                            const g = data[i + 1];
+                            const b = data[i + 2];
+                            const gray = 0.299 * r + 0.587 * g + 0.114 * b;
+                            sum += gray;
+                            sumSq += gray * gray;
+                            pixelCount++;
+                        }
+
+                        const mean = sum / pixelCount;
+                        const variance = (sumSq / pixelCount) - (mean * mean);
+                        const stdDev = Math.sqrt(Math.max(0, variance));
+
+                        // Reject blank/black frames (stdDev < 18)
+                        if (stdDev >= 18 && stdDev > bestScore) {
+                            bestScore = stdDev;
+                            bestFrame = canvas.toDataURL('image/jpeg', 0.85);
+                        }
+                    }
+
+                    URL.revokeObjectURL(url);
+
+                    if (bestFrame) {
+                        resolve(bestFrame);
+                    } else {
+                        // Fallback: use middle frame even if low contrast
+                        video.currentTime = duration * 0.5;
+                        await new Promise(res => { video.onseeked = res; });
+                        canvas.width = targetWidth;
+                        canvas.height = targetWidth * (video.videoHeight / video.videoWidth);
+                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        resolve(canvas.toDataURL('image/jpeg', 0.85));
+                    }
+                };
+
+                video.onerror = () => {
+                    URL.revokeObjectURL(url);
+                    reject(new Error('Video load failed'));
+                };
+            });
+        }
+
+        function generateSlug(text) {
+            return text
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '')
+                .substring(0, 80);
+        }
+
+        function getFileExtension(filename) {
+            return filename.split('.').pop().toLowerCase();
+        }
+
+        async function githubApiRequest(endpoint, options = {}) {
+            const token = ghTokenInput.value.trim();
+            if (!token) throw new Error('No GitHub token provided');
+
+            const headers = {
+                'Authorization': \`Bearer \${token}\`,
+                'Accept': 'application/vnd.github+json',
+                'X-GitHub-Api-Version': '2022-11-28',
+                ...options.headers
+            };
+
+            const response = await fetch(\`https://api.github.com\${endpoint}\`, {
+                ...options,
+                headers
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(\`GitHub API error (\${response.status}): \${errorText}\`);
+            }
+
+            return response.json();
+        }
+
+        async function uploadToGitHubContents(filePath, content, message, sha = null) {
+            const endpoint = \`/repos/parth33320/enterprise-portfolio/contents/\${filePath}\`;
+            const body = {
+                message,
+                content: btoa(content),
+                ...(sha && { sha })
+            };
+            return githubApiRequest(endpoint, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+        }
+
+        async function getFileSha(filePath) {
+            try {
+                const data = await githubApiRequest(\`/repos/parth33320/enterprise-portfolio/contents/\${filePath}\`);
+                return data.sha;
+            } catch (e) {
+                return null; // File doesn't exist
+            }
+        }
+
+        async function uploadReleaseAsset(releaseId, file, fileName) {
+            const token = ghTokenInput.value.trim();
+            const response = await fetch(
+                \`https://uploads.github.com/repos/parth33320/enterprise-portfolio/releases/\${releaseId}/assets?name=\${encodeURIComponent(fileName)}\`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': \`Bearer \${token}\`,
+                        'Accept': 'application/vnd.github+json',
+                        'Content-Type': file.type || 'application/octet-stream'
+                    },
+                    body: file
+                }
+            );
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(\`Release upload failed (\${response.status}): \${errorText}\`);
+            }
+
+            return response.json();
+        }
+
+        async function getOrCreateRelease() {
+            try {
+                const release = await githubApiRequest('/repos/parth33320/enterprise-portfolio/releases/tags/media-assets');
+                return release;
+            } catch (e) {
+                // Create release
+                return githubApiRequest('/repos/parth33320/enterprise-portfolio/releases', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        tag_name: 'media-assets',
+                        name: 'Portfolio Media Assets',
+                        draft: false,
+                        prerelease: false
+                    })
+                });
+            }
+        }
+
+        publishBtn.addEventListener('click', async () => {
+            const token = ghTokenInput.value.trim();
+            const file = mediaFileInput.files[0];
+            const title = projectTitleInput.value.trim();
+            const subtitle = projectSubtitleInput.value.trim();
+            const reqId = projectReqIdInput.value.trim();
+
+            if (!token) {
+                addStatusLog('Error: GitHub token required', true);
+                return;
+            }
+            if (!file) {
+                addStatusLog('Error: No media file selected', true);
+                return;
+            }
+            if (!title) {
+                addStatusLog('Error: Project title required', true);
+                return;
+            }
+
+            publishBtn.disabled = true;
+            statusLog.innerHTML = '';
+            setStatusStep('1/4 Generating smart thumbnail...');
+            addStatusLog('Starting publish pipeline...');
+
+            try {
+                const slug = generateSlug(reqId || title);
+                const ext = getFileExtension(file.name);
+                const mediaFileName = \`\${slug}.\${ext}\`;
+                const posterFileName = \`\${slug}-poster.jpg\`;
+                let mediaPath, posterPath;
+
+                // Step 2: Upload media
+                setStatusStep('2/4 Uploading media...');
+                addStatusLog(\`Uploading \${mediaFileName} (\${(file.size / 1024 / 1024).toFixed(2)} MB)...\`);
+
+                const isLargeFile = file.size >= 25 * 1024 * 1024; // 25 MB
+
+                if (isLargeFile) {
+                    // Large file -> GitHub Release
+                    addStatusLog('File >= 25 MB, using GitHub Release...');
+                    const release = await getOrCreateRelease();
+                    const uploadResult = await uploadReleaseAsset(release.id, file, mediaFileName);
+                    mediaPath = uploadResult.browser_download_url;
+                    addStatusLog('Release upload complete ✓');
+                } else {
+                    // Small file -> repo contents
+                    const base64Content = await new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = () => resolve(reader.result.split(',')[1]);
+                        reader.onerror = reject;
+                        reader.readAsDataURL(file);
+                    });
+                    const sha = await getFileSha(\`docs/assets/\${mediaFileName}\`);
+                    await uploadToGitHubContents(
+                        \`docs/assets/\${mediaFileName}\`,
+                        base64Content,
+                        \`Add demo media: \${title}\`,
+                        sha
+                    );
+                    mediaPath = \`docs/assets/\${mediaFileName}\`;
+                    addStatusLog('Repo upload complete ✓');
+                }
+
+                // Step 3: Upload poster
+                setStatusStep('3/4 Uploading thumbnail...');
+                addStatusLog('Uploading poster thumbnail...');
+
+                // Convert thumbnail data URL to base64
+                const posterBase64 = thumbnailImg.src.split(',')[1];
+                if (!posterBase64) {
+                    throw new Error('No thumbnail generated');
+                }
+
+                const posterSha = await getFileSha(\`docs/assets/\${posterFileName}\`);
+                await uploadToGitHubContents(
+                    \`docs/assets/\${posterFileName}\`,
+                    posterBase64,
+                    \`Add demo poster: \${title}\`,
+                    posterSha
+                );
+                posterPath = \`docs/assets/\${posterFileName}\`;
+                addStatusLog('Poster upload complete ✓');
+
+                // Step 4: Update registry
+                setStatusStep('4/4 Updating registry...');
+                addStatusLog('Updating history_registry.json...');
+
+                const registryData = await githubApiRequest('/repos/parth33320/enterprise-portfolio/contents/_job_queue/history_registry.json');
+                const currentRegistry = JSON.parse(atob(registryData.content));
+                
+                const newEntry = {
+                    companyName: title,
+                    sector: 'Custom Upload',
+                    jobTitle: subtitle || '',
+                    reqId: reqId || '',
+                    painPoint: 'Custom uploaded demonstration.',
+                    solution: 'Published via portfolio admin modal.',
+                    beforeCost: 0,
+                    afterCosts: 0,
+                    investmentCost: 0,
+                    cpi: 1.0,
+                    spi: 1.0,
+                    piPredictability: 100,
+                    gifAsset: mediaPath,
+                    posterAsset: posterPath,
+                    implementationSchedule: 'N/A'
+                };
+
+                const updatedRegistry = [newEntry, ...currentRegistry];
+                await uploadToGitHubContents(
+                    '_job_queue/history_registry.json',
+                    JSON.stringify(updatedRegistry, null, 2),
+                    \`Add demo entry: \${title}\`,
+                    registryData.sha
+                );
+                addStatusLog('Registry updated ✓');
+
+                setStatusStep('4/4 Done!');
+                addStatusLog('Success! GitHub Actions is deploying your live site (~60s).');
+                addStatusLog('Refresh this page in a minute to see your new demo at the top.');
+
+                // Reset form
+                mediaFileInput.value = '';
+                projectTitleInput.value = '';
+                projectSubtitleInput.value = '';
+                projectReqIdInput.value = '';
+                thumbnailPreview.classList.add('hidden');
+                thumbnailImg.src = '';
+
+            } catch (err) {
+                addStatusLog('Error: ' + err.message, true);
+                setStatusStep('Error');
+                console.error(err);
+            } finally {
+                publishBtn.disabled = false;
+            }
+        });
+
+        // Modal open/close
+        function openAdminModal() {
+            adminModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            mediaFileInput.focus();
+        }
+
+        function closeAdminModal() {
+            adminModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        adminModalClose.addEventListener('click', closeAdminModal);
+        adminModal.addEventListener('click', (e) => {
+            if (e.target === adminModal) closeAdminModal();
+        });
+
+        // Trigger 1: Ctrl+Shift+U
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'u') {
+                e.preventDefault();
+                openAdminModal();
+            }
+        });
+
+        // Trigger 2: Type "xjupload" in search
+        const searchInput = document.getElementById('archive-search');
+        searchInput.addEventListener('input', (e) => {
+            if (e.target.value.toLowerCase() === 'xjupload') {
+                e.target.value = '';
+                executeFilter(false);
+                openAdminModal();
+            }
+        });
+
+        // Trigger 3: 5 clicks on "Parth Patel" in header within 2 seconds
+        const headerName = document.getElementById('github-link'); // This is the GitHub link, but we need the name element
+        // We'll add a click handler to the name text specifically
+        document.querySelector('h1')?.addEventListener('click', () => {
+            headerClickCount++;
+            if (headerClickCount === 1) {
+                headerClickTimer = setTimeout(() => { headerClickCount = 0; }, 2000);
+            }
+            if (headerClickCount >= 5) {
+                clearTimeout(headerClickTimer);
+                headerClickCount = 0;
+                openAdminModal();
+            }
+        });
+
+        // =========================================================================
+        // PORTFOLIO RENDERING
+        // =========================================================================
+        function isVideoUrl(url) {
+            if (!url) return false;
+            const cleanUrl = url.split('?')[0].toLowerCase();
+            return cleanUrl.endsWith('.mp4') || cleanUrl.endsWith('.webm');
+        }
+
+        function getMediaSource(item) {
+            return item.mediaAsset || item.gifAsset || '';
+        }
 
         function renderPortfolio() {
             const grid = document.getElementById('portfolio-grid');
@@ -98,30 +777,52 @@ const htmlContent = `<!DOCTYPE html>
 
             grid.innerHTML = registry.map(item => {
                 const reqBadge = item.reqId ? \`<span class="text-slate-400 font-mono text-xs">REQ ID: <span class="text-slate-200 font-bold">\${item.reqId}</span></span>\` : '';
+                const hasJobTitle = item.jobTitle && item.jobTitle.trim() !== '';
+                const mediaSrc = getMediaSource(item);
+                const isVideo = isVideoUrl(mediaSrc);
+                const posterSrc = item.posterAsset || '';
+
+                const mediaHtml = isVideo
+                    ? \`<video src="\${mediaSrc}" poster="\${posterSrc}" controls playsinline preload="none" class="w-full h-full object-contain bg-black" data-theater-video="true"></video>\`
+                    : \`<img src="\${mediaSrc}" loading="lazy" decoding="async" class="w-full h-full object-cover cursor-zoom-in" alt="\${item.companyName} Walkthrough" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" data-theater-image="true">\`;
 
                 return \`
-                    <div class="case-card bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 p-6 rounded-2xl space-y-5 shadow-2xl transition-all" data-search="\${item.companyName} \${item.jobTitle} \${item.reqId}">
+                    <div class="case-card bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 p-6 rounded-2xl space-y-5 shadow-2xl transition-all" data-search="\${item.companyName} \${item.jobTitle || ''} \${item.reqId || ''}">
 
                         <!-- Clean Job Posting Header Strip -->
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800/80 pb-4 gap-2">
                             <div>
                                 <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">\${item.companyName}</div>
-                                <h2 class="text-lg font-extrabold text-white font-sans mt-0.5 tracking-tight">\${item.jobTitle}</h2>
+                                \${hasJobTitle ? \`<h2 class="text-lg font-extrabold text-white font-sans mt-0.5 tracking-tight">\${item.jobTitle}</h2>\` : ''}
                             </div>
                             <div>
                                 \${reqBadge}
                             </div>
                         </div>
 
-                        <!-- Walkthrough GIF Media Container -->
+                        <!-- Walkthrough Media Container -->
                         <div class="bg-slate-950 border border-slate-800/80 rounded-xl overflow-hidden aspect-video w-full flex items-center justify-center shadow-inner relative group">
-                            <img src="\${item.gifAsset}" class="w-full h-full object-cover" alt="\${item.companyName} - \${item.jobTitle} Walkthrough" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            \${mediaHtml}
                             <div class="hidden absolute inset-0 flex items-center justify-center text-xs text-slate-500 bg-slate-950 font-mono">
-                                [Walkthrough animation (.gif) generating in build pipeline]
+                                [Walkthrough media generating in build pipeline]
                             </div>
+                            <!-- Expand Button -->
+                            <button class="absolute top-3 right-3 bg-slate-900/80 hover:bg-slate-800/90 text-slate-300 hover:text-white p-2 rounded-lg border border-slate-700/50 opacity-0 group-hover:opacity-100 transition-opacity z-10" aria-label="Theater Mode" onclick="openTheaterModal('\${item.companyName}\${hasJobTitle ? ' - ' + item.jobTitle : ''}', this.closest('.aspect-video').querySelector('video, img'), \${isVideo})">
+                                ${expandIcon}
+                            </button>
                         </div>
                     </div>\`;
             }).join('');
+
+            // Add click handlers for theater mode on images (direct click)
+            document.querySelectorAll('[data-theater-image="true"]').forEach(img => {
+                img.style.cursor = 'zoom-in';
+                img.addEventListener('click', (e) => {
+                    const card = e.target.closest('.case-card');
+                    const title = card.querySelector('.text-cyan-400').textContent + (card.querySelector('h2') ? ' - ' + card.querySelector('h2').textContent : '');
+                    openTheaterModal(title, e.target, false);
+                });
+            });
         }
 
         function executeFilter(shouldJump = false) {

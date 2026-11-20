@@ -6,3 +6,4 @@ server.log
 _video_staging/
 _frame_staging/
 dist_resumes/
+public/docs/assets/

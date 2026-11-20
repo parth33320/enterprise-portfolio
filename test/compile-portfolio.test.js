@@ -19,5 +19,21 @@ test('compile-portfolio script compiles portfolio and generates index.html witho
   // Verify public/index.html was generated and is non-empty
   assert.strictEqual(fs.existsSync(publicIndex), true, 'public/index.html should exist');
   const content = fs.readFileSync(publicIndex, 'utf8');
-  assert.ok(content.includes('Business Solutions Index'), 'index.html should contain new page title');
+  assert.ok(content.includes('Projects Index'), 'index.html should contain new page title');
+  assert.ok(content.includes('Parth Patel'), 'index.html should contain Parth Patel');
+  assert.ok(content.includes('Enterprise AI & Automation Systems Engineer'), 'index.html should contain subtitle');
+  assert.ok(content.includes('github.com/parth33320'), 'index.html should contain GitHub link');
+  assert.ok(content.includes('mailto:parth33320@gmail.com'), 'index.html should contain Email link');
+  assert.ok(!content.includes('linkedin.com'), 'index.html should NOT contain LinkedIn link');
+  assert.ok(!content.includes('cdn.tailwindcss.com'), 'index.html should NOT contain Tailwind CDN');
+  assert.ok(content.includes('styles.css'), 'index.html should link to styles.css');
+  assert.ok(content.includes('<video'), 'index.html should contain video element for mp4 entries');
+  assert.ok(content.includes('preload="none"'), 'video elements should have preload="none"');
+  assert.ok(content.includes('loading="lazy"'), 'img elements should have loading="lazy"');
+  assert.ok(content.includes('decoding="async"'), 'img elements should have decoding="async"');
+  assert.ok(content.includes('theater-modal'), 'index.html should contain theater modal');
+  assert.ok(content.includes('admin-upload-modal'), 'index.html should contain admin upload modal');
+  assert.ok(content.includes('xjupload'), 'index.html should contain xjupload trigger');
+  assert.ok(content.includes('stdDev'), 'index.html should contain thumbnail generation logic');
+  assert.ok(content.includes('uploads.github.com'), 'index.html should use correct GitHub upload endpoint');
 });
