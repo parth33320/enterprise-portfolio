@@ -75,8 +75,6 @@ const emailIcon = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" s
 const expandIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>`;
 const closeIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
 const uploadIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>`;
-const imageIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>`;
-
 // Assemble frontend surface markup with clean, job-centric walkthrough cards
 const htmlContent = `<!DOCTYPE html>
 <html lang="en">
@@ -243,15 +241,23 @@ const htmlContent = `<!DOCTYPE html>
         // YouTube URL helpers
         function extractYouTubeId(url) {
             if (!url) return null;
-            const patterns = [
-                /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
-                /youtube\.com\/.*[?&]v=([a-zA-Z0-9_-]{11})/
-            ];
-            for (const pattern of patterns) {
-                const match = url.match(pattern);
-                if (match && match[1]) return match[1];
+            try {
+                const parsed = new URL(url.trim());
+                const host = parsed.hostname.replace(/^www\./, '');
+                let id = null;
+                if (host === 'youtu.be') {
+                    id = parsed.pathname.split('/').filter(Boolean)[0] || null;
+                } else if (host === 'youtube.com' || host === 'youtube-nocookie.com') {
+                    if (parsed.pathname === '/watch') {
+                        id = parsed.searchParams.get('v');
+                    } else if (parsed.pathname.startsWith('/embed/') || parsed.pathname.startsWith('/shorts/')) {
+                        id = parsed.pathname.split('/')[2] || null;
+                    }
+                }
+                return id && /^[a-zA-Z0-9_-]{11}$/.test(id) ? id : null;
+            } catch (e) {
+                return null;
             }
-            return null;
         }
 
         function isYouTubeUrl(url) {
@@ -594,48 +600,6 @@ function openTheaterModal(title, mediaElement, isVideo, isYouTube, ytId) {
                 return data.sha;
             } catch (e) {
                 return null; // File doesn't exist
-            }
-        }
-
-        async function uploadReleaseAsset(releaseId, file, fileName) {
-            const token = ghTokenInput.value.trim();
-            const response = await fetch(
-                \`https://uploads.github.com/repos/parth33320/enterprise-portfolio/releases/\${releaseId}/assets?name=\${encodeURIComponent(fileName)}\`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': \`Bearer \${token}\`,
-                        'Accept': 'application/vnd.github+json',
-                        'Content-Type': file.type || 'application/octet-stream'
-                    },
-                    body: file
-                }
-            );
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(\`Release upload failed (\${response.status}): \${errorText}\`);
-            }
-
-            return response.json();
-        }
-
-        async function getOrCreateRelease() {
-            try {
-                const release = await githubApiRequest('/repos/parth33320/enterprise-portfolio/releases/tags/media-assets');
-                return release;
-            } catch (e) {
-                // Create release
-                return githubApiRequest('/repos/parth33320/enterprise-portfolio/releases', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        tag_name: 'media-assets',
-                        name: 'Portfolio Media Assets',
-                        draft: false,
-                        prerelease: false
-                    })
-                });
             }
         }
 

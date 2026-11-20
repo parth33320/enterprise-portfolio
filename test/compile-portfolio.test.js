@@ -35,9 +35,24 @@ test('compile-portfolio script compiles portfolio and generates index.html witho
   assert.ok(content.includes('admin-upload-modal'), 'index.html should contain admin upload modal');
   assert.ok(content.includes('xjupload'), 'index.html should contain xjupload trigger');
   assert.ok(content.includes('stdDev'), 'index.html should contain thumbnail generation logic');
-  assert.ok(content.includes('uploads.github.com'), 'index.html should use correct GitHub upload endpoint');
+  assert.ok(content.includes('api.github.com'), 'index.html should use GitHub API endpoint');
   // YouTube embed support
   assert.ok(content.includes('youtube-nocookie.com'), 'index.html should contain YouTube embed support');
   assert.ok(content.includes('extractYouTubeId'), 'index.html should contain YouTube ID extractor');
   assert.ok(content.includes('youtube-url-input'), 'index.html should contain YouTube URL input in admin modal');
+});
+
+test('generated client-side script has no syntax errors', () => {
+  const publicIndex = path.join(__dirname, '../public/index.html');
+  const content = fs.readFileSync(publicIndex, 'utf8');
+  
+  const scriptMatch = content.match(/<script>([\s\S]*?)<\/script>/);
+  assert.ok(scriptMatch, 'Should have inline script block');
+  
+  const scriptBody = scriptMatch[1];
+  new Function(scriptBody); // throws on SyntaxError
+  
+  assert.ok(scriptBody.includes('function renderPortfolio'), 'Should contain renderPortfolio');
+  assert.ok(scriptBody.includes('function extractYouTubeId'), 'Should contain extractYouTubeId');
+  assert.ok(scriptBody.includes('function openTheaterModal'), 'Should contain openTheaterModal');
 });
